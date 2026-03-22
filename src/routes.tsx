@@ -34,14 +34,14 @@ export function AppRoutes() {
   const handleResize = useCallback(() => {
     if (
       window.innerWidth < MIN_WIDTH &&
-      location.pathname !== `/portfolio/${MOBILE_REDIRECT_PATH}`
+      location.pathname !== `/${MOBILE_REDIRECT_PATH}`
     ) {
-      navigate(`/portfolio/${MOBILE_REDIRECT_PATH}`, { replace: true });
+      navigate(`/${MOBILE_REDIRECT_PATH}`, { replace: true });
     } else if (
       window.innerWidth >= MIN_WIDTH &&
-      location.pathname === `/portfolio/${MOBILE_REDIRECT_PATH}`
+      location.pathname === `/${MOBILE_REDIRECT_PATH}`
     ) {
-      navigate(`/portfolio`, { replace: true });
+      navigate(`/`, { replace: true });
     }
   }, [location.pathname, navigate]);
 
@@ -53,15 +53,15 @@ export function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/portfolio" element={<IntroPage />} />
-      <Route path="/portfolio/theBuzz" element={<BuzzPage />}>
+      <Route path="/" element={<IntroPage />} />
+      <Route path="/theBuzz" element={<BuzzPage />}>
         <Route index element={<Navigate to="about" replace />} />
         <Route path="about" element={<About />} />
         <Route path="toolbox" element={<Toolbox />} />
         <Route path="experience" element={<Experience />} />
       </Route>
       <Route
-        path={`/portfolio/${MOBILE_REDIRECT_PATH}`}
+        path={`/${MOBILE_REDIRECT_PATH}`}
         element={<NotSupportedPage />}
       />
       <Route path="*" element={<NotFoundPage />} />

@@ -19,7 +19,7 @@ export const NotSupportedPage: React.FC = () => {
         <p>No worries! You can still download it here:</p>
         <Button
           style={{ minHeight: "4rem", fontSize: "1rem" }}
-          onClick={() => window.open("/portfolio/Mitya_Kurs.pdf", "_blank")}
+          onClick={() => window.open("/Mitya_Kurs.pdf", "_blank")}
         >
           <div className="flex items-center gap-5">
             <div className="text-lg">📄</div>

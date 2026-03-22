@@ -36,7 +36,7 @@ const links = [
     title: "github",
   },
   {
-    action: () => window.open("/portfolio/Mitya_Kurs.pdf", "_blank"),
+    action: () => window.open("/Mitya_Kurs.pdf", "_blank"),
     imgSrc: cvIcon,
     alt: "CV",
     title: "download CV",
@@ -49,7 +49,7 @@ export const Navbar: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setActiveLink(pathname.split("/")[3]);
+    setActiveLink(pathname.split("/")[2]);
   }, [pathname]);
 
   useEffect(() => {

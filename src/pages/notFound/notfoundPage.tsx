@@ -16,7 +16,7 @@ export const NotFoundPage: React.FC = () => {
       </p>
       <Button
         style={{ minHeight: "4rem", fontSize: "2rem" }}
-        onClick={() => navigate("/portfolio")}
+        onClick={() => navigate("/")}
       >
         Home
       </Button>

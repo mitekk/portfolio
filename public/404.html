@@ -1,6 +1,6 @@
 <script>
-  if (location.pathname.startsWith("/portfolio/")) {
+  if (location.pathname !== "/") {
     sessionStorage.redirect = location.pathname + location.search;
-    location.replace("/portfolio/");
+    location.replace("/");
   }
 </script>
