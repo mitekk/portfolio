@@ -72,12 +72,15 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
     }, 150);
   };
 
+  const isTouch = 'ontouchstart' in window;
+
   const gridRef = useRef<HTMLDivElement>(null);
   const [mouseGrid, setMouseGrid] = useState<{ x: number; y: number } | null>(
     null
   );
 
   useEffect(() => {
+    if (isTouch) return;
     const move = (e: MouseEvent) => {
       if (!gridRef.current) return;
       const rect = gridRef.current.getBoundingClientRect();
@@ -87,7 +90,7 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, []);
+  }, [isTouch]);
 
   return shapes.length ? (
     <div ref={gridRef} className="relative filter sepia brightness-150">
@@ -110,13 +113,14 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
             top = animated ? finalTop + dims.cols * tileSize : finalTop;
           }
 
-          const centerX = finalLeft + tileSize / 2;
-          const centerY = finalTop + tileSize / 2;
-          let dist = Infinity;
-          if (mouseGrid) {
-            dist = Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY);
-          }
-          const isHovered = dist < tileSize * 4;
+          const isHovered = !isTouch && (() => {
+            const centerX = finalLeft + tileSize / 2;
+            const centerY = finalTop + tileSize / 2;
+            const dist = mouseGrid
+              ? Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY)
+              : Infinity;
+            return dist < tileSize * 4;
+          })();
           const hoverScale = 0.95;
 
           return (

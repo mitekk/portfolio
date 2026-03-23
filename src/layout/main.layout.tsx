@@ -6,8 +6,11 @@ import {
   MAX_WIDTH,
   MIN_TILE,
   MIN_WIDTH,
+  MOBILE_MIN_TILE,
   TILE_GAP,
 } from "../constants";
+
+const MOBILE_MIN_WIDTH = 320;
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -21,8 +24,12 @@ export function MainLayout({ children }: MainLayoutProps) {
   const handleResize = useCallback(() => {
     const usableWidth = Math.min(window.innerWidth, MAX_WIDTH);
 
+    if (usableWidth <= MOBILE_MIN_WIDTH) {
+      return setTileSize(MOBILE_MIN_TILE);
+    }
     if (usableWidth <= MIN_WIDTH) {
-      return setTileSize(MIN_TILE);
+      const scale = (usableWidth - MOBILE_MIN_WIDTH) / (MIN_WIDTH - MOBILE_MIN_WIDTH);
+      return setTileSize(Math.round(MOBILE_MIN_TILE + (MIN_TILE - MOBILE_MIN_TILE) * scale));
     }
     if (usableWidth >= MAX_WIDTH) {
       return setTileSize(MAX_TILE);

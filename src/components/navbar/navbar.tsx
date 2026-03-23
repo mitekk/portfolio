@@ -71,32 +71,38 @@ export const Navbar: React.FC = () => {
   }, [activeLink, navigate]);
 
   return (
-    <nav className="flex justify-center items-center w-80 h-full p-8">
+    <nav className="flex justify-center items-center w-full md:w-80 h-auto md:h-full p-3 md:p-8">
       <div
-        className="flex flex-col justify-between w-full h-full bg-zinc-700  text-[#fafafa] rounded-xl p-8"
+        className="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:h-full bg-zinc-700 text-[#fafafa] rounded-xl p-4 md:p-8 gap-3 md:gap-0"
         style={{ userSelect: "none" }}
       >
-        <div className="flex-5 py-2">
+        {/* Identity */}
+        <div className="flex items-center gap-2 md:flex-col md:items-start md:py-2">
           <Avatar
             src={avatarImg}
-            className="flex items-center flex-1 saturate-100 h-25 w-25"
+            className="flex items-center saturate-100 h-10 w-10 md:h-25 md:w-25"
           />
           <div className="flex flex-col">
-            <span className="text-3xl">Mitya Kurs</span>
-            <span>Fullstack Team Lead</span>
+            <span className="text-base md:text-3xl font-semibold">Mitya Kurs</span>
+            <span className="hidden md:block text-sm">Fullstack Team Lead</span>
           </div>
         </div>
-        <div className="flex-4 py-2">
-          <ul className="nav-links flex flex-col h-full min-w-fit justify-around">
+
+        {/* Nav links */}
+        <div className="md:flex-4 md:py-2">
+          <ul className="nav-links flex flex-row md:flex-col gap-4 md:gap-0 md:h-full md:min-w-fit md:justify-around">
             {sections.map((section) => (
               <li key={section}>
-                <div className="flex flex-row items-center gap-2 cursor-pointer">
-                  <div className="flex flex-row justify-center w-5">
+                <div className="flex flex-row items-center gap-1 cursor-pointer">
+                  <div className="hidden md:flex flex-row justify-center w-5">
                     {activeLink === section && (
                       <div className="pt-1 text-xs">➜</div>
                     )}
                   </div>
-                  <Link to={section} className="nav-link">
+                  <Link
+                    to={section}
+                    className={`nav-link${activeLink === section ? " active" : ""}`}
+                  >
                     {section}
                   </Link>
                 </div>
@@ -104,12 +110,15 @@ export const Navbar: React.FC = () => {
             ))}
           </ul>
         </div>
-        <div className="flex flex-5 flex-col justify-end h-full py-2 gap-1">
+
+        {/* Social links */}
+        <div className="flex flex-row md:flex-col items-center md:justify-end md:h-full md:py-2 gap-3 md:gap-1">
           {links.map((link) => (
             <div
               key={link.alt}
               className="flex flex-row gap-2 cursor-pointer hover:text-[#bababa] transition-colors"
               onClick={link.action}
+              title={link.title}
             >
               <div className="flex flex-row justify-center items-center w-5">
                 <img
@@ -119,7 +128,7 @@ export const Navbar: React.FC = () => {
                   draggable={false}
                 />
               </div>
-              <span>{link.title}</span>
+              <span className="hidden md:inline">{link.title}</span>
             </div>
           ))}
         </div>

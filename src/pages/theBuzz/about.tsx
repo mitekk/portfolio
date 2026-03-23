@@ -12,7 +12,7 @@ export const About: React.FC = () => {
   return (
     <SectionLayout>
       <div style={{ color: "#333332" }}>
-        <div className="mb-4 flex flex-col gap-5 text-lg text-justify">
+        <div className="mb-4 flex flex-col gap-5 text-sm md:text-base lg:text-lg text-justify">
           {paragraphs.map((paragraph, index) => (
             <p key={index}>{paragraph}</p>
           ))}

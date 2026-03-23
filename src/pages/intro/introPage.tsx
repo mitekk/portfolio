@@ -70,14 +70,14 @@ export const IntroPage: React.FC = () => {
             introFinished ? " intro-animate-out" : ""
           }`}
         >
-          <div className="flex flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center">
             {promptFinished && (
               <div className="flex flex-col h-full avatar-animate-in">
                 <Avatar
                   src={avatarImg}
-                  className="flex items-center flex-1 saturate-100 w-75 h-75"
+                  className="flex items-center flex-1 saturate-100 w-28 h-28 md:w-75 md:h-75"
                 />
-                <div className="min-h-24"></div>
+                <div className="hidden md:block md:min-h-24"></div>
               </div>
             )}
             <div
@@ -91,9 +91,8 @@ export const IntroPage: React.FC = () => {
                 onAnimationFinish={() => setPromptFinished(true)}
               />
               {promptFinished && (
-                <div className="intro-action self-start mt-5 min-h-24 button-animate-in">
+                <div className="intro-action self-center md:self-start mt-5 button-animate-in">
                   <Button
-                    style={{ minHeight: "4rem", fontSize: "2rem" }}
                     onClick={() => {
                       setIntroFinished(true);
                       setTimeout(

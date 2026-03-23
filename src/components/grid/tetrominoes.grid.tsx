@@ -51,12 +51,15 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
     }, 150);
   };
 
+  const isTouch = 'ontouchstart' in window;
+
   const gridRef = useRef<HTMLDivElement>(null);
   const [mouseGrid, setMouseGrid] = useState<{ x: number; y: number } | null>(
     null
   );
 
   useEffect(() => {
+    if (isTouch) return;
     const move = (e: MouseEvent) => {
       if (!gridRef.current) return;
       const rect = gridRef.current.getBoundingClientRect();
@@ -66,7 +69,7 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
     };
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, []);
+  }, [isTouch]);
 
   return shapes.length ? (
     <div
@@ -90,13 +93,14 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
             top = animated ? finalTop + window.innerHeight * 2 : finalTop;
           }
 
-          const centerX = finalLeft + tileSize;
-          const centerY = finalTop + tileSize;
-          let dist = Infinity;
-          if (mouseGrid) {
-            dist = Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY);
-          }
-          const isHovered = dist < tileSize * 4;
+          const isHovered = !isTouch && (() => {
+            const centerX = finalLeft + tileSize;
+            const centerY = finalTop + tileSize;
+            const dist = mouseGrid
+              ? Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY)
+              : Infinity;
+            return dist < tileSize * 4;
+          })();
           const hoverScale = 1.2;
 
           return (

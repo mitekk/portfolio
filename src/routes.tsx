@@ -1,10 +1,9 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import {
   Routes,
   Route,
   Navigate,
   useNavigate,
-  useLocation,
 } from "react-router-dom";
 import {
   BuzzPage,
@@ -15,13 +14,10 @@ import {
   Toolbox,
   NotSupportedPage,
 } from "./pages";
-import { MIN_WIDTH } from "./constants";
-
-const MOBILE_REDIRECT_PATH = "not-supported";
+import { MOBILE_REDIRECT_PATH } from "./constants";
 
 export function AppRoutes() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     const redirect = sessionStorage.redirect;
@@ -30,26 +26,6 @@ export function AppRoutes() {
       navigate(redirect, { replace: true });
     }
   }, [navigate]);
-
-  const handleResize = useCallback(() => {
-    if (
-      window.innerWidth < MIN_WIDTH &&
-      location.pathname !== `/${MOBILE_REDIRECT_PATH}`
-    ) {
-      navigate(`/${MOBILE_REDIRECT_PATH}`, { replace: true });
-    } else if (
-      window.innerWidth >= MIN_WIDTH &&
-      location.pathname === `/${MOBILE_REDIRECT_PATH}`
-    ) {
-      navigate(`/`, { replace: true });
-    }
-  }, [location.pathname, navigate]);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
 
   return (
     <Routes>

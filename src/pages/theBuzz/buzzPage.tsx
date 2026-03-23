@@ -22,9 +22,9 @@ export const BuzzPage: React.FC = () => {
           onAnimationFinish={() => setGridLoaded(true)}
         />
         {gridLoaded && (
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+          <div className="absolute top-0 left-0 w-full h-full flex flex-col md:flex-row">
             <div
-              className={`h-full transition-all duration-700 ease-out ${
+              className={`transition-all duration-700 ease-out md:h-full ${
                 navbarVisible
                   ? "translate-y-0 opacity-100"
                   : "-translate-y-20 opacity-0"
@@ -34,7 +34,7 @@ export const BuzzPage: React.FC = () => {
             </div>
             <div
               key={location.pathname}
-              className="flex-1 h-full transition-opacity duration-700 opacity-0 animate-fadein mx-5"
+              className="flex-1 min-h-0 transition-opacity duration-700 opacity-0 animate-fadein mx-2 md:mx-5 overflow-auto"
             >
               <Outlet />
             </div>

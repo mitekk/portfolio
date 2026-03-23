@@ -68,12 +68,12 @@ export const Experience: React.FC = () => {
         {experience.map((exp, index) => (
           <div key={exp.company}>
             <div className="gap-1">
-              <div className="text-xl font-bold">
+              <div className="text-base md:text-xl font-bold">
                 {exp.company}, tlv — {exp.position}
               </div>
-              <div className="text-lg">{exp.duration}</div>
+              <div className="text-sm md:text-lg">{exp.duration}</div>
             </div>
-            <div className="flex text-lg font-medium gap-2">
+            <div className="flex flex-wrap text-sm md:text-lg font-medium gap-2">
               {exp.technologies.map((tech) => (
                 <div key={tech}>{tech}</div>
               ))}

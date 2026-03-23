@@ -23,12 +23,25 @@
 .prompt-text {
   display: flex;
   font-weight: 900;
-  /* font-size: 6rem; */
-  font-size: 5rem;
-  line-height: 7rem;
+  font-size: 2rem;
+  line-height: 2.75rem;
   color: #000401;
   margin-bottom: "0.5rem";
   min-height: 24px;
   font-family: var(--font-family);
   user-select: none;
+}
+
+@media (min-width: 640px) {
+  .prompt-text {
+    font-size: 3rem;
+    line-height: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .prompt-text {
+    font-size: 5rem;
+    line-height: 7rem;
+  }
 }
