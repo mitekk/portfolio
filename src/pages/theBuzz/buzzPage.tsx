@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { sections, links } from "../../components/navbar/navData";
 import { WavesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
 import { Navbar } from "../../components/navbar/navbar";
@@ -7,13 +8,19 @@ import { Navbar } from "../../components/navbar/navbar";
 export const BuzzPage: React.FC = () => {
   const [gridLoaded, setGridLoaded] = useState(false);
   const [navbarVisible, setNavbarVisible] = useState(false);
+  const [activeLink, setActiveLink] = useState<string>();
   const location = useLocation();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (gridLoaded) {
       setTimeout(() => setNavbarVisible(true), 10);
     }
   }, [gridLoaded]);
+
+  useEffect(() => {
+    setActiveLink(pathname.split("/")[2]);
+  }, [pathname]);
   return (
     <PageContext.Provider value={{}}>
       <>
@@ -22,9 +29,23 @@ export const BuzzPage: React.FC = () => {
           onAnimationFinish={() => setGridLoaded(true)}
         />
         {gridLoaded && (
-          <div className="absolute top-0 left-0 w-full h-full flex flex-col md:flex-row">
+          <div className="absolute inset-0 flex flex-col md:flex-row">
+            {/* Mobile-only top header: section links, no identity */}
+            <header className="flex md:hidden justify-around items-center px-4 py-2 bg-zinc-700 text-[#fafafa]">
+              {sections.map((section) => (
+                <Link
+                  key={section}
+                  to={`/theBuzz/${section}`}
+                  className={`nav-link${activeLink === section ? " active" : ""}`}
+                >
+                  {section}
+                </Link>
+              ))}
+            </header>
+
+            {/* Desktop-only sidebar with slide-in animation */}
             <div
-              className={`transition-all duration-700 ease-out md:h-full ${
+              className={`hidden md:flex transition-all duration-700 ease-out md:h-full ${
                 navbarVisible
                   ? "translate-y-0 opacity-100"
                   : "-translate-y-20 opacity-0"
@@ -32,12 +53,33 @@ export const BuzzPage: React.FC = () => {
             >
               <Navbar />
             </div>
+
+            {/* Content */}
             <div
               key={location.pathname}
               className="flex-1 min-h-0 transition-opacity duration-700 opacity-0 animate-fadein mx-2 md:mx-5 overflow-auto"
             >
               <Outlet />
             </div>
+
+            {/* Mobile-only footer: icons only */}
+            <footer className="flex md:hidden justify-around items-center px-4 py-2 bg-zinc-700">
+              {links.map((link) => (
+                <div
+                  key={link.alt}
+                  className="cursor-pointer hover:opacity-70 transition-opacity"
+                  onClick={link.action}
+                  title={link.title}
+                >
+                  <img
+                    className="w-5 h-5"
+                    src={link.imgSrc}
+                    alt={link.alt}
+                    draggable={false}
+                  />
+                </div>
+              ))}
+            </footer>
           </div>
         )}
       </>
