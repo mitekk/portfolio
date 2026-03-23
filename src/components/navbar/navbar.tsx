@@ -74,7 +74,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Social links */}
-        <div className="flex flex-row md:flex-col items-center md:py-2 gap-3 md:gap-1 md:mt-auto">
+        <div className="flex flex-row md:flex-col items-center md:items-start md:py-2 gap-3 md:gap-1 md:mt-auto">
           {links.map((link) => (
             <div
               key={link.alt}

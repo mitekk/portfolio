@@ -93,6 +93,7 @@ export const IntroPage: React.FC = () => {
               {promptFinished && (
                 <div className="intro-action self-center md:self-start mt-5 button-animate-in">
                   <Button
+                    className="text-[2rem] sm:text-5xl md:text-6xl lg:text-[5rem]"
                     onClick={() => {
                       setIntroFinished(true);
                       setTimeout(

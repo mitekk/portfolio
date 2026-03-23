@@ -4,6 +4,8 @@ import { sections, links } from "../../components/navbar/navData";
 import { WavesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
 import { Navbar } from "../../components/navbar/navbar";
+import { Avatar } from "../../components/UI";
+import avatarImg from "../../assets/profile/avatar.png";
 
 export const BuzzPage: React.FC = () => {
   const [gridLoaded, setGridLoaded] = useState(false);
@@ -30,17 +32,23 @@ export const BuzzPage: React.FC = () => {
         />
         {gridLoaded && (
           <div className="absolute inset-0 flex flex-col md:flex-row">
-            {/* Mobile-only top header: section links, no identity */}
-            <header className="flex md:hidden justify-around items-center px-4 py-2 bg-zinc-700 text-[#fafafa]">
-              {sections.map((section) => (
-                <Link
-                  key={section}
-                  to={`/theBuzz/${section}`}
-                  className={`nav-link${activeLink === section ? " active" : ""}`}
-                >
-                  {section}
-                </Link>
-              ))}
+            {/* Mobile-only top header: avatar on left + section links */}
+            <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-zinc-700 text-[#fafafa]">
+              <Avatar
+                src={avatarImg}
+                className="flex items-center saturate-100 h-8 w-8 flex-shrink-0"
+              />
+              <div className="flex flex-1 justify-around">
+                {sections.map((section) => (
+                  <Link
+                    key={section}
+                    to={`/theBuzz/${section}`}
+                    className={`nav-link${activeLink === section ? " active" : ""}`}
+                  >
+                    {section}
+                  </Link>
+                ))}
+              </div>
             </header>
 
             {/* Desktop-only sidebar with slide-in animation */}
