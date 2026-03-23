@@ -2,46 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "../UI";
 import avatarImg from "../../assets/profile/avatar.png";
-import {
-  cvIcon,
-  emailIcon,
-  githubIcon,
-  linkedinIcon,
-} from "../../assets/links";
 import "./navbar.css";
-
-const emailUrl = "mitekk@gmail.com";
-const linkedinUrl = "https://www.linkedin.com/in/mitya-kurs-8b058452/";
-const githubUrl = "https://github.com/mitekk";
-
-const sections = ["about", "experience", "toolbox"];
-const links = [
-  {
-    action: () =>
-      (window.location.href = `mailto:${emailUrl}?subject=Hi%20Mitya&body=How%20are%20you%3F`),
-    imgSrc: emailIcon,
-    alt: "email",
-    title: emailUrl,
-  },
-  {
-    action: () => window.open(linkedinUrl, "_blank"),
-    imgSrc: linkedinIcon,
-    alt: "linkedin",
-    title: "linkedin",
-  },
-  {
-    action: () => window.open(githubUrl, "_blank"),
-    imgSrc: githubIcon,
-    alt: "github",
-    title: "github",
-  },
-  {
-    action: () => window.open("/Mitya_Kurs.pdf", "_blank"),
-    imgSrc: cvIcon,
-    alt: "CV",
-    title: "download CV",
-  },
-];
+import { sections, links } from "./navData";
 
 export const Navbar: React.FC = () => {
   const { pathname } = useLocation();
