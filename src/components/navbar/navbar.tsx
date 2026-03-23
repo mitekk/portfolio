@@ -51,8 +51,8 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Nav links */}
-        <div className="md:flex-4 md:py-2">
-          <ul className="nav-links flex flex-row md:flex-col gap-4 md:gap-0 md:h-full md:min-w-fit md:justify-around">
+        <div className="flex-1 py-2">
+          <ul className="nav-links flex flex-row md:flex-col gap-4 md:gap-0 md:h-full md:justify-center">
             {sections.map((section) => (
               <li key={section}>
                 <div className="flex flex-row items-center gap-1 cursor-pointer">
@@ -74,7 +74,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Social links */}
-        <div className="flex flex-row md:flex-col items-center md:justify-end md:h-full md:py-2 gap-3 md:gap-1">
+        <div className="flex flex-row md:flex-col items-center md:py-2 gap-3 md:gap-1 md:mt-auto">
           {links.map((link) => (
             <div
               key={link.alt}
