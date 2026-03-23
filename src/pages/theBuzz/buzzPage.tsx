@@ -10,7 +10,7 @@ export const BuzzPage: React.FC = () => {
   const [navbarVisible, setNavbarVisible] = useState(false);
   const [activeLink, setActiveLink] = useState<string>();
   const location = useLocation();
-  const { pathname } = useLocation();
+  const { pathname } = location;
 
   useEffect(() => {
     if (gridLoaded) {
