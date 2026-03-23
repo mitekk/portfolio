@@ -10,6 +10,8 @@ interface RoadTripTileProps extends HTMLAttributes<HTMLDivElement> {
 export const RoadTripTile = ({ style, shape }: RoadTripTileProps) => {
   const { tileSize } = useContext(LayoutContext);
 
+  const emojiFontSize = Math.round(tileSize * 0.55);
+
   const tileStyle: CSSProperties = {
     width: tileSize,
     height: tileSize,
@@ -31,7 +33,7 @@ export const RoadTripTile = ({ style, shape }: RoadTripTileProps) => {
         <span
           role="img"
           aria-label="tree"
-          style={{ fontSize: 30, userSelect: "none" }}
+          style={{ fontSize: emojiFontSize, userSelect: "none" }}
         >
           🌲
         </span>
@@ -40,7 +42,7 @@ export const RoadTripTile = ({ style, shape }: RoadTripTileProps) => {
         <span
           role="img"
           aria-label="tree"
-          style={{ fontSize: 30, userSelect: "none" }}
+          style={{ fontSize: emojiFontSize, userSelect: "none" }}
         >
           🌳
         </span>
@@ -49,7 +51,7 @@ export const RoadTripTile = ({ style, shape }: RoadTripTileProps) => {
         <span
           role="img"
           aria-label="mountain"
-          style={{ fontSize: 30, userSelect: "none" }}
+          style={{ fontSize: emojiFontSize, userSelect: "none" }}
         >
           ⛰️
         </span>
@@ -58,7 +60,7 @@ export const RoadTripTile = ({ style, shape }: RoadTripTileProps) => {
         <span
           role="img"
           aria-label="house"
-          style={{ fontSize: 30, userSelect: "none" }}
+          style={{ fontSize: emojiFontSize, userSelect: "none" }}
         >
           🛖
         </span>
@@ -67,7 +69,7 @@ export const RoadTripTile = ({ style, shape }: RoadTripTileProps) => {
         <span
           role="img"
           aria-label="rhino"
-          style={{ fontSize: 30, userSelect: "none" }}
+          style={{ fontSize: emojiFontSize, userSelect: "none" }}
         >
           🦏
         </span>
