@@ -39,6 +39,13 @@
   }
 }
 
+@media (min-width: 768px) {
+  .prompt-text {
+    font-size: 3.75rem;
+    line-height: 5rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .prompt-text {
     font-size: 5rem;
