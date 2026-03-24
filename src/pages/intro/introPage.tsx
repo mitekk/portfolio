@@ -75,7 +75,7 @@ export const IntroPage: React.FC = () => {
               <div className="avatar-animate-in">
                 <Avatar
                   src={avatarImg}
-                  className="flex items-center saturate-100 w-14 h-14 md:w-24 md:h-24 lg:w-44 lg:h-44"
+                  className="flex items-center saturate-100 w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 !mr-0"
                 />
               </div>
             )}
