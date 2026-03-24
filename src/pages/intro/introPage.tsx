@@ -70,7 +70,7 @@ export const IntroPage: React.FC = () => {
             introFinished ? " intro-animate-out" : ""
           }`}
         >
-          <div className="flex flex-col md:flex-row items-center">
+          <div className="flex flex-col md:flex-row items-center gap-6 sm:gap-8 md:gap-10 lg:gap-16">
             {promptFinished && (
               <div className="avatar-animate-in">
                 <Avatar
