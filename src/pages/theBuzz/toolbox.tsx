@@ -2,17 +2,34 @@ import { SectionLayout } from "../../layout/section.layout";
 import {
   reactIcon,
   vueIcon,
+  nextjsIcon,
+  tailwindIcon,
+  storybookIcon,
+  viteIcon,
+  tanstackIcon,
   nodeIcon,
+  expressIcon,
+  nestjsIcon,
   restIcon,
   graphqlIcon,
-  mysqlIcon,
+  prismaIcon,
+  zodIcon,
   awsIcon,
-  mongoIcon,
-  terraformIcon,
+  amplifyIcon,
   serverlessIcon,
+  terraformIcon,
   cdkIcon,
+  dockerIcon,
+  mongoIcon,
+  mysqlIcon,
+  postgresIcon,
+  redisIcon,
   jestIcon,
+  puppeteerIcon,
+  playwrightIcon,
   githubIcon,
+  claudeIcon,
+  codexIcon,
 } from "../../assets/tech";
 
 const skills = [
@@ -21,14 +38,23 @@ const skills = [
     technologies: [
       { name: "React", icon: reactIcon },
       { name: "Vue.js", icon: vueIcon },
+      { name: "Next.js", icon: nextjsIcon },
+      { name: "Tailwind", icon: tailwindIcon },
+      { name: "TanStack", icon: tanstackIcon },
+      { name: "Storybook", icon: storybookIcon },
+      { name: "Vite", icon: viteIcon },
     ],
   },
   {
     title: "Backend",
     technologies: [
       { name: "Node.js", icon: nodeIcon },
+      { name: "Express", icon: expressIcon },
+      { name: "NestJS", icon: nestjsIcon },
       { name: "REST APIs", icon: restIcon },
       { name: "GraphQL", icon: graphqlIcon },
+      { name: "Prisma", icon: prismaIcon },
+      { name: "Zod", icon: zodIcon },
     ],
   },
   {
@@ -38,6 +64,7 @@ const skills = [
       { name: "Serverless", icon: serverlessIcon },
       { name: "Terraform", icon: terraformIcon },
       { name: "CDK", icon: cdkIcon },
+      { name: "Docker", icon: dockerIcon },
     ],
   },
   {
@@ -45,15 +72,31 @@ const skills = [
     technologies: [
       { name: "MongoDB", icon: mongoIcon },
       { name: "MySQL", icon: mysqlIcon },
+      { name: "PostgreSQL", icon: postgresIcon },
+      { name: "Redis", icon: redisIcon },
     ],
   },
   {
     title: "Tests",
-    technologies: [{ name: "Jest", icon: jestIcon }],
+    technologies: [
+      { name: "Jest", icon: jestIcon },
+      { name: "Puppeteer", icon: puppeteerIcon },
+      { name: "Playwright", icon: playwrightIcon },
+    ],
   },
   {
-    title: "CICD",
-    technologies: [{ name: "Github", icon: githubIcon }],
+    title: "CI/CD",
+    technologies: [
+      { name: "Github", icon: githubIcon },
+      { name: "Amplify", icon: amplifyIcon },
+    ],
+  },
+  {
+    title: "AI",
+    technologies: [
+      { name: "Claude", icon: claudeIcon },
+      { name: "Codex", icon: codexIcon },
+    ],
   },
 ];
 
@@ -62,25 +105,23 @@ export const Toolbox: React.FC = () => {
     <SectionLayout>
       <div
         style={{ color: "#333332" }}
-        className="flex flex-row flex-wrap basis-4xl gap-4 h-full"
+        className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start"
       >
         {skills.map((skill) => (
           <div
             key={skill.title}
-            className="flex flex-col items-center mb-4 gap-5"
+            className="border border-zinc-300 bg-white/40 rounded-xl p-3 flex flex-col gap-3"
           >
-            <div className="text-xl font-bold">{skill.title}</div>
-            <div className="flex flex-col items-center gap-4">
+            <div className="text-xs font-bold uppercase tracking-wider text-zinc-500">
+              {skill.title}
+            </div>
+            <div className="grid grid-cols-2 gap-2">
               {skill.technologies.map((tech) => (
                 <div
                   key={tech.name}
-                  className={`w-25 flex flex-col items-center gap-1 border border-zinc-300 bg-white/40 rounded-lg p-3 transition-shadow hover:shadow-lg hover:saturate-175 hover:scale-105`}
+                  className="flex flex-col items-center gap-1 p-2 border border-zinc-200 bg-white/50 rounded-lg text-xs text-zinc-700 font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
                 >
-                  <img
-                    src={tech.icon}
-                    alt={tech.name}
-                    className="inline-block w-10 h-10"
-                  />
+                  <img src={tech.icon} alt={tech.name} className="w-8 h-8" />
                   {tech.name}
                 </div>
               ))}
