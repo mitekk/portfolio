@@ -115,7 +115,7 @@ export const Toolbox: React.FC = () => {
             <div className="text-xs font-bold uppercase tracking-wider text-zinc-500">
               {skill.title}
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
               {skill.technologies.map((tech) => (
                 <div
                   key={tech.name}
