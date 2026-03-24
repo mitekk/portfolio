@@ -1,0 +1,58 @@
+<h2>Layout B — Which proportions feel right?</h2>
+<p class="subtitle">All three are side-by-side. The difference is how large the avatar is relative to the text block. Desktop view simulated.</p>
+
+<div class="cards" style="display:flex;flex-direction:column;gap:20px;margin-top:24px;">
+
+  <!-- B1: Avatar = full text block height -->
+  <div class="card" data-choice="b1" onclick="toggleSelect(this)" style="cursor:pointer;">
+    <div class="card-image" style="background:#0f0f0f;padding:40px 48px;display:flex;align-items:center;justify-content:center;">
+      <div style="display:flex;flex-direction:row;align-items:center;gap:48px;font-family:sans-serif;width:100%;max-width:720px;">
+        <div style="width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,#888,#555);border:3px solid rgba(255,255,255,0.15);flex-shrink:0;box-shadow:0 12px 40px rgba(0,0,0,0.5);"></div>
+        <div style="flex:1;">
+          <div style="font-size:52px;font-weight:900;line-height:1.05;color:#fff;margin-bottom:24px;">Hi, I'm Mitya 👋</div>
+          <div style="background:#fff;color:#111;padding:14px 32px;border-radius:8px;font-size:20px;font-weight:700;display:inline-block;">Get to know me</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B1 — Matched (avatar = full text block height)</h3>
+      <p>Avatar height equals the combined height of heading + button. They feel visually paired and balanced. Gap is generous (3rem).</p>
+    </div>
+  </div>
+
+  <!-- B2: Avatar = heading only, dominant text -->
+  <div class="card" data-choice="b2" onclick="toggleSelect(this)" style="cursor:pointer;">
+    <div class="card-image" style="background:#0f0f0f;padding:40px 48px;display:flex;align-items:center;justify-content:center;">
+      <div style="display:flex;flex-direction:row;align-items:center;gap:48px;font-family:sans-serif;width:100%;max-width:720px;">
+        <div style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#888,#555);border:3px solid rgba(255,255,255,0.15);flex-shrink:0;box-shadow:0 8px 24px rgba(0,0,0,0.5);"></div>
+        <div style="flex:1;">
+          <div style="font-size:52px;font-weight:900;line-height:1.05;color:#fff;margin-bottom:24px;">Hi, I'm Mitya 👋</div>
+          <div style="background:#fff;color:#111;padding:14px 32px;border-radius:8px;font-size:20px;font-weight:700;display:inline-block;">Get to know me</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B2 — Text-Dominant (avatar = heading height only)</h3>
+      <p>Small avatar acts as a face icon next to giant text. Text is the hero. This is close to the current implementation but with a proper gap.</p>
+    </div>
+  </div>
+
+  <!-- B3: Avatar larger than text, dominant presence -->
+  <div class="card" data-choice="b3" onclick="toggleSelect(this)" style="cursor:pointer;">
+    <div class="card-image" style="background:#0f0f0f;padding:40px 48px;display:flex;align-items:center;justify-content:center;">
+      <div style="display:flex;flex-direction:row;align-items:center;gap:56px;font-family:sans-serif;width:100%;max-width:720px;">
+        <div style="width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,#888,#555);border:3px solid rgba(255,255,255,0.15);flex-shrink:0;box-shadow:0 16px 56px rgba(0,0,0,0.6);"></div>
+        <div style="flex:1;">
+          <div style="font-size:52px;font-weight:900;line-height:1.05;color:#fff;margin-bottom:24px;">Hi, I'm Mitya 👋</div>
+          <div style="background:#fff;color:#111;padding:14px 32px;border-radius:8px;font-size:20px;font-weight:700;display:inline-block;">Get to know me</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B3 — Face-First (avatar dominates, text is secondary)</h3>
+      <p>The face is the first thing you see. Personality-forward. Like a magazine cover. Avatar is ~1.4× the text block height. Very bold impression.</p>
+    </div>
+  </div>
+
+</div>
+<p class="subtitle" style="margin-top:12px;">All use a dark background to match your current intro overlay. Click to pick.</p>
