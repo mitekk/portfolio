@@ -2,11 +2,9 @@ import { SectionLayout } from "../../layout/section.layout";
 
 export const About: React.FC = () => {
   const paragraphs = [
-    "I believe the most rewarding work happens when a team comes together around a shared purpose. I’ve found that teams who encourage each other, share knowledge, and enjoy working side by side create an energy that makes the whole experience more meaningful. I try to foster that kind of environment by supporting open communication, making sure everyone’s voice is heard, and helping the team focus on what we can accomplish together. My goal is to build trust, create space for growth, and celebrate the progress we make as a group.",
-    "Working as a fullstack developer and team leader, I find a lot of satisfaction in connecting different parts of a system—whether that’s bridging the frontend and backend, improving architecture, or just helping teammates share their ideas. I see my role as enabling others, building trust, and encouraging pride in the solutions we deliver.",
-    "Curiosity keeps me moving forward, always exploring ways to improve how we work and what we build. Whether it’s learning new technologies, refining our processes, or diving into other creative fields, I’m happiest when I’m making things just a little bit better. I enjoy building and fixing things, both inside and outside of code, and see every challenge as an opportunity to learn.",
-    // "For me, people do their best work when they feel valued and appreciated. I try to create an environment where everyone is heard, where support and growth are priorities, and where celebrating progress is as important as reaching the finish line.",
-    "I care deeply about quality and reliability, so I focus on making sure our solutions are well-tested and ready for real-world use before they go live. My experience with microservices and product-focused development has shown me the importance of staying adaptable and keeping the user in mind at every stage.",
+    "There’s something happening right now that I keep thinking about: the gap between an idea and a working product has never been smaller. What used to need a funded team and months of runway can now move at the pace of clear thinking. I find that genuinely exciting — and I try to stay at that edge, learning the tools, testing the limits, understanding what’s actually possible.",
+    "That curiosity didn’t start with AI. I’ve always been drawn to making things — software, electronics, woodwork, a garden. It’s the same satisfaction regardless of the medium: you start with nothing and end up with something that works. I’ve carried that into my work as a developer and team leader: understand the goal deeply, break it into pieces, build toward it deliberately.",
+    "What I care about in any role is the outcome — that the product makes sense to the person using it, that the architecture won’t fight you later, that the team knows what it’s working toward and why. I’m open to both developer and leadership positions, and I think the best of both have more in common than people usually assume.",
   ];
 
   return (
@@ -18,9 +16,8 @@ export const About: React.FC = () => {
           ))}
           <hr className="border-zinc-400" />
           <p className="mb-12">
-            <b>TL;DR:</b> I’m a collaborative fullstack developer and team
-            leader who’s passionate about building trust, supporting teams, and
-            delivering high-quality solutions.
+            <b>TL;DR:</b> Maker by nature, pragmatist by practice — product
+            and people on top of mind always.
           </p>
         </div>
       </div>
