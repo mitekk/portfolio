@@ -5,7 +5,7 @@ export const Experience: React.FC = () => {
     {
       company: "LawPDF",
       position: "Independent — Product to Production",
-      duration: "2025",
+      duration: "2025-2026",
       technologies: ["Next.js", "Node.js", "AWS", "AI"],
       description: `Independently took a legal-tech idea from concept to a live product. Handled every layer — product decisions, architecture, design, and implementation — building a platform that helps lawyers and their clients gather relevant case information and produce a single, summarized document with downloadable referenced sources. Built entirely with AI-assisted development.`,
     },
