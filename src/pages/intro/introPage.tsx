@@ -72,12 +72,11 @@ export const IntroPage: React.FC = () => {
         >
           <div className="flex flex-col md:flex-row items-center">
             {promptFinished && (
-              <div className="flex flex-col h-full avatar-animate-in">
+              <div className="avatar-animate-in">
                 <Avatar
                   src={avatarImg}
                   className="flex items-center saturate-100 w-14 h-14 md:w-24 md:h-24 lg:w-44 lg:h-44"
                 />
-                <div className="hidden md:block md:min-h-12 lg:min-h-24"></div>
               </div>
             )}
             <div
