@@ -2,6 +2,12 @@ ul {
   list-style: none;
 }
 
+@media (max-width: 450px) {
+  .buzz-avatar {
+    display: none;
+  }
+}
+
 .nav-link {
   font-size: 1rem;
   color: #fafafa;

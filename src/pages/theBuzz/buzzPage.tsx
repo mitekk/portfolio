@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { sections, links } from "../../components/navbar/navData";
 import { WavesGrid } from "../../components/grid";
@@ -36,17 +36,19 @@ export const BuzzPage: React.FC = () => {
             <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-zinc-700 text-[#fafafa]">
               <Avatar
                 src={avatarImg}
-                className="flex items-center saturate-100 h-8 w-8 flex-shrink-0"
+                className="buzz-avatar flex items-center saturate-100 h-8 w-8 flex-shrink-0"
               />
-              <div className="flex flex-1 justify-around">
-                {sections.map((section) => (
-                  <Link
-                    key={section}
-                    to={`/theBuzz/${section}`}
-                    className={`nav-link${activeLink === section ? " active" : ""}`}
-                  >
-                    {section}
-                  </Link>
+              <div className="flex flex-1 justify-around items-center">
+                {sections.map((section, index) => (
+                  <React.Fragment key={section}>
+                    {index > 0 && <span className="text-[#bababa] select-none">|</span>}
+                    <Link
+                      to={`/theBuzz/${section}`}
+                      className={`nav-link${activeLink === section ? " active" : ""}`}
+                    >
+                      {section}
+                    </Link>
+                  </React.Fragment>
                 ))}
               </div>
             </header>
