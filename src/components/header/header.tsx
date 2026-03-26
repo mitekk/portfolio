@@ -27,7 +27,7 @@ export const Header: React.FC<{
         <div
           className={`flex items-center h-full px-3 md:px-5 rounded-b-lg bg-gray-800 text-white transition-all duration-500 shadow-lg text-base md:text-lg font-bold`}
         >
-          <div className="relative flex p-1">
+          <div className="relative flex p-1 h-full">
             <div
               className="absolute top-1 bottom-1 left-0 rounded-md bg-white/15 border border-white/20 transition-all duration-300 ease-in-out pointer-events-none"
               style={{
@@ -42,7 +42,7 @@ export const Header: React.FC<{
                   btnRefs.current[i] = el;
                 }}
                 onClick={() => onSelect(mode)}
-                className={`toggle-btn relative z-10 px-4 py-1 rounded-md font-bold transition-colors duration-300 cursor-pointer text-center outline-none focus:outline-none appearance-none ${
+                className={`toggle-btn relative z-10 text-3xl px-4 py-1 rounded-md font-bold transition-colors duration-300 cursor-pointer text-center outline-none focus:outline-none appearance-none ${
                   mode === gameMode ? "text-white" : "text-white/40"
                 }`}
               >
