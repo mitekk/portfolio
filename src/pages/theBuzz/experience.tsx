@@ -1,4 +1,5 @@
 import { SectionLayout } from "../../layout/section.layout";
+import { ContentPanel } from "../../components/UI";
 
 export const Experience: React.FC = () => {
   const experience = [
@@ -70,30 +71,25 @@ export const Experience: React.FC = () => {
 
   return (
     <SectionLayout>
-      <div style={{ color: "#333332" }} className="flex flex-col h-full gap-5">
+      <ContentPanel className="flex flex-col gap-5">
         {experience.map((exp, index) => (
-          <div key={exp.company}>
+          <div className="flex flex-col gap-4" key={exp.company}>
             <div className="gap-1">
               <div className="text-base md:text-xl font-bold">
-                {exp.company}, tlv, {exp.position}
+                {exp.company}, {exp.position}
               </div>
               <div className="text-sm md:text-lg">{exp.duration}</div>
+              <div className="flex flex-wrap text-sm md:text-md font-semibold gap-x-2">
+                {exp.technologies.map((tech) => (
+                  <div key={tech}>{tech}</div>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap text-sm md:text-lg font-medium gap-2">
-              {exp.technologies.map((tech) => (
-                <div key={tech}>{tech}</div>
-              ))}
-            </div>
-            <div
-              className={`text-justify font-light mt-2 ${
-                index === experience.length - 1 ? "mb-12" : ""
-              }`}
-            >
-              {exp.description}
-            </div>
+
+            <div className={`font-light`}>{exp.description}</div>
           </div>
         ))}
-      </div>
+      </ContentPanel>
     </SectionLayout>
   );
 };
