@@ -1,0 +1,7 @@
+.toggle-btn:hover {
+  border-color: transparent;
+}
+.toggle-btn:focus,
+.toggle-btn:focus-visible {
+  outline: none;
+}

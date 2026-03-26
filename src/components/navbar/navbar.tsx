@@ -45,8 +45,9 @@ export const Navbar: React.FC = () => {
             className="flex items-center saturate-100 h-10 w-10 md:h-25 md:w-25"
           />
           <div className="flex flex-col">
-            <span className="text-base md:text-3xl font-semibold">Mitya Kurs</span>
-            <span className="hidden md:block text-sm">Fullstack Team Lead</span>
+            <span className="text-base md:text-3xl font-semibold">
+              Mitya Kurs
+            </span>
           </div>
         </div>
 

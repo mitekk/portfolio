@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, type ReactElement } from "react";
+import { useContext, useState, type ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 import { Prompter } from "../../components/prompter/prompter";
 import { PromptLines } from "../../assets/prompts";
@@ -39,14 +39,6 @@ export const IntroPage: React.FC = () => {
     Tetris: () => <TetrominoesGrid {...defaultGridProps} />,
   };
 
-  useEffect(() => {
-    if (reloadTrigger > 0) {
-      setSelectedMode(
-        GAME_MODE_OPTIONS[reloadTrigger % GAME_MODE_OPTIONS.length]
-      );
-    }
-  }, [reloadTrigger]);
-
   return (
     <PageContext.Provider
       value={{
@@ -54,8 +46,8 @@ export const IntroPage: React.FC = () => {
       }}
     >
       <Header
-        onModeChange={setSelectedMode}
-        onReload={() => {
+        onSelect={(mode) => {
+          setSelectedMode(mode);
           setReloadTrigger((prev) => prev + 1);
         }}
       />

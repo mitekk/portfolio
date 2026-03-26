@@ -1,0 +1,223 @@
+<h2>Which toggle style fits best?</h2>
+<p class="subtitle">Three animated approaches for the Road Trip / Tetris switcher — all live and interactive</p>
+
+<style>
+  .demo-row {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin: 24px 0;
+  }
+
+  /* === Option A: Sliding Pill === */
+  .pill-toggle {
+    display: inline-flex;
+    position: relative;
+    background: #374151;
+    border-radius: 9999px;
+    padding: 4px;
+    gap: 0;
+  }
+  .pill-toggle .thumb {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    border-radius: 9999px;
+    background: white;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+    z-index: 0;
+  }
+  .pill-toggle button {
+    position: relative;
+    z-index: 1;
+    background: none;
+    border: none;
+    padding: 6px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 9999px;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  .pill-toggle button.active { color: #1f2937; }
+
+  /* === Option B: Underline Slide === */
+  .underline-toggle {
+    display: inline-flex;
+    position: relative;
+    background: #1f2937;
+    border-radius: 8px;
+    padding: 8px 4px 0;
+    gap: 0;
+  }
+  .underline-toggle .line {
+    position: absolute;
+    bottom: 0;
+    height: 3px;
+    background: white;
+    border-radius: 3px 3px 0 0;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .underline-toggle button {
+    background: none;
+    border: none;
+    padding: 6px 20px 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    color: rgba(255,255,255,0.4);
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  .underline-toggle button.active { color: white; }
+
+  /* === Option C: Sliding Background === */
+  .slide-toggle {
+    display: inline-flex;
+    position: relative;
+    background: #1f2937;
+    border-radius: 8px;
+    padding: 4px;
+    gap: 0;
+    overflow: hidden;
+  }
+  .slide-toggle .bg {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    height: calc(100% - 8px);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), width 0.3s;
+    z-index: 0;
+  }
+  .slide-toggle button {
+    position: relative;
+    z-index: 1;
+    background: none;
+    border: none;
+    padding: 6px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    color: rgba(255,255,255,0.5);
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+  .slide-toggle button.active { color: white; }
+
+  .toggle-wrapper {
+    display: flex;
+    align-items: center;
+    background: #111827;
+    padding: 16px 24px;
+    border-radius: 0 0 12px 12px;
+    gap: 12px;
+  }
+
+  .badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #6b7280;
+    margin-bottom: 6px;
+  }
+</style>
+
+<div class="demo-row">
+
+  <!-- Option A -->
+  <div class="option" data-choice="a" onclick="toggleSelect(this)" style="padding:0;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:#1e293b;">
+      <div class="letter">A</div>
+      <div>
+        <div class="badge">Sliding Pill</div>
+        <div style="font-weight:600;color:#f1f5f9;">Rounded pill with white thumb that slides across</div>
+      </div>
+    </div>
+    <div class="toggle-wrapper" onclick="event.stopPropagation()">
+      <div class="pill-toggle" id="pill">
+        <div class="thumb" id="pill-thumb"></div>
+        <button class="active" id="pill-btn-0" onclick="pillSwitch(0)">Road Trip</button>
+        <button id="pill-btn-1" onclick="pillSwitch(1)">Tetris</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="option" data-choice="b" onclick="toggleSelect(this)" style="padding:0;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:#1e293b;">
+      <div class="letter">B</div>
+      <div>
+        <div class="badge">Underline Slide</div>
+        <div style="font-weight:600;color:#f1f5f9;">Tab-style with an animated bottom line indicator</div>
+      </div>
+    </div>
+    <div class="toggle-wrapper" onclick="event.stopPropagation()">
+      <div class="underline-toggle" id="underline">
+        <button class="active" id="ul-btn-0" onclick="ulSwitch(0)">Road Trip</button>
+        <button id="ul-btn-1" onclick="ulSwitch(1)">Tetris</button>
+        <div class="line" id="ul-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="option" data-choice="c" onclick="toggleSelect(this)" style="padding:0;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:16px;padding:16px 20px;background:#1e293b;">
+      <div class="letter">C</div>
+      <div>
+        <div class="badge">Ghost Slide</div>
+        <div style="font-weight:600;color:#f1f5f9;">Frosted-glass background panel that slides to active</div>
+      </div>
+    </div>
+    <div class="toggle-wrapper" onclick="event.stopPropagation()">
+      <div class="slide-toggle" id="slide">
+        <div class="bg" id="slide-bg"></div>
+        <button class="active" id="sl-btn-0" onclick="slSwitch(0)">Road Trip</button>
+        <button id="sl-btn-1" onclick="slSwitch(1)">Tetris</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// === Pill ===
+function pillSwitch(idx) {
+  const btns = [document.getElementById('pill-btn-0'), document.getElementById('pill-btn-1')];
+  const thumb = document.getElementById('pill-thumb');
+  btns.forEach((b,i) => b.classList.toggle('active', i===idx));
+  const active = btns[idx];
+  thumb.style.width = active.offsetWidth + 'px';
+  thumb.style.transform = `translateX(${active.offsetLeft}px)`;
+}
+// === Underline ===
+function ulSwitch(idx) {
+  const btns = [document.getElementById('ul-btn-0'), document.getElementById('ul-btn-1')];
+  const line = document.getElementById('ul-line');
+  btns.forEach((b,i) => b.classList.toggle('active', i===idx));
+  const active = btns[idx];
+  line.style.width = active.offsetWidth + 'px';
+  line.style.transform = `translateX(${active.offsetLeft}px)`;
+}
+// === Slide ===
+function slSwitch(idx) {
+  const btns = [document.getElementById('sl-btn-0'), document.getElementById('sl-btn-1')];
+  const bg = document.getElementById('slide-bg');
+  btns.forEach((b,i) => b.classList.toggle('active', i===idx));
+  const active = btns[idx];
+  bg.style.width = active.offsetWidth + 'px';
+  bg.style.transform = `translateX(${active.offsetLeft}px)`;
+}
+// init all on load
+window.addEventListener('load', () => {
+  pillSwitch(0); ulSwitch(0); slSwitch(0);
+});
+</script>

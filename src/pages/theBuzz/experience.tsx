@@ -72,7 +72,7 @@ export const Experience: React.FC = () => {
   return (
     <SectionLayout>
       <ContentPanel className="flex flex-col gap-5">
-        {experience.map((exp, index) => (
+        {experience.map((exp) => (
           <div className="flex flex-col gap-4" key={exp.company}>
             <div className="gap-1">
               <div className="text-base md:text-xl font-bold">

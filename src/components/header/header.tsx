@@ -1,15 +1,23 @@
-import React, { useContext } from "react";
-import { Dropdown } from "../UI/dropdown";
+import React, { useContext, useLayoutEffect, useRef, useState } from "react";
 import { PageContext } from "../../context";
 import { GAME_MODE_OPTIONS } from "../../constants";
 import type { GameMode } from "../../types";
 import "./header.css";
 
 export const Header: React.FC<{
-  onModeChange?: (mode: GameMode) => void;
-  onReload?: () => void;
-}> = ({ onModeChange = () => {}, onReload = () => {} }) => {
+  onSelect?: (mode: GameMode) => void;
+}> = ({ onSelect = () => {} }) => {
   const { gameMode } = useContext(PageContext);
+  const btnRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [slider, setSlider] = useState({ width: 0, x: 0 });
+
+  useLayoutEffect(() => {
+    const idx = GAME_MODE_OPTIONS.indexOf(gameMode ?? GAME_MODE_OPTIONS[0]);
+    const btn = btnRefs.current[idx];
+    if (btn) {
+      setSlider({ width: btn.offsetWidth, x: btn.offsetLeft });
+    }
+  }, [gameMode]);
 
   return (
     <header
@@ -17,22 +25,30 @@ export const Header: React.FC<{
     >
       {gameMode && (
         <div
-          className={`min-w-48 md:min-w-80 flex items-center h-full px-3 md:px-5 rounded-b-lg bg-gray-800 text-white transition-all duration-500 shadow-lg text-base md:text-lg font-bold`}
+          className={`flex items-center h-full px-3 md:px-5 rounded-b-lg bg-gray-800 text-white transition-all duration-500 shadow-lg text-base md:text-lg font-bold`}
         >
-          <div className={`flex-1 flex items-center opacity-90`}>
-            <Dropdown
-              className="flex-1"
-              title={gameMode}
-              selected={gameMode}
-              options={GAME_MODE_OPTIONS}
-              onSelect={(option) => onModeChange(option as GameMode)}
-            />
+          <div className="relative flex p-1">
             <div
-              className="header-nav-text cursor-pointer px-4"
-              onClick={onReload}
-            >
-              ▶▶
-            </div>
+              className="absolute top-1 bottom-1 left-0 rounded-md bg-white/15 border border-white/20 transition-all duration-300 ease-in-out pointer-events-none"
+              style={{
+                width: slider.width,
+                transform: `translateX(${slider.x}px)`,
+              }}
+            />
+            {GAME_MODE_OPTIONS.map((mode, i) => (
+              <button
+                key={mode}
+                ref={(el) => {
+                  btnRefs.current[i] = el;
+                }}
+                onClick={() => onSelect(mode)}
+                className={`toggle-btn relative z-10 px-4 py-1 rounded-md font-bold transition-colors duration-300 cursor-pointer text-center outline-none focus:outline-none appearance-none ${
+                  mode === gameMode ? "text-white" : "text-white/40"
+                }`}
+              >
+                {mode}
+              </button>
+            ))}
           </div>
         </div>
       )}
