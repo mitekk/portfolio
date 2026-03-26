@@ -2,9 +2,9 @@ import { SectionLayout } from "../../layout/section.layout";
 
 export const About: React.FC = () => {
   const paragraphs = [
-    "There’s something happening right now that I keep thinking about: the gap between an idea and a working product has never been smaller. What used to need a funded team and months of runway can now move at the pace of clear thinking. I find that genuinely exciting — and I try to stay at that edge, learning the tools, testing the limits, understanding what’s actually possible.",
-    "That curiosity didn’t start with AI. I’ve always been drawn to making things — software, electronics, woodwork, a garden. It’s the same satisfaction regardless of the medium: you start with nothing and end up with something that works. I’ve carried that into my work as a developer and team leader: understand the goal deeply, break it into pieces, build toward it deliberately.",
-    "What I care about in any role is the outcome — that the product makes sense to the person using it, that the architecture won’t fight you later, that the team knows what it’s working toward and why. I’m open to both developer and leadership positions, and I think the best of both have more in common than people usually assume.",
+    "This year I built a legal-tech product from scratch: product decisions, architecture, design, implementation. Shipped it alone. That was only possible because AI-assisted development has genuinely changed what one person can do. I’ve leaned into that shift deliberately, treating it as a core skill, not a shortcut.",
+    "Before that, I spent years leading full-stack teams: decomposing monoliths, integrating with healthcare and insurance systems, mentoring engineers, closing the gap between product and engineering. I’ve been writing production code for 12 years and still do. I know what a well-built system looks like, and I know what it costs when it isn’t.",
+    "I’m looking for a role where the work matters and the bar is high. Open to technical leadership and senior developer positions. The best of both overlap more than people assume. What I care about is the outcome: a product that makes sense to the person using it, architecture that won’t fight you six months later, and a team that knows what it’s building and why.",
   ];
 
   return (
@@ -16,8 +16,8 @@ export const About: React.FC = () => {
           ))}
           <hr className="border-zinc-400" />
           <p className="mb-12">
-            <b>TL;DR:</b> Maker by nature, pragmatist by practice — product
-            and people on top of mind always.
+            <b>TL;DR:</b> Full-stack developer and team lead, 14 years in. I
+            ship products, build teams, and move fast with AI.
           </p>
         </div>
       </div>

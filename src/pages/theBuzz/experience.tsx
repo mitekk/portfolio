@@ -4,10 +4,10 @@ export const Experience: React.FC = () => {
   const experience = [
     {
       company: "LawPDF",
-      position: "Independent — Product to Production",
+      position: "Independent",
       duration: "2025-2026",
       technologies: ["Next.js", "Node.js", "AWS", "AI"],
-      description: `Independently took a legal-tech idea from concept to a live product. Handled every layer — product decisions, architecture, design, and implementation — building a platform that helps lawyers and their clients gather relevant case information and produce a single, summarized document with downloadable referenced sources. Built entirely with AI-assisted development.`,
+      description: `Took a legal-tech idea from concept to a live product. Alone. Handled product decisions, architecture, design, and implementation: a platform that helps lawyers and clients gather case information and produce a single summarized document with referenced sources. Nothing delegated. Built using AI-assisted development throughout.`,
     },
     {
       company: "Clarity",
@@ -21,21 +21,21 @@ export const Experience: React.FC = () => {
         "Apollo",
         "MongoDB",
       ],
-      description: `Led full-stack development of the company’s core business logic — from product and technical design to delivery — while building and mentoring a high-performing team.`,
+      description: `Owned full-stack development of the company’s core product, from architecture to delivery. Ran the technical design, built and mentored the team, and kept engineering and product moving in the same direction. The business-critical path ran through this work.`,
     },
     {
       company: "Daytwo",
       position: "Fullstack Team Lead",
       duration: "2018-2023",
       technologies: ["GCP", "AWS", "CDK", "React", "Node.js", "mySQL"],
-      description: `Started by leading in-house and offshore client projects, then shifted to decomposing a monolith into microservices and driving major integrations with healthcare and insurance providers in Israel and the US.`,
+      description: `Five years in two distinct phases. First: leading client projects, in-house and offshore. Then: decomposing a monolith into microservices and integrating with healthcare and insurance providers in Israel and the US. The second phase is where I learned what production scale, compliance constraints, and real systemic complexity actually feel like.`,
     },
     {
       company: "Softwave",
       position: "Fullstack Dev",
       duration: "2016-2018",
       technologies: ["Azure", "Angular", "React", ".Net Core", "SQL"],
-      description: `Contributed to end-to-end solutions using Angular and React — first hands-on experience with modern client frameworks.`,
+      description: `First production experience with React and Angular. Worked across the stack on end-to-end client solutions. The point where modern frontend stopped being foreign and started becoming natural.`,
     },
     {
       company: "Eternity",
@@ -50,21 +50,21 @@ export const Experience: React.FC = () => {
         "C#",
         "SQL",
       ],
-      description: `Built scalable web applications on Azure, gaining first hands-on experience with cloud technologies.`,
+      description: `First time owning cloud infrastructure in production. Built web applications on Azure and got comfortable with the operational side of shipping software, not just writing it.`,
     },
     {
       company: "Qpoint",
       position: "Fullstack Dev",
       duration: "2014-2015",
       technologies: ["Javascript", "HTML", "CSS", "ASP.Net", "C#", "SQL"],
-      description: `First exposure to complex, well-structured applications — deepened understanding of best practices in collaborative software development.`,
+      description: `First job with real engineering standards. Working inside a structured, well-maintained codebase with experienced developers changed how I thought about code quality, maintainability, and what good collaboration looks like.`,
     },
     {
       company: "Bynet",
       position: "Fullstack Dev",
       duration: "2012-2014",
       technologies: ["Javascript", "HTML", "CSS", "ASP.Net", "C#"],
-      description: `Entry point into software — learned the fundamentals of both server-side and client-side development.`,
+      description: `Where it started. Server-side and client-side, figuring out what the job actually is before knowing how much there is to learn.`,
     },
   ];
 
@@ -75,7 +75,7 @@ export const Experience: React.FC = () => {
           <div key={exp.company}>
             <div className="gap-1">
               <div className="text-base md:text-xl font-bold">
-                {exp.company}, tlv — {exp.position}
+                {exp.company}, tlv, {exp.position}
               </div>
               <div className="text-sm md:text-lg">{exp.duration}</div>
             </div>
