@@ -18,7 +18,6 @@ export const IntroPage: React.FC = () => {
   const [promptFinished, setPromptFinished] = useState(false);
   const [introFinished, setIntroFinished] = useState(false);
   const { dims, gridSize } = useContext(LayoutContext);
-  const [reloadTrigger, setReloadTrigger] = useState(0);
   const [selectedMode, setSelectedMode] = useState<GameMode>(
     GAME_MODE_OPTIONS[0]
   );
@@ -48,7 +47,6 @@ export const IntroPage: React.FC = () => {
       <Header
         onSelect={(mode) => {
           setSelectedMode(mode);
-          setReloadTrigger((prev) => prev + 1);
         }}
       />
       {gridByType[selectedMode]()}
