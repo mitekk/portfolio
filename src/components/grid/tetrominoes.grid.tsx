@@ -44,7 +44,7 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
     if (animationEndTimeout.current) {
       clearTimeout(animationEndTimeout.current);
     }
-    animationEndTimeout.current = setTimeout(() => {
+    animationEndTimeout.current = window.setTimeout(() => {
       if (onAnimationFinish) {
         onAnimationFinish();
       }

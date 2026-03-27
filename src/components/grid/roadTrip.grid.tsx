@@ -67,7 +67,7 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
     if (animationEndTimeout.current) {
       clearTimeout(animationEndTimeout.current);
     }
-    animationEndTimeout.current = setTimeout(() => {
+    animationEndTimeout.current = window.setTimeout(() => {
       setGridAnimationFinished(true);
     }, 150);
   };
