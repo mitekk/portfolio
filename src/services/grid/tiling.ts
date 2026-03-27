@@ -111,6 +111,9 @@ const lastIndexBySize: Partial<Record<TemplateSize, number>> = {};
 
 const chooseTemplate = (size: TemplateSize): TemplatePlacement[] => {
   const tilingTemplate = templates[size];
+  if (!tilingTemplate || tilingTemplate.length === 0) {
+    throw new Error(`No templates available for chunk size ${size}`);
+  }
   let templateIndex: number;
   const prev = lastIndexBySize[size];
   do {
@@ -126,7 +129,7 @@ export function generateTiledGrid(
 ): Shape<ShapeKeyTetrominoes>[] {
   nextShapeId = 1;
   const grid = createEmptyGrid(rows, cols);
-  const sizes: Array<TemplateSize> = [32, 16, 8, 4];
+  const sizes: Array<TemplateSize> = [16, 8, 4];
   const gridShapes: Shape<ShapeKeyTetrominoes>[] = [];
 
   let next: Point | null;

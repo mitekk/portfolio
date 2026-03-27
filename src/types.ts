@@ -45,4 +45,4 @@ export type PromptLine = {
   removeOnComplete?: boolean;
 };
 
-export type GameMode = "Tetris" | "Road Trip"; //| "Game of Life";
+export type GameMode = "Tetris" | "Trip"; //| "Game of Life";

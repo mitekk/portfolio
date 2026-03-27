@@ -11,7 +11,7 @@ export const MAX_WIDTH = 1800;
 
 export const GAME_MODE_OPTIONS: GameMode[] = [
   "Tetris",
-  "Road Trip",
+  "Trip",
   // "Game of Life",
 ];
 

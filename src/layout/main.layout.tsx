@@ -1,4 +1,9 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import {
+  useCallback,
+  useLayoutEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { LayoutContext } from "../context";
 import type { Dims, GridSize } from "../context/layout";
 import {
@@ -39,13 +44,13 @@ export function MainLayout({ children }: MainLayoutProps) {
     setTileSize(Math.round(MIN_TILE + (MAX_TILE - MIN_TILE) * scale));
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const cols = Math.floor(
       (Math.min(window.innerWidth, MAX_WIDTH) + TILE_GAP) /
         (tileSize + TILE_GAP)
@@ -60,7 +65,7 @@ export function MainLayout({ children }: MainLayoutProps) {
     });
   }, [tileSize]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (dims.cols > 0 && dims.rows > 0) {
       setGridSize({
         width: Math.min(

@@ -5,7 +5,7 @@ import { WavesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
 import { Navbar } from "../../components/navbar/navbar";
 import { Avatar } from "../../components/UI";
-import avatarImg from "../../assets/profile/avatar.png";
+import avatarImg from "../../assets/profile/avatar.webp";
 
 export const BuzzPage: React.FC = () => {
   const [gridLoaded, setGridLoaded] = useState(false);
@@ -34,10 +34,16 @@ export const BuzzPage: React.FC = () => {
           <div className="absolute inset-0 flex flex-col md:flex-row">
             {/* Mobile-only top header: avatar on left + section links */}
             <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-zinc-700 text-[#fafafa]">
-              <Avatar
-                src={avatarImg}
-                className="buzz-avatar flex items-center saturate-100 h-8 w-8 flex-shrink-0"
-              />
+              <Link to="/" aria-label="Go to intro page">
+                <Avatar
+                  src={avatarImg}
+                  alt="Portrait of Mitya Kurs"
+                  width={500}
+                  height={500}
+                  loading="lazy"
+                  className="buzz-avatar flex items-center saturate-100 h-8 w-8 flex-shrink-0"
+                />
+              </Link>
               <div className="flex flex-1 justify-around items-center">
                 {sections.map((section, index) => (
                   <React.Fragment key={section}>
@@ -75,11 +81,13 @@ export const BuzzPage: React.FC = () => {
             {/* Mobile-only footer: icons only */}
             <footer className="flex md:hidden justify-around items-center px-4 py-2 bg-zinc-700">
               {links.map((link) => (
-                <div
+                <a
                   key={link.alt}
                   className="cursor-pointer hover:opacity-70 transition-opacity"
-                  onClick={link.action}
+                  href={link.href}
                   title={link.title}
+                  target={link.target}
+                  rel={link.rel}
                 >
                   <img
                     className="w-5 h-5"
@@ -87,7 +95,7 @@ export const BuzzPage: React.FC = () => {
                     alt={link.alt}
                     draggable={false}
                   />
-                </div>
+                </a>
               ))}
             </footer>
           </div>

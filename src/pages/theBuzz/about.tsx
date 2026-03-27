@@ -1,5 +1,7 @@
 import { SectionLayout } from "../../layout/section.layout";
 import { ContentPanel } from "../../components/UI";
+import { SeoHead } from "../../components/seo/seoHead";
+import { routeSeo } from "../../seo/config";
 
 export const About: React.FC = () => {
   const paragraphs = [
@@ -10,14 +12,18 @@ export const About: React.FC = () => {
   ];
 
   return (
-    <SectionLayout>
-      <ContentPanel>
-        <div className="flex flex-col gap-5 text-sm font-light md:text-lg">
-          {paragraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
-      </ContentPanel>
-    </SectionLayout>
+    <>
+      <SeoHead meta={routeSeo.about} />
+      <SectionLayout>
+        <ContentPanel>
+          <div className="flex flex-col gap-5 font-light">
+            <h1>About</h1>
+            {paragraphs.map((paragraph, index) => (
+              <p key={index}>{paragraph}</p>
+            ))}
+          </div>
+        </ContentPanel>
+      </SectionLayout>
+    </>
   );
 };

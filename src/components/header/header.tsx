@@ -21,11 +21,11 @@ export const Header: React.FC<{
 
   return (
     <header
-      className={`absolute top-0 left-1/2 -translate-x-1/2 md:left-3/8 md:translate-x-0 z-[3] w-fit transition-all duration-500 h-12 opacity-90 select-none`}
+      className={`absolute top-0 left-1/2 -translate-x-1/2 md:left-3/8 md:translate-x-0 z-[3] w-fit transition-all duration-500 h-10 opacity-90 select-none`}
     >
       {gameMode && (
         <div
-          className={`flex items-center h-full px-3 md:px-5 rounded-b-lg bg-gray-800 text-white transition-all duration-500 shadow-lg text-base md:text-lg font-bold`}
+          className={`flex items-center h-full px-3 md:px-5 rounded-b-lg bg-gray-800 text-white transition-all duration-500 shadow-lg`}
         >
           <div className="relative flex p-1 h-full">
             <div
@@ -42,7 +42,7 @@ export const Header: React.FC<{
                   btnRefs.current[i] = el;
                 }}
                 onClick={() => onSelect(mode)}
-                className={`toggle-btn relative z-10 text-3xl px-4 py-1 rounded-md font-bold transition-colors duration-300 cursor-pointer text-center outline-none focus:outline-none appearance-none ${
+                className={`toggle-btn leading-1 w-26 md:w-36 relative z-10 text-md rounded-md font-bold transition-colors duration-300 cursor-pointer text-center outline-none focus:outline-none appearance-none  ${
                   mode === gameMode ? "text-white" : "text-white/40"
                 }`}
               >

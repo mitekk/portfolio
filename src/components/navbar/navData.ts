@@ -8,28 +8,33 @@ export const sections = ["about", "experience", "toolbox"];
 
 export const links = [
   {
-    action: () =>
-      (window.location.href = `mailto:${emailUrl}?subject=Hi%20Mitya&body=How%20are%20you%3F`),
+    href: `mailto:${emailUrl}?subject=Hi%20Mitya&body=How%20are%20you%3F`,
     imgSrc: emailIcon,
     alt: "email",
     title: emailUrl,
   },
   {
-    action: () => window.open(linkedinUrl, "_blank"),
+    href: linkedinUrl,
+    target: "_blank",
+    rel: "noopener noreferrer",
     imgSrc: linkedinIcon,
     alt: "linkedin",
-    title: "linkedin",
+    title: "LinkedIn",
   },
   {
-    action: () => window.open(githubUrl, "_blank"),
+    href: githubUrl,
+    target: "_blank",
+    rel: "noopener noreferrer",
     imgSrc: githubIcon,
     alt: "github",
-    title: "github",
+    title: "GitHub",
   },
   {
-    action: () => window.open("/Mitya_Kurs.pdf", "_blank"),
+    href: "/Mitya_Kurs.pdf",
+    target: "_blank",
+    rel: "noopener noreferrer",
     imgSrc: cvIcon,
     alt: "CV",
-    title: "download CV",
+    title: "Download CV",
   },
 ];

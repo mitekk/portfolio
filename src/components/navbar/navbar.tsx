@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "../UI";
-import avatarImg from "../../assets/profile/avatar.png";
+import avatarImg from "../../assets/profile/avatar.webp";
 import "./navbar.css";
 import { sections, links } from "./navData";
 
@@ -40,12 +40,18 @@ export const Navbar: React.FC = () => {
       >
         {/* Identity */}
         <div className="flex items-center gap-2 md:flex-col md:items-start md:py-2">
-          <Avatar
-            src={avatarImg}
-            className="flex items-center saturate-100 h-10 w-10 md:h-25 md:w-25"
-          />
+          <Link to="/" aria-label="Go to intro page">
+            <Avatar
+              src={avatarImg}
+              alt="Portrait of Mitya Kurs"
+              width={500}
+              height={500}
+              loading="lazy"
+              className="flex items-center saturate-100 h-10 w-10 md:h-25 md:w-25"
+            />
+          </Link>
           <div className="flex flex-col">
-            <span className="text-base md:text-3xl font-semibold">
+            <span className="text-base md:text-3xl font-medium">
               Mitya Kurs
             </span>
           </div>
@@ -77,11 +83,13 @@ export const Navbar: React.FC = () => {
         {/* Social links */}
         <div className="flex flex-row md:flex-col items-center md:items-start md:py-2 gap-3 md:gap-1 md:mt-auto">
           {links.map((link) => (
-            <div
+            <a
               key={link.alt}
               className="flex flex-row gap-2 cursor-pointer hover:text-[#bababa] transition-colors"
-              onClick={link.action}
+              href={link.href}
               title={link.title}
+              target={link.target}
+              rel={link.rel}
             >
               <div className="flex flex-row justify-center items-center w-5">
                 <img
@@ -91,8 +99,10 @@ export const Navbar: React.FC = () => {
                   draggable={false}
                 />
               </div>
-              <span className="hidden md:inline">{link.title}</span>
-            </div>
+              <span className="hidden md:inline text-[#FAEBD7]">
+                {link.title}
+              </span>
+            </a>
           ))}
         </div>
       </div>

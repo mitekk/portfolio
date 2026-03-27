@@ -1,5 +1,7 @@
 import { SectionLayout } from "../../layout/section.layout";
 import { ContentPanel } from "../../components/UI";
+import { SeoHead } from "../../components/seo/seoHead";
+import { routeSeo } from "../../seo/config";
 
 export const Experience: React.FC = () => {
   const experience = [
@@ -70,26 +72,32 @@ export const Experience: React.FC = () => {
   ];
 
   return (
-    <SectionLayout>
-      <ContentPanel className="flex flex-col gap-5">
-        {experience.map((exp) => (
-          <div className="flex flex-col gap-4" key={exp.company}>
-            <div className="gap-1">
-              <div className="text-base md:text-xl font-bold">
-                {exp.company}, {exp.position}
-              </div>
-              <div className="text-sm md:text-lg">{exp.duration}</div>
-              <div className="flex flex-wrap text-sm md:text-md font-semibold gap-x-2">
-                {exp.technologies.map((tech) => (
-                  <div key={tech}>{tech}</div>
-                ))}
-              </div>
-            </div>
+    <>
+      <SeoHead meta={routeSeo.experience} />
+      <SectionLayout>
+        <ContentPanel className="flex flex-col gap-5">
+          <h1>Experience</h1>
+          {experience.map((exp) => (
+            <article className="flex flex-col gap-4" key={exp.company}>
+              <header className="gap-1">
+                <h2 className="text-base md:text-xl font-bold">
+                  {exp.company}, {exp.position}
+                </h2>
+                <p className="text-sm md:text-lg">{exp.duration}</p>
+                <ul className="flex flex-wrap text-sm md:text-md font-semibold gap-x-2">
+                  {exp.technologies.map((tech) => (
+                    <li className="list-none" key={tech}>
+                      {tech}
+                    </li>
+                  ))}
+                </ul>
+              </header>
 
-            <div className={`font-light`}>{exp.description}</div>
-          </div>
-        ))}
-      </ContentPanel>
-    </SectionLayout>
+              <p className="font-light">{exp.description}</p>
+            </article>
+          ))}
+        </ContentPanel>
+      </SectionLayout>
+    </>
   );
 };

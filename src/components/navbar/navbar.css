@@ -9,7 +9,7 @@ ul {
 }
 
 .nav-link {
-  font-size: 1rem;
+  font-size: 0.875rem;
   color: #fafafa;
   transition: color 150ms;
   user-select: none;
@@ -27,7 +27,7 @@ ul {
 
 @media (min-width: 768px) {
   .nav-link {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .nav-link.active {

@@ -17,7 +17,7 @@
   align-items: center;
   line-height: 1em;
   animation: blink 1s steps(1) infinite;
-  color: #b7410e;
+  color: #6f2808;
 }
 
 .prompt-text {
@@ -25,7 +25,7 @@
   font-weight: 900;
   font-size: 2rem;
   line-height: 2.75rem;
-  color: #000401;
+  color: #111111;
   margin-bottom: "0.5rem";
   min-height: 24px;
   font-family: var(--font-family);

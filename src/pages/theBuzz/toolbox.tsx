@@ -1,5 +1,7 @@
 import { SectionLayout } from "../../layout/section.layout";
 import { ContentPanel } from "../../components/UI";
+import { SeoHead } from "../../components/seo/seoHead";
+import { routeSeo } from "../../seo/config";
 import {
   reactIcon,
   vueIcon,
@@ -103,30 +105,40 @@ const skills = [
 
 export const Toolbox: React.FC = () => {
   return (
-    <SectionLayout>
-      <ContentPanel className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-        {skills.map((skill) => (
-          <div
-            key={skill.title}
-            className="border border-zinc-300 bg-white/40 rounded-xl p-3 flex flex-col gap-3"
-          >
-            <div className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-              {skill.title}
-            </div>
-            <div className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
-              {skill.technologies.map((tech) => (
-                <div
-                  key={tech.name}
-                  className="flex flex-col items-center gap-1 p-2 border border-zinc-200 bg-white/50 rounded-lg text-xs text-zinc-700 font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
-                >
-                  <img src={tech.icon} alt={tech.name} className="w-8 h-8" />
-                  {tech.name}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </ContentPanel>
-    </SectionLayout>
+    <>
+      <SeoHead meta={routeSeo.toolbox} />
+      <SectionLayout>
+        <ContentPanel className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+          <h1 className="col-span-full">
+            Toolbox
+          </h1>
+          {skills.map((skill) => (
+            <section
+              key={skill.title}
+              aria-labelledby={`toolbox-${skill.title.toLowerCase()}-heading`}
+              className="border border-zinc-300 bg-white/40 rounded-xl p-3 flex flex-col gap-3"
+            >
+              <h2
+                id={`toolbox-${skill.title.toLowerCase()}-heading`}
+                className="text-xs font-bold uppercase tracking-wider text-zinc-500"
+              >
+                {skill.title}
+              </h2>
+              <ul className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
+                {skill.technologies.map((tech) => (
+                  <li
+                    key={tech.name}
+                    className="list-none flex flex-col items-center gap-1 p-2 border border-zinc-200 bg-white/50 rounded-lg text-xs text-zinc-700 font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
+                  >
+                    <img src={tech.icon} alt={tech.name} className="w-8 h-8" />
+                    {tech.name}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </ContentPanel>
+      </SectionLayout>
+    </>
   );
 };
