@@ -26,3 +26,6 @@ dist-ssr
 
 # Git worktrees
 .worktrees/
+
+# Lighthouse CI reports (generated locally)
+.lighthouseci/
