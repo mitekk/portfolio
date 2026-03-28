@@ -9,7 +9,11 @@ describe("generateTiledGrid", () => {
     const cols = 16;
 
     const shapes = generateTiledGrid(rows, cols);
-    const covered = new Set(shapes.flatMap((shape) => shape.points.map((point) => `${point.x},${point.y}`)));
+    const covered = new Set(
+      shapes.flatMap((shape) =>
+        shape.points.map((point) => `${point.x},${point.y}`),
+      ),
+    );
 
     expect(covered.size).toBe(rows * cols);
   });
@@ -53,10 +57,14 @@ describe("generateTiledGrid", () => {
   });
 
   test("throws when residual region cannot fit any chunk for 5x5", () => {
-    expect(() => generateTiledGrid(5, 5)).toThrowError(/Unable to place chunk at/);
+    expect(() => generateTiledGrid(5, 5)).toThrowError(
+      /Unable to place chunk at/,
+    );
   });
 
   test("throws when residual region cannot fit any chunk for 4x6", () => {
-    expect(() => generateTiledGrid(4, 6)).toThrowError(/Unable to place chunk at/);
+    expect(() => generateTiledGrid(4, 6)).toThrowError(
+      /Unable to place chunk at/,
+    );
   });
 });

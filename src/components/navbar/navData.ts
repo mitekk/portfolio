@@ -1,4 +1,9 @@
-import { cvIcon, emailIcon, githubIcon, linkedinIcon } from "../../assets/links";
+import {
+  cvIcon,
+  emailIcon,
+  githubIcon,
+  linkedinIcon,
+} from "../../assets/links";
 
 const emailUrl = "mitekk@gmail.com";
 const linkedinUrl = "https://www.linkedin.com/in/mitya-kurs-8b058452/";

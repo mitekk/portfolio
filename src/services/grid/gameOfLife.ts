@@ -3,7 +3,7 @@ import type { Cell, Grid, Shape, ShapeKeyGameOfLife } from "../../types";
 
 export const generateGameOfLifeGrid = (
   dims: Dims,
-  aliveProbability = 0.5
+  aliveProbability = 0.5,
 ): Grid<ShapeKeyGameOfLife> => {
   const grid: Grid<ShapeKeyGameOfLife> = [];
 
@@ -27,7 +27,7 @@ export const generateGameOfLifeGrid = (
 };
 
 export const generateGameOfLifeShapes = (
-  grid: Grid<ShapeKeyGameOfLife>
+  grid: Grid<ShapeKeyGameOfLife>,
 ): Shape<ShapeKeyGameOfLife>[] => {
   const shapes: Shape<ShapeKeyGameOfLife>[] = [];
 
@@ -45,7 +45,7 @@ export const generateGameOfLifeShapes = (
 };
 
 export const createNextGenerationGrid = (
-  grid: Grid<ShapeKeyGameOfLife>
+  grid: Grid<ShapeKeyGameOfLife>,
 ): Grid<ShapeKeyGameOfLife> => {
   const rows = grid.length;
   const cols = grid[0].length;

@@ -15,11 +15,7 @@ export const SeoHead: React.FC<SeoHeadProps> = ({ meta, jsonLd }) => {
   const twitterCard = meta.twitterCard ?? DEFAULT_TWITTER_CARD;
   const robots = meta.indexable ? "index,follow" : "noindex,nofollow";
   const image = meta.ogImage ?? DEFAULT_OG_IMAGE;
-  const jsonLdBlocks = Array.isArray(jsonLd)
-    ? jsonLd
-    : jsonLd
-      ? [jsonLd]
-      : [];
+  const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
   return (
     <Helmet prioritizeSeoTags>

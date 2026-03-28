@@ -14,7 +14,7 @@ describe("Avatar", () => {
 
     expect(screen.getByRole("img", { name: "Profile avatar" })).toHaveAttribute(
       "loading",
-      "lazy"
+      "lazy",
     );
   });
 
@@ -22,7 +22,7 @@ describe("Avatar", () => {
     render(<Avatar src="/avatar.webp" alt="Accessible avatar description" />);
 
     expect(
-      screen.getByRole("img", { name: "Accessible avatar description" })
+      screen.getByRole("img", { name: "Accessible avatar description" }),
     ).toBeInTheDocument();
   });
 });

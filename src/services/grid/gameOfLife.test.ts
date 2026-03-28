@@ -6,13 +6,13 @@ import {
 import type { Grid, ShapeKeyGameOfLife } from "../../types";
 
 const buildGrid = (
-  matrix: Array<Array<"alive" | "dead">>
+  matrix: Array<Array<"alive" | "dead">>,
 ): Grid<ShapeKeyGameOfLife> =>
   matrix.map((row, rowIndex) =>
     row.map((shape) => ({
       id: rowIndex + 1,
       shape,
-    }))
+    })),
   );
 
 describe("createNextGenerationGrid", () => {
@@ -22,7 +22,7 @@ describe("createNextGenerationGrid", () => {
         ["alive", "alive", "dead"],
         ["dead", "dead", "dead"],
         ["dead", "alive", "dead"],
-      ])
+      ]),
     );
 
     expect(next[1][1]?.shape).toBe("alive");
@@ -34,7 +34,7 @@ describe("createNextGenerationGrid", () => {
         ["alive", "alive", "dead"],
         ["alive", "alive", "dead"],
         ["dead", "dead", "dead"],
-      ])
+      ]),
     );
 
     expect(next[1][1]?.shape).toBe("alive");
@@ -46,7 +46,7 @@ describe("createNextGenerationGrid", () => {
         ["alive", "alive", "dead"],
         ["dead", "alive", "dead"],
         ["dead", "alive", "dead"],
-      ])
+      ]),
     );
 
     expect(next[1][1]?.shape).toBe("alive");
@@ -58,7 +58,7 @@ describe("createNextGenerationGrid", () => {
         ["alive", "dead", "dead"],
         ["dead", "alive", "dead"],
         ["dead", "dead", "dead"],
-      ])
+      ]),
     );
 
     expect(next[1][1]?.shape).toBe("dead");
@@ -70,7 +70,7 @@ describe("createNextGenerationGrid", () => {
         ["alive", "alive", "alive"],
         ["alive", "alive", "dead"],
         ["dead", "alive", "dead"],
-      ])
+      ]),
     );
 
     expect(next[1][1]?.shape).toBe("dead");
@@ -82,7 +82,7 @@ describe("createNextGenerationGrid", () => {
         ["dead", "alive", "dead"],
         ["alive", "alive", "dead"],
         ["dead", "dead", "dead"],
-      ])
+      ]),
     );
 
     expect(next[0][0]?.shape).toBe("alive");
@@ -99,9 +99,9 @@ describe("generateGameOfLifeShapes", () => {
     const shapes = generateGameOfLifeShapes(grid);
 
     expect(shapes).toHaveLength(6);
-    expect(shapes.every((shape) => shape.key === "alive" || shape.key === "dead")).toBe(
-      true
-    );
+    expect(
+      shapes.every((shape) => shape.key === "alive" || shape.key === "dead"),
+    ).toBe(true);
   });
 
   test("all shapes in the same row share the same id", () => {
@@ -111,8 +111,12 @@ describe("generateGameOfLifeShapes", () => {
     ]);
 
     const shapes = generateGameOfLifeShapes(grid);
-    const firstRowIds = shapes.filter((shape) => shape.points[0].x === 0).map((shape) => shape.id);
-    const secondRowIds = shapes.filter((shape) => shape.points[0].x === 1).map((shape) => shape.id);
+    const firstRowIds = shapes
+      .filter((shape) => shape.points[0].x === 0)
+      .map((shape) => shape.id);
+    const secondRowIds = shapes
+      .filter((shape) => shape.points[0].x === 1)
+      .map((shape) => shape.id);
 
     expect(new Set(firstRowIds).size).toBe(1);
     expect(new Set(secondRowIds).size).toBe(1);

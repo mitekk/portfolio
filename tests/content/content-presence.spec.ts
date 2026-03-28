@@ -11,7 +11,9 @@ for (const viewport of viewports) {
 
     test("about page has 4 non-empty paragraphs", async ({ page }) => {
       await page.goto("/theBuzz/about");
-      await expect(page.getByRole("heading", { name: "About" })).toBeVisible({ timeout: 30000 });
+      await expect(page.getByRole("heading", { name: "About" })).toBeVisible({
+        timeout: 30000,
+      });
 
       const paragraphs = page.locator("article p, section p");
       await expect(paragraphs).toHaveCount(4);
@@ -22,10 +24,12 @@ for (const viewport of viewports) {
       }
     });
 
-    test("experience page has 7 entries with company names and date ranges", async ({ page }) => {
+    test("experience page has 7 entries with company names and date ranges", async ({
+      page,
+    }) => {
       await page.goto("/theBuzz/experience");
       await expect(
-        page.getByRole("heading", { name: "Experience" })
+        page.getByRole("heading", { name: "Experience" }),
       ).toBeVisible({ timeout: 30000 });
 
       const entries = page.locator("article");
@@ -37,13 +41,21 @@ for (const viewport of viewports) {
         expect(date).toMatch(/^\d{4}-\d{4}$/);
       }
 
-      await expect(page.getByRole("heading", { level: 2, name: /LawPDF/i })).toBeVisible();
-      await expect(page.getByRole("heading", { level: 2, name: /Bynet/i })).toBeVisible();
+      await expect(
+        page.getByRole("heading", { level: 2, name: /LawPDF/i }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("heading", { level: 2, name: /Bynet/i }),
+      ).toBeVisible();
     });
 
-    test("toolbox page has all category headings and no broken images", async ({ page }) => {
+    test("toolbox page has all category headings and no broken images", async ({
+      page,
+    }) => {
       await page.goto("/theBuzz/toolbox");
-      await expect(page.getByRole("heading", { name: "Toolbox" })).toBeVisible({ timeout: 30000 });
+      await expect(page.getByRole("heading", { name: "Toolbox" })).toBeVisible({
+        timeout: 30000,
+      });
 
       const categoryHeadings = page.locator("section[aria-labelledby] h2");
       await expect(categoryHeadings).toHaveCount(7);

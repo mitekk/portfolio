@@ -59,7 +59,7 @@ export const Navbar: React.FC = () => {
 
         {/* Nav links */}
         <div className="flex-1 py-2">
-          <ul className="nav-links flex flex-row md:flex-col gap-4 md:gap-0 md:h-full md:justify-center">
+          <ul className="nav-links flex flex-row md:flex-col gap-4 md:gap-2 md:h-full md:justify-center">
             {sections.map((section) => (
               <li key={section}>
                 <div className="flex flex-row items-center gap-1 cursor-pointer">

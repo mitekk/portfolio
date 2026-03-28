@@ -47,7 +47,9 @@ export const BuzzPage: React.FC = () => {
               <div className="flex flex-1 justify-around items-center">
                 {sections.map((section, index) => (
                   <React.Fragment key={section}>
-                    {index > 0 && <span className="text-[#bababa] select-none">|</span>}
+                    {index > 0 && (
+                      <span className="text-[#bababa] select-none">|</span>
+                    )}
                     <Link
                       to={`/theBuzz/${section}`}
                       className={`nav-link${activeLink === section ? " active" : ""}`}

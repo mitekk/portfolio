@@ -18,7 +18,7 @@ const renderRoutes = (path: string) =>
           <AppRoutes />
         </MemoryRouter>
       </LayoutContext.Provider>
-    </HelmetProvider>
+    </HelmetProvider>,
   );
 
 describe("AppRoutes", () => {
@@ -37,7 +37,9 @@ describe("AppRoutes", () => {
     renderRoutes("/theBuzz");
 
     await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: "About" }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -45,7 +47,9 @@ describe("AppRoutes", () => {
     renderRoutes("/theBuzz/about");
 
     await waitFor(() => {
-      expect(screen.getByRole("heading", { name: "About" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { name: "About" }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -53,7 +57,7 @@ describe("AppRoutes", () => {
     renderRoutes("/not-supported");
 
     expect(
-      screen.getByRole("heading", { name: "Tiny Screens Ahead" })
+      screen.getByRole("heading", { name: "Tiny Screens Ahead" }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /My CV/i })).toBeInTheDocument();
   });
@@ -62,7 +66,7 @@ describe("AppRoutes", () => {
     renderRoutes("/does-not-exist");
 
     expect(
-      screen.getByRole("heading", { name: "404 - Not Found" })
+      screen.getByRole("heading", { name: "404 - Not Found" }),
     ).toBeInTheDocument();
   });
 
@@ -73,7 +77,7 @@ describe("AppRoutes", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByRole("heading", { name: "Experience" })
+        screen.getByRole("heading", { name: "Experience" }),
       ).toBeInTheDocument();
     });
 

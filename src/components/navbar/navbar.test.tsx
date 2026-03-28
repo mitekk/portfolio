@@ -1,6 +1,12 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import {
+  MemoryRouter,
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import { Navbar } from "./navbar";
 import { links, sections } from "./navData";
 
@@ -29,7 +35,7 @@ const renderNavbar = (initialEntry = "/theBuzz/about") => {
           <Route path=":section" element={<div>section-content</div>} />
         </Route>
       </Routes>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 
   return { user, ...renderResult };
@@ -56,7 +62,9 @@ describe("Navbar", () => {
     fireEvent.keyDown(window, { key: "ArrowDown" });
 
     await waitFor(() => {
-      expect(screen.getByTestId("path")).toHaveTextContent("/theBuzz/experience");
+      expect(screen.getByTestId("path")).toHaveTextContent(
+        "/theBuzz/experience",
+      );
     });
   });
 

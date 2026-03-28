@@ -31,34 +31,50 @@ async function assertBaseSeo(page: Page) {
 test.describe("SEO metadata (desktop-large)", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
-  test("home page has title/description/canonical/og + JSON-LD", async ({ page }) => {
+  test("home page has title/description/canonical/og + JSON-LD", async ({
+    page,
+  }) => {
     await page.goto("/");
-    await expect(page.locator(".intro-overlay")).toBeVisible({ timeout: 30000 });
+    await expect(page.locator(".intro-overlay")).toBeVisible({
+      timeout: 30000,
+    });
 
     await assertBaseSeo(page);
 
-    await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(2);
-  });
-
-  test("about page has title/description/canonical/og tags", async ({ page }) => {
-    await page.goto("/theBuzz/about");
-    await expect(page.getByRole("heading", { name: "About" })).toBeVisible({ timeout: 30000 });
-
-    await assertBaseSeo(page);
-  });
-
-  test("experience page has title/description/canonical/og tags", async ({ page }) => {
-    await page.goto("/theBuzz/experience");
     await expect(
-      page.getByRole("heading", { name: "Experience" })
-    ).toBeVisible({ timeout: 30000 });
+      page.locator('script[type="application/ld+json"]'),
+    ).toHaveCount(2);
+  });
+
+  test("about page has title/description/canonical/og tags", async ({
+    page,
+  }) => {
+    await page.goto("/theBuzz/about");
+    await expect(page.getByRole("heading", { name: "About" })).toBeVisible({
+      timeout: 30000,
+    });
 
     await assertBaseSeo(page);
   });
 
-  test("toolbox page has title/description/canonical/og tags", async ({ page }) => {
+  test("experience page has title/description/canonical/og tags", async ({
+    page,
+  }) => {
+    await page.goto("/theBuzz/experience");
+    await expect(page.getByRole("heading", { name: "Experience" })).toBeVisible(
+      { timeout: 30000 },
+    );
+
+    await assertBaseSeo(page);
+  });
+
+  test("toolbox page has title/description/canonical/og tags", async ({
+    page,
+  }) => {
     await page.goto("/theBuzz/toolbox");
-    await expect(page.getByRole("heading", { name: "Toolbox" })).toBeVisible({ timeout: 30000 });
+    await expect(page.getByRole("heading", { name: "Toolbox" })).toBeVisible({
+      timeout: 30000,
+    });
 
     await assertBaseSeo(page);
   });

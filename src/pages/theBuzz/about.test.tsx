@@ -7,7 +7,7 @@ describe("About", () => {
     const { container } = render(
       <HelmetProvider>
         <About />
-      </HelmetProvider>
+      </HelmetProvider>,
     );
 
     const paragraphs = Array.from(container.querySelectorAll("p"));

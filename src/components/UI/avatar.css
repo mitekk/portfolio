@@ -1,7 +1,9 @@
 .avatar-image {
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18), 0 1.5px 4px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.18),
+    0 1.5px 4px rgba(0, 0, 0, 0.12);
   border: 2px solid lightgray;
   display: block;
   margin: 0 auto;

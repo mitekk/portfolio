@@ -36,10 +36,10 @@ export const calculateTileSize = (windowWidth: number): number => {
 export const calculateDims = (
   windowWidth: number,
   windowHeight: number,
-  tileSize: number
+  tileSize: number,
 ): Dims => {
   const cols = Math.ceil(
-    (Math.min(windowWidth, MAX_WIDTH) + TILE_GAP) / (tileSize + TILE_GAP)
+    (Math.min(windowWidth, MAX_WIDTH) + TILE_GAP) / (tileSize + TILE_GAP),
   );
 
   const rows = Math.ceil((windowHeight + TILE_GAP) / (tileSize + TILE_GAP));

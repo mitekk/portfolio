@@ -1,10 +1,5 @@
 import { useEffect } from "react";
-import {
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import {
   BuzzPage,
   IntroPage,
@@ -36,10 +31,7 @@ export function AppRoutes() {
         <Route path="toolbox" element={<Toolbox />} />
         <Route path="experience" element={<Experience />} />
       </Route>
-      <Route
-        path={`/${MOBILE_REDIRECT_PATH}`}
-        element={<NotSupportedPage />}
-      />
+      <Route path={`/${MOBILE_REDIRECT_PATH}`} element={<NotSupportedPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

@@ -38,7 +38,7 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
         rows: dims.rows,
         cols: dims.cols,
       },
-      pathPoints
+      pathPoints,
     );
   }, [dims.rows, dims.cols, pathPoints]);
 
@@ -72,11 +72,11 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
     }, 150);
   };
 
-  const isTouch = 'ontouchstart' in window;
+  const isTouch = "ontouchstart" in window;
 
   const gridRef = useRef<HTMLDivElement>(null);
   const [mouseGrid, setMouseGrid] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -113,14 +113,16 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
             top = animated ? finalTop + dims.cols * tileSize : finalTop;
           }
 
-          const isHovered = !isTouch && (() => {
-            const centerX = finalLeft + tileSize / 2;
-            const centerY = finalTop + tileSize / 2;
-            const dist = mouseGrid
-              ? Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY)
-              : Infinity;
-            return dist < tileSize * 4;
-          })();
+          const isHovered =
+            !isTouch &&
+            (() => {
+              const centerX = finalLeft + tileSize / 2;
+              const centerY = finalTop + tileSize / 2;
+              const dist = mouseGrid
+                ? Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY)
+                : Infinity;
+              return dist < tileSize * 4;
+            })();
           const hoverScale = 0.95;
 
           return (

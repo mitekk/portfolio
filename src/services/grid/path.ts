@@ -31,7 +31,7 @@ export const generatePath = (dims: Dims) => {
       dirs = [
         prevDir,
         ...shuffleArray(
-          directions.filter((d) => d[0] !== prevDir[0] || d[1] !== prevDir[1])
+          directions.filter((d) => d[0] !== prevDir[0] || d[1] !== prevDir[1]),
         ),
       ];
     } else {
@@ -56,7 +56,7 @@ export const generatePath = (dims: Dims) => {
 
 export const generateShapes = (
   dims: Dims,
-  path: Point[]
+  path: Point[],
 ): Shape<ShapeKeyPath>[] => {
   const shapes: Shape<ShapeKeyPath>[] = [];
 

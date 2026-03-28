@@ -33,9 +33,10 @@ export const Experience: React.FC = () => {
             </header>
             <p className="font-light">
               Built a platform that allows legal professionals and clients to
-              gather case files and automatically generate referenced, summarized
-              documents. Handled all technical execution, from initial
-              infrastructure setup to production deployment and data security.
+              gather case files and automatically generate referenced,
+              summarized documents. Handled all technical execution, from
+              initial infrastructure setup to production deployment and data
+              security.
             </p>
           </article>
 
@@ -146,8 +147,8 @@ export const Experience: React.FC = () => {
             </header>
             <p className="font-light">
               Contributed to a highly structured enterprise codebase. Focused on
-              writing testable code, conducting rigorous reviews, and maintaining
-              strict engineering and version control standards.
+              writing testable code, conducting rigorous reviews, and
+              maintaining strict engineering and version control standards.
             </p>
           </article>
 

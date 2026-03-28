@@ -1,9 +1,4 @@
-import {
-  useCallback,
-  useLayoutEffect,
-  useState,
-  type ReactNode,
-} from "react";
+import { useCallback, useLayoutEffect, useState, type ReactNode } from "react";
 import { LayoutContext } from "../context";
 import type { Dims, GridSize } from "../context/layout";
 import { MAX_WIDTH, TILE_GAP } from "../constants";
@@ -37,7 +32,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       setGridSize({
         width: Math.min(
           dims.cols * tileSize + (dims.cols - 1) * TILE_GAP,
-          MAX_WIDTH
+          MAX_WIDTH,
         ),
         height: dims.rows * tileSize + (dims.rows - 1) * TILE_GAP,
       });

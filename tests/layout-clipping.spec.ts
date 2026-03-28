@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 /**
  * These tests guard against the layout clipping regression where the background
@@ -10,9 +10,9 @@ import { test, expect } from '@playwright/test';
  */
 
 const viewports = [
-  { label: 'small desktop', width: 1280, height: 720 },
-  { label: 'standard desktop', width: 1440, height: 900 },
-  { label: 'large desktop', width: 1920, height: 1080 },
+  { label: "small desktop", width: 1280, height: 720 },
+  { label: "standard desktop", width: 1440, height: 900 },
+  { label: "large desktop", width: 1920, height: 1080 },
 ];
 
 for (const vp of viewports) {
@@ -21,15 +21,17 @@ for (const vp of viewports) {
 
     // ── BuzzPage overlay ──────────────────────────────────────────────────────
 
-    test('buzz overlay does not extend below the viewport', async ({ page }) => {
-      await page.goto('/theBuzz/about');
-      await page.locator('nav').waitFor({ state: 'visible' });
+    test("buzz overlay does not extend below the viewport", async ({
+      page,
+    }) => {
+      await page.goto("/theBuzz/about");
+      await page.locator("nav").waitFor({ state: "visible" });
 
       // The fixed overlay wraps the nav — its bottom must equal the viewport height.
       // Before the fix (absolute inset-0 relative to the grid div) the overlay
       // extended to gridSize.height which can exceed the viewport by ~36–80 px.
       const overlayBottom = await page.evaluate(() => {
-        const nav = document.querySelector('nav')!;
+        const nav = document.querySelector("nav")!;
         // Walk up to the fixed overlay div (nav → wrapper div → fixed div)
         const overlay = nav.closest<HTMLElement>('[class*="fixed"]');
         if (!overlay) return null;
@@ -40,12 +42,12 @@ for (const vp of viewports) {
       expect(overlayBottom!).toBeCloseTo(vp.height, 1);
     });
 
-    test('buzz overlay starts at the top of the viewport', async ({ page }) => {
-      await page.goto('/theBuzz/about');
-      await page.locator('nav').waitFor({ state: 'visible' });
+    test("buzz overlay starts at the top of the viewport", async ({ page }) => {
+      await page.goto("/theBuzz/about");
+      await page.locator("nav").waitFor({ state: "visible" });
 
       const overlayTop = await page.evaluate(() => {
-        const nav = document.querySelector('nav')!;
+        const nav = document.querySelector("nav")!;
         const overlay = nav.closest<HTMLElement>('[class*="fixed"]');
         if (!overlay) return null;
         return overlay.getBoundingClientRect().top;
@@ -57,20 +59,24 @@ for (const vp of viewports) {
 
     // ── Toolbox scroll coverage ───────────────────────────────────────────────
 
-    test('toolbox: AI section heading is reachable by scrolling', async ({ page }) => {
-      await page.goto('/theBuzz/toolbox');
-      await page.locator('nav').waitFor({ state: 'visible' });
+    test("toolbox: AI section heading is reachable by scrolling", async ({
+      page,
+    }) => {
+      await page.goto("/theBuzz/toolbox");
+      await page.locator("nav").waitFor({ state: "visible" });
 
-      const aiHeading = page.getByRole('heading', { name: 'AI' });
+      const aiHeading = page.getByRole("heading", { name: "AI" });
       await aiHeading.scrollIntoViewIfNeeded();
       await expect(aiHeading).toBeInViewport();
     });
 
-    test('toolbox: last tool items (Claude, Codex) are reachable by scrolling', async ({ page }) => {
-      await page.goto('/theBuzz/toolbox');
-      await page.locator('nav').waitFor({ state: 'visible' });
+    test("toolbox: last tool items (Claude, Codex) are reachable by scrolling", async ({
+      page,
+    }) => {
+      await page.goto("/theBuzz/toolbox");
+      await page.locator("nav").waitFor({ state: "visible" });
 
-      for (const name of ['Claude', 'Codex']) {
+      for (const name of ["Claude", "Codex"]) {
         const item = page.getByText(name, { exact: true }).last();
         await item.scrollIntoViewIfNeeded();
         await expect(item).toBeInViewport();
@@ -79,12 +85,14 @@ for (const vp of viewports) {
 
     // ── Intro page overlay ────────────────────────────────────────────────────
 
-    test('intro overlay does not extend below the viewport', async ({ page }) => {
-      await page.goto('/');
+    test("intro overlay does not extend below the viewport", async ({
+      page,
+    }) => {
+      await page.goto("/");
 
       // Wait for the intro overlay to appear (rendered after the grid animation)
-      const overlay = page.locator('.intro-overlay');
-      await overlay.waitFor({ state: 'visible', timeout: 15000 });
+      const overlay = page.locator(".intro-overlay");
+      await overlay.waitFor({ state: "visible", timeout: 15000 });
 
       const box = await overlay.boundingBox();
       expect(box).not.toBeNull();

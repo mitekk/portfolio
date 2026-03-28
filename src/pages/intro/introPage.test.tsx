@@ -1,4 +1,10 @@
-import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { useEffect } from "react";
 import { HelmetProvider } from "react-helmet-async";
@@ -23,7 +29,11 @@ vi.mock("../../components/prompter/prompter", () => ({
 }));
 
 vi.mock("../../components/grid", () => ({
-  TetrominoesGrid: ({ onAnimationFinish }: { onAnimationFinish?: () => void }) => {
+  TetrominoesGrid: ({
+    onAnimationFinish,
+  }: {
+    onAnimationFinish?: () => void;
+  }) => {
     useEffect(() => {
       onAnimationFinish?.();
     }, [onAnimationFinish]);
@@ -54,11 +64,14 @@ const renderIntroPage = (user = userEvent.setup()) => {
               path="/theBuzz"
               element={<Navigate to="/theBuzz/about" replace />}
             />
-            <Route path="/theBuzz/about" element={<div>about-destination</div>} />
+            <Route
+              path="/theBuzz/about"
+              element={<div>about-destination</div>}
+            />
           </Routes>
         </MemoryRouter>
       </LayoutContext.Provider>
-    </HelmetProvider>
+    </HelmetProvider>,
   );
 
   return { user };
@@ -100,7 +113,9 @@ describe("IntroPage", () => {
       vi.advanceTimersByTime(500);
     });
 
-    expect(screen.getByRole("button", { name: "Get to know me" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Get to know me" }),
+    ).toBeInTheDocument();
   });
 
   test("CTA click navigates to /theBuzz/about after delayed navigate", async () => {

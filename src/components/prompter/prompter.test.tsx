@@ -20,7 +20,7 @@ describe("Prompter", () => {
 
   test("starts empty and progressively reveals text", () => {
     const { container } = render(
-      <Prompter prompt={{ lines: [{ text: "Hello" }] }} />
+      <Prompter prompt={{ lines: [{ text: "Hello" }] }} />,
     );
 
     expect(container.textContent).not.toContain("Hello");
@@ -40,7 +40,7 @@ describe("Prompter", () => {
       <Prompter
         prompt={{ lines: [{ text: "Hello" }] }}
         onAnimationFinish={onComplete}
-      />
+      />,
     );
 
     await flushTyping();

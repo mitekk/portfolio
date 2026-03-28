@@ -51,11 +51,11 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
     }, 150);
   };
 
-  const isTouch = 'ontouchstart' in window;
+  const isTouch = "ontouchstart" in window;
 
   const gridRef = useRef<HTMLDivElement>(null);
   const [mouseGrid, setMouseGrid] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
 
   useEffect(() => {
@@ -93,14 +93,16 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
             top = animated ? finalTop + window.innerHeight * 2 : finalTop;
           }
 
-          const isHovered = !isTouch && (() => {
-            const centerX = finalLeft + tileSize;
-            const centerY = finalTop + tileSize;
-            const dist = mouseGrid
-              ? Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY)
-              : Infinity;
-            return dist < tileSize * 4;
-          })();
+          const isHovered =
+            !isTouch &&
+            (() => {
+              const centerX = finalLeft + tileSize;
+              const centerY = finalTop + tileSize;
+              const dist = mouseGrid
+                ? Math.hypot(mouseGrid.x - centerX, mouseGrid.y - centerY)
+                : Infinity;
+              return dist < tileSize * 4;
+            })();
           const hoverScale = 1.2;
 
           return (

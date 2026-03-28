@@ -5,7 +5,10 @@ interface ContentPanelProps {
   className?: string;
 }
 
-export const ContentPanel: React.FC<ContentPanelProps> = ({ children, className }) => (
+export const ContentPanel: React.FC<ContentPanelProps> = ({
+  children,
+  className,
+}) => (
   <div
     style={{
       backgroundColor: "rgba(255,255,255,0.55)",

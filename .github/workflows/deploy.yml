@@ -1,21 +1,20 @@
-# .github/workflows/deploy.yml
-
-name: Deploy to GitHub Pages
+name: CI
 
 on:
+  pull_request:
   push:
     branches: [master]
 
 permissions:
-  pages: write # 👈 needed for the deploy-pages action
-  id-token: write # 👈 required for authentication with GitHub Pages
+  contents: read
+  checks: write
 
 concurrency:
-  group: "pages"
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -25,57 +24,63 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: "npm"
+          cache: npm
+
+      - name: Restore Playwright browser cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright Chromium
-        run: npx playwright install chromium
+      - name: Run lint
+        run: npm run lint
 
-      - name: Build Vite site
+      - name: Run formatting checks
+        run: npm run format:check
+
+      - name: Build app
         run: npm run build
 
-      - name: Install Chromium
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y chromium-browser || sudo apt-get install -y chromium
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
 
-      - name: Resolve Chromium path
-        run: |
-          if command -v chromium-browser >/dev/null 2>&1; then
-            echo "CHROME_PATH=$(command -v chromium-browser)" >> "$GITHUB_ENV"
-          elif command -v chromium >/dev/null 2>&1; then
-            echo "CHROME_PATH=$(command -v chromium)" >> "$GITHUB_ENV"
-          else
-            echo "Chromium binary not found"
-            exit 1
-          fi
+      - name: Run unit tests
+        run: npm run test:unit:ci
 
-      - name: Run all tests
-        run: npm test
+      - name: Run e2e tests
+        run: npm run test:e2e:ci
 
       - name: Run Lighthouse CI
         run: npm run lhci:autorun
 
+      - name: Publish test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Test Results
+          path: test-results/*.xml
+          reporter: java-junit
+          fail-on-error: true
+
       - name: Upload Lighthouse reports
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: lighthouse-reports
           path: .lighthouseci/
+          if-no-files-found: warn
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          path: "./dist"
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          name: playwright-report
+          path: |
+            playwright-report/
+            playwright-test-results/
+          if-no-files-found: warn

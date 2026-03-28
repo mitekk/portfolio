@@ -1,0 +1,21 @@
+# Build artifacts and generated outputs
+dist
+coverage
+playwright-report
+test-results
+.lighthouseci
+.vite
+node_modules
+
+# Non-code content outside CI formatting scope
+docs
+.claude
+.superpowers
+README.md
+LICENSE
+*.md
+
+# Local and VCS metadata
+.git
+.worktrees
+.DS_Store

@@ -13,10 +13,10 @@ import type {
 
 const createEmptyGrid = (
   rows: number,
-  cols: number
+  cols: number,
 ): Grid<ShapeKeyTetrominoes> =>
   Array.from({ length: rows }, () =>
-    Array<Cell<ShapeKeyTetrominoes> | null>(cols).fill(null)
+    Array<Cell<ShapeKeyTetrominoes> | null>(cols).fill(null),
   );
 
 const findNextEmpty = (grid: Grid<ShapeKeyTetrominoes>): Point | null => {
@@ -32,7 +32,7 @@ const canPlaceChunk = (
   grid: Grid<ShapeKeyTetrominoes>,
   rowPosition: number,
   colPosition: number,
-  size: number
+  size: number,
 ): boolean => {
   const rows = grid.length;
   const cols = grid[0].length;
@@ -47,7 +47,7 @@ const canPlaceChunk = (
 
 const rotatePoint = (
   { x, y }: Point,
-  rotation: ShapeRotation
+  rotation: ShapeRotation,
 ): { x: number; y: number } => {
   switch (rotation % 4) {
     case 0:
@@ -69,14 +69,14 @@ const applyTemplate = (
   grid: Grid<ShapeKeyTetrominoes>,
   rowPosition: number,
   colPosition: number,
-  placement: TemplatePlacement[]
+  placement: TemplatePlacement[],
 ) =>
   placement.map(({ shape, rotation, anchor }) => {
     const shapeId = nextShapeId++;
 
     const baseOffsets = BASE_SHAPES[shape as ShapeKeyTetrominoes];
     const rotatedOffsets = baseOffsets.map((basePoint) =>
-      rotatePoint(basePoint, rotation)
+      rotatePoint(basePoint, rotation),
     );
     const minX = Math.min(...rotatedOffsets.map((basePoint) => basePoint.x));
     const minY = Math.min(...rotatedOffsets.map((basePoint) => basePoint.y));
@@ -125,7 +125,7 @@ const chooseTemplate = (size: TemplateSize): TemplatePlacement[] => {
 
 export function generateTiledGrid(
   rows: number,
-  cols: number
+  cols: number,
 ): Shape<ShapeKeyTetrominoes>[] {
   nextShapeId = 1;
   const grid = createEmptyGrid(rows, cols);
@@ -140,7 +140,7 @@ export function generateTiledGrid(
       if (canPlaceChunk(grid, rowPosition, colPosition, size)) {
         const template = chooseTemplate(size);
         gridShapes.push(
-          ...applyTemplate(grid, rowPosition, colPosition, template)
+          ...applyTemplate(grid, rowPosition, colPosition, template),
         );
         placed = true;
         break;
@@ -148,7 +148,7 @@ export function generateTiledGrid(
     }
     if (!placed) {
       throw new Error(
-        `Unable to place chunk at (${rowPosition},${colPosition})`
+        `Unable to place chunk at (${rowPosition},${colPosition})`,
       );
     }
   }

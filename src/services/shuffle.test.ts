@@ -6,7 +6,9 @@ describe("shuffleArray", () => {
     const shuffled = shuffleArray(input);
 
     expect(shuffled).toHaveLength(input.length);
-    expect([...shuffled].sort((a, b) => a - b)).toEqual([...input].sort((a, b) => a - b));
+    expect([...shuffled].sort((a, b) => a - b)).toEqual(
+      [...input].sort((a, b) => a - b),
+    );
   });
 
   test("empty array returns empty array", () => {

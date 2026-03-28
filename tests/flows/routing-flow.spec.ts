@@ -7,7 +7,7 @@ test.describe("routing flow (desktop-large)", () => {
     await page.goto("/not-supported");
 
     await expect(
-      page.getByRole("heading", { name: "Tiny Screens Ahead" })
+      page.getByRole("heading", { name: "Tiny Screens Ahead" }),
     ).toBeVisible();
     await expect(page.getByRole("button", { name: /My CV/i })).toBeVisible();
   });
@@ -22,11 +22,13 @@ test.describe("routing flow (desktop-large)", () => {
     await page.goto("/does-not-exist");
 
     await expect(
-      page.getByRole("heading", { name: "404 - Not Found" })
+      page.getByRole("heading", { name: "404 - Not Found" }),
     ).toBeVisible();
   });
 
-  test("sessionStorage.redirect sends user to /theBuzz/experience and clears key", async ({ page }) => {
+  test("sessionStorage.redirect sends user to /theBuzz/experience and clears key", async ({
+    page,
+  }) => {
     await page.addInitScript(() => {
       sessionStorage.setItem("redirect", "/theBuzz/experience");
     });
@@ -35,7 +37,9 @@ test.describe("routing flow (desktop-large)", () => {
 
     await expect(page).toHaveURL(/\/theBuzz\/experience$/, { timeout: 30000 });
 
-    const redirectValue = await page.evaluate(() => sessionStorage.getItem("redirect"));
+    const redirectValue = await page.evaluate(() =>
+      sessionStorage.getItem("redirect"),
+    );
     expect(redirectValue).toBeNull();
   });
 });

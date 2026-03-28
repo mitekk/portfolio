@@ -7,16 +7,20 @@ describe("Toolbox", () => {
     render(
       <HelmetProvider>
         <Toolbox />
-      </HelmetProvider>
+      </HelmetProvider>,
     );
 
     const headings = screen.getAllByRole("heading", { level: 2 });
-    const headingText = headings.map((heading) => heading.textContent?.trim() ?? "");
+    const headingText = headings.map(
+      (heading) => heading.textContent?.trim() ?? "",
+    );
 
     expect(headingText).toHaveLength(7);
     expect(new Set(headingText).size).toBe(7);
 
-    const sections = Array.from(document.querySelectorAll("section[aria-labelledby]"));
+    const sections = Array.from(
+      document.querySelectorAll("section[aria-labelledby]"),
+    );
     sections.forEach((section) => {
       expect(section.querySelectorAll("img").length).toBeGreaterThan(0);
     });

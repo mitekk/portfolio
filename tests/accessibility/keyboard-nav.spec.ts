@@ -9,26 +9,36 @@ for (const viewport of viewports) {
   test.describe(`keyboard navigation (${viewport.label})`, () => {
     test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
-    test("ArrowDown and ArrowUp navigate sections in order", async ({ page }) => {
+    test("ArrowDown and ArrowUp navigate sections in order", async ({
+      page,
+    }) => {
       await page.goto("/theBuzz/about");
       await expect(page.locator("nav")).toBeVisible({ timeout: 30000 });
 
       await page.keyboard.press("ArrowDown");
       await expect(page).toHaveURL(/\/theBuzz\/experience$/);
-      await expect(page.locator("nav .nav-link.active")).toContainText("experience");
+      await expect(page.locator("nav .nav-link.active")).toContainText(
+        "experience",
+      );
       await page.keyboard.press("ArrowDown");
       await expect(page).toHaveURL(/\/theBuzz\/toolbox$/);
-      await expect(page.locator("nav .nav-link.active")).toContainText("toolbox");
+      await expect(page.locator("nav .nav-link.active")).toContainText(
+        "toolbox",
+      );
 
       await page.keyboard.press("ArrowUp");
       await expect(page).toHaveURL(/\/theBuzz\/experience$/);
-      await expect(page.locator("nav .nav-link.active")).toContainText("experience");
+      await expect(page.locator("nav .nav-link.active")).toContainText(
+        "experience",
+      );
       await page.keyboard.press("ArrowUp");
       await expect(page).toHaveURL(/\/theBuzz\/about$/);
       await expect(page.locator("nav .nav-link.active")).toContainText("about");
     });
 
-    test("Tab moves focus across interactive elements without trapping", async ({ page }) => {
+    test("Tab moves focus across interactive elements without trapping", async ({
+      page,
+    }) => {
       await page.goto("/theBuzz/about");
       await expect(page.locator("nav")).toBeVisible({ timeout: 30000 });
 
@@ -50,7 +60,9 @@ for (const viewport of viewports) {
 
       expect(focusedElements.size).toBeGreaterThan(1);
 
-      const bodyFocused = await page.evaluate(() => document.activeElement === document.body);
+      const bodyFocused = await page.evaluate(
+        () => document.activeElement === document.body,
+      );
       expect(bodyFocused).toBe(false);
     });
 

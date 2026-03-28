@@ -7,7 +7,10 @@ describe("generatePath", () => {
     const path = generatePath(dims);
 
     expect(path[0]).toEqual({ x: 0, y: 0 });
-    expect(path[path.length - 1]).toEqual({ x: dims.rows - 1, y: dims.cols - 1 });
+    expect(path[path.length - 1]).toEqual({
+      x: dims.rows - 1,
+      y: dims.cols - 1,
+    });
   });
 
   test("consecutive points are always adjacent", () => {
@@ -16,7 +19,8 @@ describe("generatePath", () => {
     for (let index = 0; index < path.length - 1; index++) {
       const current = path[index];
       const next = path[index + 1];
-      const manhattan = Math.abs(current.x - next.x) + Math.abs(current.y - next.y);
+      const manhattan =
+        Math.abs(current.x - next.x) + Math.abs(current.y - next.y);
 
       expect(manhattan).toBe(1);
     }
@@ -49,7 +53,14 @@ describe("generateShapes", () => {
 
     const shapes = generateShapes(dims, path);
     const pathCells = new Set(path.map((point) => `${point.x},${point.y}`));
-    const nonPathKeys = new Set(["mountain", "tree", "tree2", "rhino", "house", "empty"]);
+    const nonPathKeys = new Set([
+      "mountain",
+      "tree",
+      "tree2",
+      "rhino",
+      "house",
+      "empty",
+    ]);
 
     expect(shapes).toHaveLength(dims.rows * dims.cols);
 
@@ -79,7 +90,7 @@ describe("getPathData", () => {
         { x: 0, y: 0 },
         { x: 0, y: 1 },
       ],
-      20
+      20,
     );
 
     expect(data.startsWith("M ")).toBe(true);
@@ -93,7 +104,7 @@ describe("getPathData", () => {
         { x: 0, y: 1 },
         { x: 1, y: 1 },
       ],
-      20
+      20,
     );
 
     expect(data.startsWith("M ")).toBe(true);

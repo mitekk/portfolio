@@ -9,13 +9,17 @@ for (const viewport of viewports) {
   test.describe(`intro flow (${viewport.label})`, () => {
     test.use({ viewport: { width: viewport.width, height: viewport.height } });
 
-    test("prompter completes, mode toggles, and CTA navigates to /theBuzz/about", async ({ page }) => {
+    test("prompter completes, mode toggles, and CTA navigates to /theBuzz/about", async ({
+      page,
+    }) => {
       await page.goto("/");
 
       const overlay = page.locator(".intro-overlay");
       await expect(overlay).toBeVisible({ timeout: 30000 });
 
-      await expect(page.getByText(/Hi, I'm Mitya/i)).toBeVisible({ timeout: 30000 });
+      await expect(page.getByText(/Hi, I'm Mitya/i)).toBeVisible({
+        timeout: 30000,
+      });
 
       const cta = page.getByRole("button", { name: "Get to know me" });
       await expect(cta).toBeVisible({ timeout: 30000 });

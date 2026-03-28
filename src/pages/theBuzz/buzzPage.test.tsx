@@ -37,7 +37,7 @@ const renderBuzzPage = (width: number) => {
           </Routes>
         </MemoryRouter>
       </LayoutContext.Provider>
-    </HelmetProvider>
+    </HelmetProvider>,
   );
 };
 

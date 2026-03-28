@@ -22,7 +22,7 @@ export const GameOfLifeGrid: React.FC<GameOfLifeGridProps> = ({
 }) => {
   const { dims, gridSize, tileSize } = useContext(LayoutContext);
   const [grid, setGrid] = useState<Grid<ShapeKeyGameOfLife>>(() =>
-    generateGameOfLifeGrid({ rows: dims.rows, cols: dims.cols })
+    generateGameOfLifeGrid({ rows: dims.rows, cols: dims.cols }),
   );
   const [animated, setAnimated] = useState(false);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -39,7 +39,7 @@ export const GameOfLifeGrid: React.FC<GameOfLifeGridProps> = ({
       generateGameOfLifeGrid({
         rows: dims.rows,
         cols: dims.cols,
-      })
+      }),
     );
   }, [dims.rows, dims.cols]);
 

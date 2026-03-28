@@ -2,7 +2,9 @@
 .button-slide {
   opacity: 0;
   transform: translateX(80px); /* for avatar-slide */
-  transition: opacity 0.5s, transform 0.5s;
+  transition:
+    opacity 0.5s,
+    transform 0.5s;
   pointer-events: none;
 }
 

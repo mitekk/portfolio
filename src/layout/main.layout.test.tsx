@@ -50,9 +50,10 @@ describe("MainLayout render gate", () => {
 
   test("children are hidden when grid size is not computed", async () => {
     vi.doMock("./mainLayoutMath", async () => {
-      const actual = await vi.importActual<typeof import("./mainLayoutMath")>(
-        "./mainLayoutMath"
-      );
+      const actual =
+        await vi.importActual<typeof import("./mainLayoutMath")>(
+          "./mainLayoutMath",
+        );
 
       return {
         ...actual,
@@ -66,7 +67,7 @@ describe("MainLayout render gate", () => {
     render(
       <MainLayout>
         <div>child-content</div>
-      </MainLayout>
+      </MainLayout>,
     );
 
     expect(screen.queryByText("child-content")).not.toBeInTheDocument();
@@ -74,9 +75,10 @@ describe("MainLayout render gate", () => {
 
   test("children appear and layout context is available once grid size exists", async () => {
     vi.doMock("./mainLayoutMath", async () => {
-      const actual = await vi.importActual<typeof import("./mainLayoutMath")>(
-        "./mainLayoutMath"
-      );
+      const actual =
+        await vi.importActual<typeof import("./mainLayoutMath")>(
+          "./mainLayoutMath",
+        );
 
       return {
         ...actual,
@@ -101,7 +103,7 @@ describe("MainLayout render gate", () => {
     render(
       <MainLayout>
         <Consumer />
-      </MainLayout>
+      </MainLayout>,
     );
 
     await waitFor(() => {

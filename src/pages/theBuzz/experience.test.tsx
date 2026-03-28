@@ -7,7 +7,7 @@ describe("Experience", () => {
     const { container } = render(
       <HelmetProvider>
         <Experience />
-      </HelmetProvider>
+      </HelmetProvider>,
     );
 
     const entries = Array.from(container.querySelectorAll("article"));
@@ -15,12 +15,18 @@ describe("Experience", () => {
     expect(entries).toHaveLength(7);
 
     entries.forEach((entry) => {
-      expect(entry.querySelector("h2")?.textContent?.trim().length).toBeGreaterThan(0);
-      expect(entry.querySelector("p")?.textContent?.trim().length).toBeGreaterThan(0);
+      expect(
+        entry.querySelector("h2")?.textContent?.trim().length,
+      ).toBeGreaterThan(0);
+      expect(
+        entry.querySelector("p")?.textContent?.trim().length,
+      ).toBeGreaterThan(0);
       expect(entry.querySelector("ul")).toBeTruthy();
     });
 
-    const headingTexts = screen.getAllByRole("heading", { level: 2 }).map((el) => el.textContent);
+    const headingTexts = screen
+      .getAllByRole("heading", { level: 2 })
+      .map((el) => el.textContent);
     expect(headingTexts[0]).toContain("LawPDF");
     expect(headingTexts[headingTexts.length - 1]).toContain("Bynet");
   });

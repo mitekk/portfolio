@@ -109,9 +109,7 @@ export const Toolbox: React.FC = () => {
       <SeoHead meta={routeSeo.toolbox} />
       <SectionLayout>
         <ContentPanel className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
-          <h1 className="col-span-full">
-            Toolbox
-          </h1>
+          <h1 className="col-span-full">Toolbox</h1>
           {skills.map((skill) => (
             <section
               key={skill.title}

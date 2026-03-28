@@ -6,7 +6,9 @@ describe("Button", () => {
   test("renders label text", () => {
     render(<Button>Click me</Button>);
 
-    expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Click me" }),
+    ).toBeInTheDocument();
   });
 
   test("fires onClick when clicked", async () => {

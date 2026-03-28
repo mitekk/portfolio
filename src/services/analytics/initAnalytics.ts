@@ -59,14 +59,17 @@ export function initAnalytics(): void {
     const idleScheduler = window as Window & {
       requestIdleCallback?: (
         callback: () => void,
-        options?: { timeout: number }
+        options?: { timeout: number },
       ) => number;
     };
 
     if (typeof idleScheduler.requestIdleCallback === "function") {
-      idleScheduler.requestIdleCallback(() => {
-        void startAnalytics();
-      }, { timeout: 2500 });
+      idleScheduler.requestIdleCallback(
+        () => {
+          void startAnalytics();
+        },
+        { timeout: 2500 },
+      );
       return;
     }
 
