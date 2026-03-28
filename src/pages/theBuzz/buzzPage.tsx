@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { sections, links } from "../../components/navbar/navData";
 import { WavesGrid } from "../../components/grid";
@@ -77,7 +77,9 @@ export const BuzzPage: React.FC = () => {
               key={location.pathname}
               className="flex-1 min-h-0 transition-opacity duration-700 opacity-0 animate-fadein mx-2 md:mx-5 overflow-auto"
             >
-              <Outlet />
+              <Suspense fallback={null}>
+                <Outlet />
+              </Suspense>
             </div>
 
             {/* Mobile-only footer: icons only */}

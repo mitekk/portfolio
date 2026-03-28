@@ -106,11 +106,11 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
           const finalTop = shape.points[0].x * (tileSize + TILE_GAP);
           const finalLeft = shape.points[0].y * (tileSize + TILE_GAP);
 
-          let top;
+          let translateY: number;
           if (!removeTiles) {
-            top = animated ? finalTop : -tileSize;
+            translateY = animated ? 0 : -tileSize;
           } else {
-            top = animated ? finalTop + dims.cols * tileSize : finalTop;
+            translateY = animated ? dims.cols * tileSize : 0;
           }
 
           const isHovered =
@@ -126,30 +126,47 @@ export const RoadTripGrid: React.FC<RoadTripProps> = ({
           const hoverScale = 0.95;
 
           return (
-            <TiledShape
+            <div
               key={`${shape.id}`}
-              shape={shape}
-              top={top}
-              left={finalLeft}
-              styles={{
-                transition: `top 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) ${
+              style={{
+                position: "absolute",
+                left: finalLeft,
+                top: finalTop,
+                transform: `translateY(${translateY}px)`,
+                transition: `transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) ${
                   (shapes.length - idx) * 0.001
-                }s, transform 0.5s cubic-bezier(.4,0,.2,1)`,
-                transform: isHovered ? `scale(${hoverScale})` : "scale(1)",
+                }s`,
               }}
-              onAnimationEnd={handleGridAnimationEnd}
+              onTransitionEnd={(e) => {
+                if (
+                  e.target === e.currentTarget &&
+                  e.propertyName === "transform"
+                ) {
+                  handleGridAnimationEnd();
+                }
+              }}
             >
-              {shape.points.map(({ x, y }) => (
-                <RoadTripTile
-                  key={`${x}-${y}-${shape.key}`}
-                  shape={shape.key}
-                  style={{
-                    left: (y - shape.points[0].y) * (tileSize + TILE_GAP),
-                    top: (x - shape.points[0].x) * (tileSize + TILE_GAP),
-                  }}
-                />
-              ))}
-            </TiledShape>
+              <TiledShape
+                shape={shape}
+                top={0}
+                left={0}
+                styles={{
+                  transition: "transform 0.5s cubic-bezier(.4,0,.2,1)",
+                  transform: isHovered ? `scale(${hoverScale})` : "scale(1)",
+                }}
+              >
+                {shape.points.map(({ x, y }) => (
+                  <RoadTripTile
+                    key={`${x}-${y}-${shape.key}`}
+                    shape={shape.key}
+                    style={{
+                      left: (y - shape.points[0].y) * (tileSize + TILE_GAP),
+                      top: (x - shape.points[0].x) * (tileSize + TILE_GAP),
+                    }}
+                  />
+                ))}
+              </TiledShape>
+            </div>
           );
         })}
       </div>

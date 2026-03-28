@@ -54,16 +54,6 @@ export const routeSeo = {
     ogImage: DEFAULT_OG_IMAGE,
     twitterCard: "summary_large_image",
   },
-  notSupported: {
-    title: "Screen Size Not Supported | Mitya Kurs",
-    description:
-      "This page is shown when the current screen size is not supported. Download Mitya Kurs's CV directly from here.",
-    path: "/not-supported",
-    canonical: toCanonical("/not-supported"),
-    indexable: false,
-    ogImage: DEFAULT_OG_IMAGE,
-    twitterCard: "summary",
-  },
   notFound: {
     title: "404 Not Found | Mitya Kurs",
     description: "The requested page was not found on Mitya Kurs's portfolio.",
@@ -74,7 +64,7 @@ export const routeSeo = {
     twitterCard: "summary",
   },
 } satisfies Record<
-  "home" | "about" | "experience" | "toolbox" | "notSupported" | "notFound",
+  "home" | "about" | "experience" | "toolbox" | "notFound",
   RouteSeo
 >;
 

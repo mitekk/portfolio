@@ -53,21 +53,14 @@ describe("AppRoutes", () => {
     });
   });
 
-  test("/not-supported renders NotSupportedPage with CV action", async () => {
-    renderRoutes("/not-supported");
-
-    expect(
-      screen.getByRole("heading", { name: "Tiny Screens Ahead" }),
-    ).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: /My CV/i })).toBeInTheDocument();
-  });
-
   test("unknown path renders NotFoundPage", async () => {
     renderRoutes("/does-not-exist");
 
-    expect(
-      screen.getByRole("heading", { name: "404 - Not Found" }),
-    ).toBeInTheDocument();
+    await waitFor(() => {
+      expect(
+        screen.getByRole("heading", { name: "404 - Not Found" }),
+      ).toBeInTheDocument();
+    });
   });
 
   test("sessionStorage redirect navigates and clears key", async () => {

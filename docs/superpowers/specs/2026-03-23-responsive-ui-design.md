@@ -126,6 +126,5 @@ The existing `md:flex-4` on the nav-links wrapper is replaced with `flex-1` for 
 ## Out of Scope
 
 - No changes to wave grid, tetromino grid, or game-of-life
-- No changes to the NotSupportedPage redirect logic
+- No changes to route-level navigation logic
 - No new dependencies
-

@@ -283,7 +283,6 @@ All component tests use `MemoryRouter` when navigation is involved.
 - `/` renders IntroPage
 - `/theBuzz` redirects to `/theBuzz/about`
 - `/theBuzz/about` renders About content
-- `/not-supported` renders NotSupportedPage with CV download link
 - Unknown path renders NotFoundPage
 - If `sessionStorage.redirect` is set to `/theBuzz/experience` before mount, navigates to `/theBuzz/experience` and clears the sessionStorage key
 
@@ -305,7 +304,7 @@ All component tests use `MemoryRouter` when navigation is involved.
 | Tablet | 900×700 | Below nav breakpoint (768px), no auto-redirect |
 | Mobile | 375×812 | Small screen, no auto-redirect |
 
-**Important:** The site does NOT auto-redirect small viewports to `/not-supported`. That route is accessible via direct navigation only. All viewport sizes render the full site with smaller tiles.
+**Important:** The site does NOT auto-redirect small viewports to any alternate route. All viewport sizes render the full site with smaller tiles.
 
 Flow and content specs run on Desktop large + Desktop small.
 Responsive and accessibility specs also run on Tablet + Mobile.
@@ -328,7 +327,6 @@ Responsive and accessibility specs also run on Tablet + Mobile.
 - Browser back/forward buttons work correctly between sections
 
 ### `routing-flow.spec.ts` (Desktop large)
-- Navigating directly to `/not-supported` renders the page with CV download link
 - CV download link returns HTTP 200 (`/Mitya_Kurs.pdf`)
 - Navigating to an unknown path (`/does-not-exist`) renders the 404 page
 - sessionStorage redirect: set `sessionStorage.redirect = '/theBuzz/experience'`, navigate to `/`, assert redirect to `/theBuzz/experience` and sessionStorage key is removed

@@ -1,5 +1,6 @@
 import { useContext, useState, type ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Prompter } from "../../components/prompter/prompter";
 import { PromptLines } from "../../assets/prompts";
 import { Avatar, Button } from "../../components/UI";
@@ -55,6 +56,9 @@ export const IntroPage: React.FC = () => {
           meta={routeSeo.home}
           jsonLd={[personStructuredData, websiteStructuredData]}
         />
+        <Helmet>
+          <link rel="preload" as="image" href={avatarImg} />
+        </Helmet>
         <h1
           style={{
             position: "absolute",
@@ -91,6 +95,7 @@ export const IntroPage: React.FC = () => {
                     width={500}
                     height={500}
                     loading="eager"
+                    fetchPriority="high"
                     className="flex items-center saturate-100 w-28 h-28 sm:w-32 sm:h-32 md:w-40 md:h-40 lg:w-52 lg:h-52 !mr-0"
                   />
                 </div>
