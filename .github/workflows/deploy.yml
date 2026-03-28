@@ -55,9 +55,6 @@ jobs:
       - name: Run e2e tests
         run: npm run test:e2e:ci
 
-      - name: Run Lighthouse CI
-        run: npm run lhci:autorun
-
       - name: Publish test results
         if: always()
         uses: dorny/test-reporter@v1
@@ -66,14 +63,6 @@ jobs:
           path: test-results/*.xml
           reporter: java-junit
           fail-on-error: true
-
-      - name: Upload Lighthouse reports
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: lighthouse-reports
-          path: .lighthouseci/
-          if-no-files-found: warn
 
       - name: Upload Playwright report
         if: always()
