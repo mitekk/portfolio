@@ -23,7 +23,7 @@ export const IntroPage: React.FC = () => {
   const [dropFinished, setDropFinished] = useState(false);
   const [promptFinished, setPromptFinished] = useState(false);
   const [introFinished, setIntroFinished] = useState(false);
-  const { dims, gridSize } = useContext(LayoutContext);
+  const { dims } = useContext(LayoutContext);
   const [selectedMode, setSelectedMode] = useState<GameMode>(
     GAME_MODE_OPTIONS[0],
   );
@@ -78,11 +78,7 @@ export const IntroPage: React.FC = () => {
         {gridByType[selectedMode]()}
         {dropFinished && !introFinished && (
           <div
-            style={{
-              width: `${gridSize?.width}px`,
-              height: `${gridSize?.height}px`,
-            }}
-            className={`z-[2] flex flex-col justify-center items-center absolute top-0 left-0 m-0 mx-auto intro-overlay${
+            className={`z-[2] flex flex-col justify-center items-center fixed inset-0 intro-overlay${
               introFinished ? " intro-animate-out" : ""
             }`}
           >

@@ -29,3 +29,10 @@ dist-ssr
 
 # Lighthouse CI reports (generated locally)
 .lighthouseci/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

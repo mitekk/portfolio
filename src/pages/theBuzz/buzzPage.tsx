@@ -31,7 +31,7 @@ export const BuzzPage: React.FC = () => {
           onAnimationFinish={() => setGridLoaded(true)}
         />
         {gridLoaded && (
-          <div className="absolute inset-0 flex flex-col md:flex-row">
+          <div className="fixed inset-0 flex flex-col md:flex-row">
             {/* Mobile-only top header: avatar on left + section links */}
             <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-zinc-700 text-[#fafafa]">
               <Link to="/" aria-label="Go to intro page">

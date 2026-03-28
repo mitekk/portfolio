@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="flex justify-center items-center w-full md:w-80 h-auto md:h-full p-3 md:p-8">
       <div
-        className="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:h-full bg-zinc-700 text-[#fafafa] rounded-xl p-4 md:p-8 gap-3 md:gap-0"
+        className="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:h-full bg-zinc-700 text-[#fafafa] rounded-xl p-4 md:p-8 gap-3 md:gap-1"
         style={{ userSelect: "none" }}
       >
         {/* Identity */}

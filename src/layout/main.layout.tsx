@@ -51,17 +51,17 @@ export function MainLayout({ children }: MainLayoutProps) {
   }, [handleResize]);
 
   useLayoutEffect(() => {
-    const cols = Math.floor(
+    const cols = Math.ceil(
       (Math.min(window.innerWidth, MAX_WIDTH) + TILE_GAP) /
         (tileSize + TILE_GAP)
     );
-    const rows = Math.floor(
+    const rows = Math.ceil(
       (window.innerHeight + TILE_GAP) / (tileSize + TILE_GAP)
     );
 
     setDims({
-      cols: Math.floor(cols / 4) * 4,
-      rows: Math.floor(rows / 4) * 4,
+      cols: Math.ceil(cols / 4) * 4,
+      rows: Math.ceil(rows / 4) * 4,
     });
   }, [tileSize]);
 
@@ -94,6 +94,8 @@ export function MainLayout({ children }: MainLayoutProps) {
               position: "relative",
               background: "lightgray",
               borderRadius: 3,
+              width: gridSize.width,
+              height: gridSize.height,
             }}
           >
             {children}
