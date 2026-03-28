@@ -35,4 +35,3 @@ export type PromptLine = {
   text: string;
   removeOnComplete?: boolean;
 };
-
