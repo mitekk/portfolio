@@ -6,16 +6,8 @@ import {
 } from "react";
 import { LayoutContext } from "../context";
 import type { Dims, GridSize } from "../context/layout";
-import {
-  MAX_TILE,
-  MAX_WIDTH,
-  MIN_TILE,
-  MIN_WIDTH,
-  MOBILE_MIN_TILE,
-  TILE_GAP,
-} from "../constants";
-
-const MOBILE_MIN_WIDTH = 320;
+import { MAX_WIDTH, TILE_GAP } from "../constants";
+import { calculateDims, calculateTileSize } from "./mainLayoutMath";
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -27,21 +19,7 @@ export function MainLayout({ children }: MainLayoutProps) {
   const [gridSize, setGridSize] = useState<GridSize>();
 
   const handleResize = useCallback(() => {
-    const usableWidth = Math.min(window.innerWidth, MAX_WIDTH);
-
-    if (usableWidth <= MOBILE_MIN_WIDTH) {
-      return setTileSize(MOBILE_MIN_TILE);
-    }
-    if (usableWidth <= MIN_WIDTH) {
-      const scale = (usableWidth - MOBILE_MIN_WIDTH) / (MIN_WIDTH - MOBILE_MIN_WIDTH);
-      return setTileSize(Math.round(MOBILE_MIN_TILE + (MIN_TILE - MOBILE_MIN_TILE) * scale));
-    }
-    if (usableWidth >= MAX_WIDTH) {
-      return setTileSize(MAX_TILE);
-    }
-
-    const scale = (usableWidth - MIN_WIDTH) / (MAX_WIDTH - MIN_WIDTH);
-    setTileSize(Math.round(MIN_TILE + (MAX_TILE - MIN_TILE) * scale));
+    setTileSize(calculateTileSize(window.innerWidth));
   }, []);
 
   useLayoutEffect(() => {
@@ -51,18 +29,7 @@ export function MainLayout({ children }: MainLayoutProps) {
   }, [handleResize]);
 
   useLayoutEffect(() => {
-    const cols = Math.ceil(
-      (Math.min(window.innerWidth, MAX_WIDTH) + TILE_GAP) /
-        (tileSize + TILE_GAP)
-    );
-    const rows = Math.ceil(
-      (window.innerHeight + TILE_GAP) / (tileSize + TILE_GAP)
-    );
-
-    setDims({
-      cols: Math.ceil(cols / 4) * 4,
-      rows: Math.ceil(rows / 4) * 4,
-    });
+    setDims(calculateDims(window.innerWidth, window.innerHeight, tileSize));
   }, [tileSize]);
 
   useLayoutEffect(() => {
