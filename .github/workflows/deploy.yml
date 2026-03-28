@@ -134,6 +134,9 @@ jobs:
       - e2e-tests
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download test result artifacts
         uses: actions/download-artifact@v4
         with:
