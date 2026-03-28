@@ -6,6 +6,7 @@ on:
     branches: [master]
 
 permissions:
+  actions: read
   contents: read
   checks: write
 
@@ -14,7 +15,72 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  ci:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run formatting checks
+        run: npm run format:check
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:unit:ci
+
+      - name: Upload unit test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-unit
+          path: test-results/vitest-junit.xml
+          if-no-files-found: warn
+
+  e2e-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -37,32 +103,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run lint
-        run: npm run lint
-
-      - name: Run formatting checks
-        run: npm run format:check
-
-      - name: Build app
-        run: npm run build
-
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
-
-      - name: Run unit tests
-        run: npm run test:unit:ci
 
       - name: Run e2e tests
         run: npm run test:e2e:ci
 
-      - name: Publish test results
+      - name: Upload e2e test results
         if: always()
-        uses: dorny/test-reporter@v1
+        uses: actions/upload-artifact@v4
         with:
-          name: Test Results
-          path: test-results/*.xml
-          reporter: java-junit
-          fail-on-error: true
+          name: junit-e2e
+          path: test-results/playwright-junit.xml
+          if-no-files-found: warn
 
       - name: Upload Playwright report
         if: always()
@@ -73,3 +126,26 @@ jobs:
             playwright-report/
             playwright-test-results/
           if-no-files-found: warn
+
+  test-report:
+    if: always()
+    needs:
+      - unit-tests
+      - e2e-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download test result artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: junit-*
+          path: test-results
+          merge-multiple: true
+
+      - name: Publish test results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Test Results
+          path: test-results/*.xml
+          reporter: java-junit
+          fail-on-error: true
