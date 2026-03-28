@@ -1,8 +1,4 @@
-import type {
-  Shape,
-  ShapeKeyTetrominoes,
-  ShapeKeyWave,
-} from "../../types";
+import type { Shape, ShapeKeyTetrominoes, ShapeKeyWave } from "../../types";
 
 export const TiledShape: React.FC<{
   shape: Shape<ShapeKeyTetrominoes | ShapeKeyWave>;
