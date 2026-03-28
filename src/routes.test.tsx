@@ -29,8 +29,10 @@ describe("AppRoutes", () => {
   test("/ renders IntroPage", async () => {
     renderRoutes("/");
 
-    expect(screen.getByRole("button", { name: "Tetris" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Trip" })).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByRole("button", { name: "Tetris" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Trip" })).toBeInTheDocument();
+    });
   });
 
   test("/theBuzz redirects to /theBuzz/about", async () => {

@@ -1,7 +1,12 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { IntroPage } from "./pages";
-import { BuzzPage } from "./pages/theBuzz/buzzPage";
+
+const IntroPage = lazy(() =>
+  import("./pages/intro/introPage").then((m) => ({ default: m.IntroPage })),
+);
+const BuzzPage = lazy(() =>
+  import("./pages/theBuzz/buzzPage").then((m) => ({ default: m.BuzzPage })),
+);
 
 const About = lazy(() =>
   import("./pages/theBuzz/about").then((m) => ({ default: m.About })),

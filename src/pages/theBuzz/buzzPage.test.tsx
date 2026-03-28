@@ -5,10 +5,7 @@ import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { BuzzPage } from "./buzzPage";
 
 vi.mock("../../components/grid", () => ({
-  WavesGrid: ({ onAnimationFinish }: { onAnimationFinish?: () => void }) => {
-    onAnimationFinish?.();
-    return null;
-  },
+  WavesGrid: () => null,
 }));
 
 const layoutValue = {
@@ -42,7 +39,7 @@ const renderBuzzPage = (width: number) => {
 };
 
 describe("BuzzPage", () => {
-  test("renders Outlet content", async () => {
+  test("renders Outlet content without waiting for background animation", async () => {
     renderBuzzPage(1280);
 
     await waitFor(() => {
