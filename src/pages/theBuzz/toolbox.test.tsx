@@ -4,7 +4,7 @@ import { Toolbox } from "./toolbox";
 
 describe("Toolbox", () => {
   test("renders all category headings and decorative technology icons", () => {
-    render(
+    const { container } = render(
       <HelmetProvider>
         <Toolbox />
       </HelmetProvider>,
@@ -36,5 +36,11 @@ describe("Toolbox", () => {
         expect(icon).toHaveAttribute("role", "presentation");
       });
     });
+
+    const pageSection = container.querySelector("section");
+    const panel = container.querySelector("section > div");
+
+    expect(pageSection).toHaveClass("w-full", "min-w-0");
+    expect(panel).toHaveClass("w-full", "max-w-full");
   });
 });

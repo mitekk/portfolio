@@ -82,7 +82,7 @@ export const IntroPage: React.FC = () => {
         {gridByType[selectedMode]()}
         {dropFinished && !introFinished && (
           <div
-            className={`z-[2] flex flex-col justify-center items-center fixed inset-0 intro-overlay${
+            className={`z-[2] flex flex-col justify-center items-center absolute inset-0 w-full h-full intro-overlay${
               introFinished ? " intro-animate-out" : ""
             }`}
           >

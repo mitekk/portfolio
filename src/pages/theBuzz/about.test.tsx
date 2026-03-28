@@ -16,5 +16,11 @@ describe("About", () => {
     paragraphs.forEach((paragraph) => {
       expect(paragraph.textContent?.trim().length).toBeGreaterThan(0);
     });
+
+    const section = container.querySelector("section");
+    const panel = container.querySelector("section > div");
+
+    expect(section).toHaveClass("w-full", "min-w-0");
+    expect(panel).toHaveClass("w-full", "max-w-full");
   });
 });

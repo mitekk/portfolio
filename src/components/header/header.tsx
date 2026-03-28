@@ -21,7 +21,7 @@ export const Header: React.FC<{
 
   return (
     <header
-      className={`absolute top-0 left-1/2 -translate-x-1/2 md:left-3/8 md:translate-x-0 z-[3] w-fit transition-all duration-500 h-10 opacity-90 select-none`}
+      className={`absolute top-0 left-1/2 -translate-x-1/2 z-[3] w-fit transition-all duration-500 h-10 opacity-90 select-none`}
     >
       {gameMode && (
         <div

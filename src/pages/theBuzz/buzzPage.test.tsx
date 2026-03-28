@@ -61,11 +61,18 @@ describe("BuzzPage", () => {
     const sidebarWrapper = sidebarNav.closest("div");
     const mobileHeader = screen.getByRole("banner");
     const mobileFooter = screen.getByRole("contentinfo");
+    const pageOverlay = mobileHeader.parentElement;
+    const outletNode = screen.getByText("outlet-content");
+    const contentWrapper = outletNode.parentElement;
 
     expect(sidebarWrapper).toHaveClass("hidden");
     expect(sidebarWrapper).toHaveClass("md:flex");
 
     expect(mobileHeader).toHaveClass("md:hidden");
     expect(mobileFooter).toHaveClass("md:hidden");
+
+    expect(pageOverlay).toHaveClass("absolute", "inset-0", "w-full", "h-full");
+    expect(pageOverlay).not.toHaveClass("fixed");
+    expect(contentWrapper).toHaveClass("min-w-0");
   });
 });

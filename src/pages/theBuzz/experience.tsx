@@ -1,4 +1,5 @@
 import { SectionLayout } from "../../layout/section.layout";
+import { ContentPanel } from "../../components/UI";
 import { SeoHead } from "../../components/seo/seoHead";
 import { routeSeo } from "../../seo/config";
 
@@ -7,16 +8,7 @@ export const Experience: React.FC = () => {
     <>
       <SeoHead meta={routeSeo.experience} />
       <SectionLayout>
-        <div
-          className="flex flex-col gap-5"
-          style={{
-            backgroundColor: "rgba(255, 255, 255, 0.55)",
-            borderRadius: "0.75rem",
-            padding: "1rem",
-            height: "fit-content",
-            color: "rgb(51, 51, 50)",
-          }}
-        >
+        <ContentPanel className="flex flex-col gap-5">
           <h1>Experience</h1>
           <article className="flex flex-col gap-4">
             <header className="gap-1">
@@ -172,7 +164,7 @@ export const Experience: React.FC = () => {
               integration.
             </p>
           </article>
-        </div>
+        </ContentPanel>
       </SectionLayout>
     </>
   );

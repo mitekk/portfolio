@@ -116,6 +116,10 @@ describe("IntroPage", () => {
     expect(
       screen.getByRole("button", { name: "Get to know me" }),
     ).toBeInTheDocument();
+
+    const introOverlay = document.querySelector(".intro-overlay");
+    expect(introOverlay).toHaveClass("absolute", "inset-0", "w-full", "h-full");
+    expect(introOverlay).not.toHaveClass("fixed");
   });
 
   test("CTA click navigates to /theBuzz/about after delayed navigate", async () => {
