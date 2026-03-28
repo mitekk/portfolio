@@ -29,5 +29,11 @@ describe("Experience", () => {
       .map((el) => el.textContent);
     expect(headingTexts[0]).toContain("LawPDF");
     expect(headingTexts[headingTexts.length - 1]).toContain("Bynet");
+
+    const section = container.querySelector("section");
+    const panel = container.querySelector("section > div");
+
+    expect(section).toHaveClass("w-full", "min-w-0");
+    expect(panel).toHaveClass("w-full", "max-w-full");
   });
 });

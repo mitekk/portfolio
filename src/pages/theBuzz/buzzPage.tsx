@@ -25,7 +25,7 @@ export const BuzzPage: React.FC = () => {
     <PageContext.Provider value={{}}>
       <>
         <WavesGrid className="relative overflow-hidden filter animate-fadein" />
-        <div className="fixed inset-0 flex flex-col md:flex-row">
+        <div className="absolute inset-0 w-full h-full flex flex-col md:flex-row">
           {/* Mobile-only top header: avatar on left + section links */}
           <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-zinc-700 text-[#fafafa]">
             <Link to="/" aria-label="Go to intro page">
@@ -69,7 +69,7 @@ export const BuzzPage: React.FC = () => {
           {/* Content */}
           <div
             key={location.pathname}
-            className="flex-1 min-h-0 mx-2 md:mx-5 overflow-auto"
+            className="flex-1 min-w-0 min-h-0 mx-2 md:mx-5 overflow-auto"
           >
             <Suspense fallback={null}>
               <Outlet />

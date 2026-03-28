@@ -56,10 +56,11 @@ export function MainLayout({ children }: MainLayoutProps) {
           <div
             style={{
               position: "relative",
-              background: "lightgray",
+              background: "#f3f1e9",
               borderRadius: 3,
-              width: gridSize.width,
-              height: gridSize.height,
+              width: "100%",
+              height: "100%",
+              overflow: "hidden",
             }}
           >
             {children}

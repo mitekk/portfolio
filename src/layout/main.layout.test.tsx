@@ -100,7 +100,7 @@ describe("MainLayout render gate", () => {
       );
     };
 
-    render(
+    const { container } = render(
       <MainLayout>
         <Consumer />
       </MainLayout>,
@@ -109,5 +109,8 @@ describe("MainLayout render gate", () => {
     await waitFor(() => {
       expect(screen.getByText(/dims:8x12;tile:50;grid:/)).toBeInTheDocument();
     });
+
+    const shellHost = container.querySelector("main > div");
+    expect(shellHost).toHaveStyle({ width: "100%", height: "100%" });
   });
 });

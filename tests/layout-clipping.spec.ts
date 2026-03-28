@@ -5,8 +5,8 @@ import { test, expect } from "@playwright/test";
  * tile grid's height exceeds the viewport (due to Math.ceil(rows/4)*4 rounding),
  * causing the content overlay to be cut off by `overflow:hidden` on <main>.
  *
- * Fix: both the buzz-page and intro-page overlays now use `fixed inset-0` so
- * they are always bounded to the viewport, independent of the grid's height.
+ * Fix: both overlays are expected to stay bounded to the viewport, independent
+ * of the exact DOM hierarchy or whether positioning uses `fixed` or `absolute`.
  */
 
 const viewports = [
@@ -27,34 +27,64 @@ for (const vp of viewports) {
       await page.goto("/theBuzz/about");
       await page.locator("nav").waitFor({ state: "visible" });
 
-      // The fixed overlay wraps the nav — its bottom must equal the viewport height.
-      // Before the fix (absolute inset-0 relative to the grid div) the overlay
-      // extended to gridSize.height which can exceed the viewport by ~36–80 px.
-      const overlayBottom = await page.evaluate(() => {
-        const nav = document.querySelector("nav")!;
-        // Walk up to the fixed overlay div (nav → wrapper div → fixed div)
-        const overlay = nav.closest<HTMLElement>('[class*="fixed"]');
-        if (!overlay) return null;
-        return overlay.getBoundingClientRect().bottom;
+      // Select the largest ancestor around nav inside <main>; this tracks the
+      // page overlay even if class names or intermediate wrappers change.
+      const overlayBounds = await page.evaluate(() => {
+        const nav = document.querySelector("nav");
+        if (!nav) return null;
+
+        const main = nav.closest("main");
+        if (!main) return null;
+
+        let current: HTMLElement | null = nav.parentElement;
+        let best: { top: number; bottom: number; area: number } | null = null;
+
+        while (current && current !== main) {
+          const rect = current.getBoundingClientRect();
+          const area = rect.width * rect.height;
+          if (!best || area > best.area) {
+            best = { top: rect.top, bottom: rect.bottom, area };
+          }
+          current = current.parentElement;
+        }
+
+        if (!best) return null;
+        return { top: best.top, bottom: best.bottom };
       });
 
-      expect(overlayBottom).not.toBeNull();
-      expect(overlayBottom!).toBeCloseTo(vp.height, 1);
+      expect(overlayBounds).not.toBeNull();
+      expect(overlayBounds!.bottom).toBeCloseTo(vp.height, 1);
     });
 
     test("buzz overlay starts at the top of the viewport", async ({ page }) => {
       await page.goto("/theBuzz/about");
       await page.locator("nav").waitFor({ state: "visible" });
 
-      const overlayTop = await page.evaluate(() => {
-        const nav = document.querySelector("nav")!;
-        const overlay = nav.closest<HTMLElement>('[class*="fixed"]');
-        if (!overlay) return null;
-        return overlay.getBoundingClientRect().top;
+      const overlayBounds = await page.evaluate(() => {
+        const nav = document.querySelector("nav");
+        if (!nav) return null;
+
+        const main = nav.closest("main");
+        if (!main) return null;
+
+        let current: HTMLElement | null = nav.parentElement;
+        let best: { top: number; bottom: number; area: number } | null = null;
+
+        while (current && current !== main) {
+          const rect = current.getBoundingClientRect();
+          const area = rect.width * rect.height;
+          if (!best || area > best.area) {
+            best = { top: rect.top, bottom: rect.bottom, area };
+          }
+          current = current.parentElement;
+        }
+
+        if (!best) return null;
+        return { top: best.top, bottom: best.bottom };
       });
 
-      expect(overlayTop).not.toBeNull();
-      expect(overlayTop!).toBeCloseTo(0, 1);
+      expect(overlayBounds).not.toBeNull();
+      expect(overlayBounds!.top).toBeCloseTo(0, 1);
     });
 
     // ── Toolbox scroll coverage ───────────────────────────────────────────────
@@ -97,8 +127,7 @@ for (const vp of viewports) {
       const box = await overlay.boundingBox();
       expect(box).not.toBeNull();
 
-      // Before the fix the overlay height was set to gridSize.height which can
-      // exceed the viewport.  After the fix it is fixed inset-0 = viewport height.
+      // Overlay must stay bounded to viewport height.
       expect(box!.y).toBeCloseTo(0, 1);
       expect(box!.y + box!.height).toBeCloseTo(vp.height, 1);
     });

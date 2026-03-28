@@ -17,7 +17,7 @@ export const ContentPanel: React.FC<ContentPanelProps> = ({
       height: "fit-content",
       color: "#333332",
     }}
-    className={className}
+    className={`w-full max-w-full ${className ?? ""}`.trim()}
   >
     {children}
   </div>
