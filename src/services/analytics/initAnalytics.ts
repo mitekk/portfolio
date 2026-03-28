@@ -55,33 +55,61 @@ export function initAnalytics(): void {
     return;
   }
 
-  const scheduleAnalytics = () => {
-    const idleScheduler = window as Window & {
-      requestIdleCallback?: (
-        callback: () => void,
-        options?: { timeout: number },
-      ) => number;
-    };
+  let didSchedule = false;
+  let fallbackTimeoutId: number | undefined;
 
-    if (typeof idleScheduler.requestIdleCallback === "function") {
-      idleScheduler.requestIdleCallback(
-        () => {
-          void startAnalytics();
-        },
-        { timeout: 2500 },
-      );
+  const intentEvents: Array<keyof WindowEventMap> = [
+    "pointerdown",
+    "keydown",
+    "touchstart",
+    "scroll",
+  ];
+
+  const cleanupIntentListeners = () => {
+    intentEvents.forEach((eventName) => {
+      window.removeEventListener(eventName, onUserIntent);
+    });
+  };
+
+  const start = () => {
+    if (didSchedule) {
       return;
     }
+    didSchedule = true;
 
-    window.setTimeout(() => {
-      void startAnalytics();
-    }, 1200);
+    if (fallbackTimeoutId) {
+      window.clearTimeout(fallbackTimeoutId);
+      fallbackTimeoutId = undefined;
+    }
+
+    cleanupIntentListeners();
+    void startAnalytics();
+  };
+
+  const onUserIntent = () => {
+    start();
+  };
+
+  const attachIntentListeners = () => {
+    intentEvents.forEach((eventName) => {
+      window.addEventListener(eventName, onUserIntent, {
+        passive: true,
+        once: true,
+      });
+    });
+  };
+
+  const scheduleAfterLoad = () => {
+    attachIntentListeners();
+    fallbackTimeoutId = window.setTimeout(() => {
+      start();
+    }, 4500);
   };
 
   if (document.readyState === "complete") {
-    scheduleAnalytics();
+    scheduleAfterLoad();
     return;
   }
 
-  window.addEventListener("load", scheduleAnalytics, { once: true });
+  window.addEventListener("load", scheduleAfterLoad, { once: true });
 }

@@ -376,8 +376,6 @@ After:
 >
 ```
 
-Note: `notSupportedPage.tsx` passes `style={{ minHeight: "4rem", fontSize: "1rem" }}` which overrides via inline styles — do **not** change `notSupportedPage.tsx`.
-
 - [ ] **Step 2: Run build**
 
 ```bash

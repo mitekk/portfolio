@@ -86,11 +86,11 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
           const finalTop = shape.points[0].x * (tileSize + TILE_GAP);
           const finalLeft = shape.points[0].y * (tileSize + TILE_GAP);
 
-          let top;
+          let translateY: number;
           if (!removeTiles) {
-            top = animated ? finalTop : -window.innerHeight * 2;
+            translateY = animated ? 0 : -window.innerHeight * 2;
           } else {
-            top = animated ? finalTop + window.innerHeight * 2 : finalTop;
+            translateY = animated ? window.innerHeight * 2 : 0;
           }
 
           const isHovered =
@@ -106,32 +106,49 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
           const hoverScale = 1.2;
 
           return (
-            <TiledShape
+            <div
               key={`${shape.id}`}
-              shape={shape}
-              top={top}
-              left={finalLeft}
-              className={`shape-group${isHovered ? " hovered" : ""}`}
-              styles={{
-                transition: `top 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) ${
+              style={{
+                position: "absolute",
+                left: finalLeft,
+                top: finalTop,
+                transform: `translateY(${translateY}px)`,
+                transition: `transform 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) ${
                   (shapes.length - idx) * 0.01
-                }s, transform 0.15s cubic-bezier(.4,0,.2,1)`,
-                transform: isHovered ? `scale(${hoverScale})` : "scale(1)",
-                filter: isHovered ? "grayscale(0.1) saturate(1.2)" : "",
+                }s`,
               }}
-              onAnimationEnd={handleAnimationEnd}
+              onTransitionEnd={(e) => {
+                if (
+                  e.target === e.currentTarget &&
+                  e.propertyName === "transform"
+                ) {
+                  handleAnimationEnd();
+                }
+              }}
             >
-              {shape.points.map(({ x, y }) => (
-                <TetrominoTile
-                  key={`${x}-${y}-${shape.key}`}
-                  shape={shape.key}
-                  style={{
-                    left: (y - shape.points[0].y) * (tileSize + TILE_GAP),
-                    top: (x - shape.points[0].x) * (tileSize + TILE_GAP),
-                  }}
-                />
-              ))}
-            </TiledShape>
+              <TiledShape
+                shape={shape}
+                top={0}
+                left={0}
+                className={`shape-group${isHovered ? " hovered" : ""}`}
+                styles={{
+                  transition: "transform 0.15s cubic-bezier(.4,0,.2,1)",
+                  transform: isHovered ? `scale(${hoverScale})` : "scale(1)",
+                  filter: isHovered ? "grayscale(0.1) saturate(1.2)" : "",
+                }}
+              >
+                {shape.points.map(({ x, y }) => (
+                  <TetrominoTile
+                    key={`${x}-${y}-${shape.key}`}
+                    shape={shape.key}
+                    style={{
+                      left: (y - shape.points[0].y) * (tileSize + TILE_GAP),
+                      top: (x - shape.points[0].x) * (tileSize + TILE_GAP),
+                    }}
+                  />
+                ))}
+              </TiledShape>
+            </div>
           );
         })}
     </div>

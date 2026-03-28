@@ -8,6 +8,7 @@ interface AvatarProps {
   height?: number;
   loading?: "eager" | "lazy";
   decoding?: "async" | "sync" | "auto";
+  fetchPriority?: "high" | "low" | "auto";
   style?: React.CSSProperties;
   className?: string;
 }
@@ -20,6 +21,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   height,
   loading = "lazy",
   decoding = "async",
+  fetchPriority,
   style,
   className = "",
 }) => (
@@ -32,6 +34,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       height={height}
       loading={loading}
       decoding={decoding}
+      fetchPriority={fetchPriority}
       draggable={false}
     />
     <div className="avatar-name">{name}</div>

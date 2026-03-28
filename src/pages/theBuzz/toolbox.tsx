@@ -128,7 +128,13 @@ export const Toolbox: React.FC = () => {
                     key={tech.name}
                     className="list-none flex flex-col items-center gap-1 p-2 border border-zinc-200 bg-white/50 rounded-lg text-xs text-zinc-700 font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
                   >
-                    <img src={tech.icon} alt={tech.name} className="w-8 h-8" />
+                    <img
+                      src={tech.icon}
+                      alt=""
+                      aria-hidden="true"
+                      role="presentation"
+                      className="w-8 h-8"
+                    />
                     {tech.name}
                   </li>
                 ))}

@@ -8,13 +8,31 @@ interface MainLayoutProps {
   children: ReactNode;
 }
 
+function computeLayout(): {
+  tileSize: number;
+  dims: Dims;
+  gridSize: GridSize | undefined;
+} {
+  const tileSize = calculateTileSize(window.innerWidth);
+  const dims = calculateDims(window.innerWidth, window.innerHeight, tileSize);
+  const gridSize: GridSize | undefined =
+    dims.cols > 0 && dims.rows > 0
+      ? {
+          width: Math.min(
+            dims.cols * tileSize + (dims.cols - 1) * TILE_GAP,
+            MAX_WIDTH,
+          ),
+          height: dims.rows * tileSize + (dims.rows - 1) * TILE_GAP,
+        }
+      : undefined;
+  return { tileSize, dims, gridSize };
+}
+
 export function MainLayout({ children }: MainLayoutProps) {
-  const [dims, setDims] = useState<Dims>({ rows: 0, cols: 0 });
-  const [tileSize, setTileSize] = useState<number>(50);
-  const [gridSize, setGridSize] = useState<GridSize>();
+  const [{ tileSize, dims, gridSize }, setLayout] = useState(computeLayout);
 
   const handleResize = useCallback(() => {
-    setTileSize(calculateTileSize(window.innerWidth));
+    setLayout(computeLayout());
   }, []);
 
   useLayoutEffect(() => {
@@ -22,22 +40,6 @@ export function MainLayout({ children }: MainLayoutProps) {
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
-
-  useLayoutEffect(() => {
-    setDims(calculateDims(window.innerWidth, window.innerHeight, tileSize));
-  }, [tileSize]);
-
-  useLayoutEffect(() => {
-    if (dims.cols > 0 && dims.rows > 0) {
-      setGridSize({
-        width: Math.min(
-          dims.cols * tileSize + (dims.cols - 1) * TILE_GAP,
-          MAX_WIDTH,
-        ),
-        height: dims.rows * tileSize + (dims.rows - 1) * TILE_GAP,
-      });
-    }
-  }, [dims, tileSize]);
 
   return (
     <LayoutContext.Provider value={{ dims, gridSize, tileSize }}>

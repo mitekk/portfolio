@@ -1,7 +1,5 @@
 import type { GameMode, Point, ShapeKeyTetrominoes } from "./types";
 
-export const MOBILE_REDIRECT_PATH = "not-supported";
-
 export const TILE_GAP = 3;
 export const MOBILE_MIN_TILE = 20;
 export const MIN_TILE = 50;
