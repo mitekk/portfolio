@@ -30,7 +30,9 @@ describe("AppRoutes", () => {
     renderRoutes("/");
 
     await waitFor(() => {
-      expect(screen.getByRole("button", { name: "Tetris" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Tetris" }),
+      ).toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Trip" })).toBeInTheDocument();
     });
   });

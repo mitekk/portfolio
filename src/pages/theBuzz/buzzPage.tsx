@@ -58,7 +58,9 @@ export const BuzzPage: React.FC = () => {
           {/* Desktop-only sidebar with slide-in animation */}
           <div
             className={`hidden md:flex transition-all duration-700 ease-out md:h-full ${
-              navbarVisible ? "translate-y-0 opacity-100" : "-translate-y-20 opacity-0"
+              navbarVisible
+                ? "translate-y-0 opacity-100"
+                : "-translate-y-20 opacity-0"
             }`}
           >
             <Navbar />

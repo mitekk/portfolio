@@ -7,6 +7,20 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## Formatting workflow
+
+- Formatting rules are defined in `.prettierrc.json` and enforced in CI with `npm run format:check`.
+- Format the whole repo with `npm run format`.
+- Format specific files with `npm run format:files -- <file1> <file2> ...`.
+
+Generated code must run a post-generate formatting step before commit:
+
+```bash
+npm run format:files -- <generated-paths>
+```
+
+For AI/manual generation, treat the same command as a required final step before commit.
+
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:

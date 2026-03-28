@@ -41,7 +41,9 @@ for (const viewport of viewports) {
 test.describe("responsive layout (mobile wave density)", () => {
   test.use({ viewport: { width: 375, height: 812 } });
 
-  test("wave background uses reduced checkerboard density", async ({ page }) => {
+  test("wave background uses reduced checkerboard density", async ({
+    page,
+  }) => {
     await page.goto("/theBuzz/about");
     await expect(page.getByRole("heading", { name: "About" })).toBeVisible({
       timeout: 30000,
