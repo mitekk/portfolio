@@ -3,7 +3,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { Toolbox } from "./toolbox";
 
 describe("Toolbox", () => {
-  test("renders all category headings without duplicates and each has icons", () => {
+  test("renders all category headings and decorative technology icons", () => {
     render(
       <HelmetProvider>
         <Toolbox />
@@ -21,8 +21,20 @@ describe("Toolbox", () => {
     const sections = Array.from(
       document.querySelectorAll("section[aria-labelledby]"),
     );
+
     sections.forEach((section) => {
-      expect(section.querySelectorAll("img").length).toBeGreaterThan(0);
+      const items = Array.from(section.querySelectorAll("ul li"));
+      expect(items.length).toBeGreaterThan(0);
+
+      items.forEach((item) => {
+        expect(item.textContent?.trim().length).toBeGreaterThan(0);
+
+        const icon = item.querySelector("img");
+        expect(icon).not.toBeNull();
+        expect(icon).toHaveAttribute("alt", "");
+        expect(icon).toHaveAttribute("aria-hidden", "true");
+        expect(icon).toHaveAttribute("role", "presentation");
+      });
     });
   });
 });

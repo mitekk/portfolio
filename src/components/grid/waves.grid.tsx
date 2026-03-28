@@ -20,9 +20,14 @@ export const WavesGrid: React.FC<WavesProps> = ({
   const shapes = useMemo<Shape<ShapeKeyWave>[]>(() => {
     if (dims.cols === 0 || dims.rows === 0) return [];
 
+    const totalCells = dims.cols * dims.rows;
+    const density =
+      dims.cols <= 16 || totalCells > 500 ? "checkerboard" : "full";
+
     return generateWavesShapes({
       rows: dims.rows,
       cols: dims.cols,
+      density,
     });
   }, [dims.rows, dims.cols]);
 

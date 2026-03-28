@@ -37,3 +37,41 @@ for (const viewport of viewports) {
     });
   });
 }
+
+test.describe("responsive layout (mobile wave density)", () => {
+  test.use({ viewport: { width: 375, height: 812 } });
+
+  test("wave background uses reduced checkerboard density", async ({ page }) => {
+    await page.goto("/theBuzz/about");
+    await expect(page.getByRole("heading", { name: "About" })).toBeVisible({
+      timeout: 30000,
+    });
+
+    await expect
+      .poll(async () => page.locator(".shape-group").count(), {
+        timeout: 30000,
+      })
+      .toBeGreaterThan(0);
+
+    const waveStats = await page.evaluate(() => {
+      const groups = Array.from(document.querySelectorAll(".shape-group"));
+      const lefts = new Set<number>();
+      const tops = new Set<number>();
+
+      groups.forEach((group) => {
+        const el = group as HTMLElement;
+        lefts.add(Math.round(parseFloat(el.style.left || "0")));
+        tops.add(Math.round(parseFloat(el.style.top || "0")));
+      });
+
+      return {
+        groupCount: groups.length,
+        inferredFullGridCount: lefts.size * tops.size,
+      };
+    });
+
+    expect(waveStats.groupCount).toBeGreaterThan(0);
+    expect(waveStats.inferredFullGridCount).toBeGreaterThan(0);
+    expect(waveStats.groupCount).toBeLessThan(waveStats.inferredFullGridCount);
+  });
+});
