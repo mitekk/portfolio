@@ -31,9 +31,10 @@ describe("AppRoutes", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByRole("button", { name: "Tetris" }),
+        screen.getByRole("heading", {
+          name: "Mitya Kurs - Senior Full-Stack Developer and Team Lead",
+        }),
       ).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Trip" })).toBeInTheDocument();
     });
   });
 

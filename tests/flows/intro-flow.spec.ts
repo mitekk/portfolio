@@ -30,11 +30,6 @@ for (const viewport of viewports) {
       expect(avatarBox?.width ?? 0).toBeGreaterThan(60);
       expect(avatarBox?.height ?? 0).toBeGreaterThan(60);
 
-      await page
-        .getByRole("button", { name: "Trip" })
-        .evaluate((element: HTMLButtonElement) => element.click());
-      await expect(page.locator(".sepia")).toBeVisible({ timeout: 15000 });
-
       await cta.click();
 
       await expect(page).toHaveURL(/\/theBuzz\/about$/, { timeout: 30000 });

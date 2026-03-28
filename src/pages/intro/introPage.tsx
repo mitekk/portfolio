@@ -1,15 +1,12 @@
-import { useContext, useState, type ReactElement } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Prompter } from "../../components/prompter/prompter";
 import { PromptLines } from "../../assets/prompts";
 import { Avatar, Button } from "../../components/UI";
 import { LayoutContext } from "../../context/layout";
-import { RoadTripGrid, TetrominoesGrid } from "../../components/grid";
-import { Header } from "../../components/header/header";
+import { TetrominoesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
-import { GAME_MODE_OPTIONS } from "../../constants";
-import type { GameMode } from "../../types";
 import { SeoHead } from "../../components/seo/seoHead";
 import {
   personStructuredData,
@@ -25,9 +22,6 @@ export const IntroPage: React.FC = () => {
   const [promptFinished, setPromptFinished] = useState(false);
   const [introFinished, setIntroFinished] = useState(false);
   const { dims } = useContext(LayoutContext);
-  const [selectedMode, setSelectedMode] = useState<GameMode>(
-    GAME_MODE_OPTIONS[0],
-  );
 
   const defaultGridProps = {
     onAnimationStart: () => {
@@ -40,17 +34,8 @@ export const IntroPage: React.FC = () => {
     removeTiles: introFinished,
   };
 
-  const gridByType: { [key in GameMode]: () => ReactElement } = {
-    Trip: () => <RoadTripGrid {...defaultGridProps} />,
-    Tetris: () => <TetrominoesGrid {...defaultGridProps} />,
-  };
-
   return (
-    <PageContext.Provider
-      value={{
-        gameMode: selectedMode,
-      }}
-    >
+    <PageContext.Provider value={{}}>
       <>
         <SeoHead
           meta={routeSeo.home}
@@ -74,12 +59,7 @@ export const IntroPage: React.FC = () => {
         >
           Mitya Kurs - Senior Full-Stack Developer and Team Lead
         </h1>
-        <Header
-          onSelect={(mode) => {
-            setSelectedMode(mode);
-          }}
-        />
-        {gridByType[selectedMode]()}
+        <TetrominoesGrid {...defaultGridProps} />
         {dropFinished && !introFinished && (
           <div
             className={`z-[2] flex flex-col justify-center items-center absolute inset-0 w-full h-full intro-overlay${
@@ -120,9 +100,7 @@ export const IntroPage: React.FC = () => {
                           () => {
                             navigate("/theBuzz");
                           },
-                          selectedMode === "Tetris"
-                            ? dims.cols * dims.cols * 2
-                            : 750,
+                          dims.cols * dims.cols * 2,
                         );
                       }}
                     >

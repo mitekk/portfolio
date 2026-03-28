@@ -32,6 +32,7 @@ for (const viewport of viewports) {
       await page.getByRole("link", { name: "about" }).click();
       await expect(page).toHaveURL(/\/theBuzz\/about$/);
       await expect(page.getByRole("heading", { name: "About" })).toBeVisible();
+      await expect(page.locator("nav .nav-link.active")).toContainText("about");
 
       await page.keyboard.press("ArrowDown");
       await expect(page).toHaveURL(/\/theBuzz\/experience$/);

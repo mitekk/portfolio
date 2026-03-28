@@ -39,12 +39,6 @@ vi.mock("../../components/grid", () => ({
     }, [onAnimationFinish]);
     return <div data-testid="tetris-grid">tetris-grid</div>;
   },
-  RoadTripGrid: ({ onAnimationFinish }: { onAnimationFinish?: () => void }) => {
-    useEffect(() => {
-      onAnimationFinish?.();
-    }, [onAnimationFinish]);
-    return <div data-testid="trip-grid">trip-grid</div>;
-  },
 }));
 
 const layoutValue = {
@@ -80,29 +74,6 @@ const renderIntroPage = (user = userEvent.setup()) => {
 describe("IntroPage", () => {
   afterEach(() => {
     vi.useRealTimers();
-  });
-
-  test("renders game mode toggle and updates grid on mode switch", async () => {
-    const { user } = renderIntroPage();
-
-    expect(screen.getByRole("button", { name: "Tetris" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Trip" })).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.getByTestId("tetris-grid")).toBeInTheDocument();
-    });
-
-    await user.click(screen.getByRole("button", { name: "Trip" }));
-
-    await waitFor(() => {
-      expect(screen.getByTestId("trip-grid")).toBeInTheDocument();
-    });
-
-    await user.click(screen.getByRole("button", { name: "Tetris" }));
-
-    await waitFor(() => {
-      expect(screen.getByTestId("tetris-grid")).toBeInTheDocument();
-    });
   });
 
   test("CTA appears after prompter animation completes", async () => {
