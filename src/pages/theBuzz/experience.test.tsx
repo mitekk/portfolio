@@ -22,6 +22,6 @@ describe("Experience", () => {
 
     const headingTexts = screen.getAllByRole("heading", { level: 2 }).map((el) => el.textContent);
     expect(headingTexts[0]).toContain("LawPDF");
-    expect(headingTexts.at(-1)).toContain("Bynet");
+    expect(headingTexts[headingTexts.length - 1]).toContain("Bynet");
   });
 });

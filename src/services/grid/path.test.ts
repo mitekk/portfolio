@@ -7,7 +7,7 @@ describe("generatePath", () => {
     const path = generatePath(dims);
 
     expect(path[0]).toEqual({ x: 0, y: 0 });
-    expect(path.at(-1)).toEqual({ x: dims.rows - 1, y: dims.cols - 1 });
+    expect(path[path.length - 1]).toEqual({ x: dims.rows - 1, y: dims.cols - 1 });
   });
 
   test("consecutive points are always adjacent", () => {
