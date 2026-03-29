@@ -10,7 +10,7 @@ ul {
 
 .nav-link {
   font-size: 0.875rem;
-  color: #fafafa;
+  color: var(--color-text-nav);
   transition: color 150ms;
   user-select: none;
   border-radius: 5px;
@@ -22,7 +22,7 @@ ul {
 }
 
 .nav-link:hover {
-  color: #bababa;
+  color: var(--color-text-muted);
 }
 
 @media (min-width: 768px) {

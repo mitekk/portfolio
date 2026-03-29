@@ -13,7 +13,7 @@ export const NotFoundPage: React.FC = () => {
         <h1 className="text-5xl font-bold text-red-500 drop-shadow-lg">
           404 - Not Found
         </h1>
-        <p className="text-xl text-gray-700 text-center max-w-xl">
+        <p className="text-xl text-text text-center max-w-xl">
           The page you are looking for does not exist.
           <br />
           Maybe you followed a broken link or mistyped the address.

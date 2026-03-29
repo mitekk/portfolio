@@ -41,7 +41,7 @@ export const WavesGrid: React.FC<WavesProps> = ({
       style={{
         width: gridSize.width,
         height: gridSize.height,
-        backgroundColor: "#f3f1e9",
+        backgroundColor: "var(--color-surface)",
       }}
     >
       {shapes.map((shape, idx) => {
@@ -62,7 +62,7 @@ export const WavesGrid: React.FC<WavesProps> = ({
                 className="filter saturate-150"
                 style={{
                   borderRadius: 5,
-                  background: `radial-gradient(circle, transparent 10%, #d9d3c0 100%)`,
+                  background: `radial-gradient(circle, transparent 10%, var(--color-wave) 100%)`,
                   opacity: Math.random() * 0.5 + 0.5,
                 }}
               />

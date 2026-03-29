@@ -3,6 +3,61 @@
 @import "@fontsource/poppins/latin-700.css";
 @import "tailwindcss";
 
+@theme {
+  /* Layout */
+  --color-surface: #f3f1e9;
+  --color-surround: #4c4b4c;
+  --color-nav: #3f3f46;
+  --color-text: #333332;
+  --color-text-muted: #bababa;
+  --color-text-nav: #fafafa;
+  --color-text-nav-accent: #faebd7;
+  --color-link: #646cff;
+
+  /* Panel / card surfaces */
+  --color-panel-bg: rgba(255, 255, 255, 0.55);
+  --color-border: #e4e4e7;
+
+  /* Wave tiles */
+  --color-wave: #d9d3c0;
+
+  /* Prompter */
+  --color-prompt-text: #111111;
+  --color-cursor: #6f2808;
+
+  /* Tetris pieces */
+  --color-piece-I: #b2ebf2;
+  --color-piece-O: #fff9b0;
+  --color-piece-T: #d1b3ff;
+  --color-piece-S: #b6f5c9;
+  --color-piece-Z: #ffc1c1;
+  --color-piece-J: #b3d1ff;
+  --color-piece-L: #ffe0b3;
+}
+
+[data-theme="dark"] {
+  --color-surface: #27272a;
+  --color-surround: #18181b;
+  --color-nav: #3f3f46;
+  --color-text: rgba(255, 255, 255, 0.87);
+  --color-text-muted: rgba(255, 255, 255, 0.45);
+  --color-text-nav: rgba(255, 255, 255, 0.87);
+  --color-text-nav-accent: rgba(255, 255, 255, 0.55);
+  --color-link: #818cf8;
+  --color-panel-bg: rgba(255, 255, 255, 0.1);
+  --color-border: #52525b;
+  --color-wave: #3f3f46;
+  --color-prompt-text: antiquewhite;
+  --color-cursor: #f97316;
+  --color-piece-I: #2bb7c6;
+  --color-piece-O: #bba900;
+  --color-piece-T: #9256c9;
+  --color-piece-S: #2bb370;
+  --color-piece-Z: #de5858;
+  --color-piece-J: #568edb;
+  --color-piece-L: #e7a04e;
+}
+
 :root {
   font-family: Poppins, Helvetica, Arial, sans-serif;
   /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif; */
@@ -10,8 +65,6 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,16 +74,16 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-link);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  filter: brightness(0.9);
 }
 
 @layer base {
   h1 {
-    @apply text-xl md:text-2xl font-semibold text-zinc-800;
+    @apply text-xl md:text-2xl font-semibold text-text;
   }
 }
 
@@ -44,7 +97,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--color-link);
 }
 button:focus,
 button:focus-visible {
