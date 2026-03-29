@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
   return (
     <nav className="flex justify-center items-center w-full md:w-80 h-auto md:h-full p-3 md:p-8">
       <div
-        className="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:h-full bg-zinc-700 text-[#fafafa] rounded-xl p-4 md:p-8 gap-3 md:gap-1"
+        className="flex flex-row md:flex-col justify-between items-center md:items-stretch w-full md:h-full bg-nav text-text-nav rounded-xl p-4 md:p-8 gap-3 md:gap-1"
         style={{ userSelect: "none" }}
       >
         {/* Identity */}
@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
           {links.map((link) => (
             <a
               key={link.alt}
-              className="flex flex-row gap-2 cursor-pointer hover:text-[#bababa] transition-colors"
+              className="flex flex-row gap-2 cursor-pointer hover:text-text-muted transition-colors"
               href={link.href}
               title={link.title}
               target={link.target}
@@ -99,7 +99,7 @@ export const Navbar: React.FC = () => {
                   draggable={false}
                 />
               </div>
-              <span className="hidden md:inline text-[#FAEBD7]">
+              <span className="hidden md:inline text-text-nav-accent">
                 {link.title}
               </span>
             </a>
