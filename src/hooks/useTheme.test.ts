@@ -5,13 +5,11 @@ import { useTheme } from "./useTheme";
 const mockMatchMedia = (matches: boolean) => {
   Object.defineProperty(window, "matchMedia", {
     writable: true,
-    value: vi
-      .fn()
-      .mockReturnValue({
-        matches,
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-      }),
+    value: vi.fn().mockReturnValue({
+      matches,
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+    }),
   });
 };
 

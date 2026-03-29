@@ -45,13 +45,11 @@ describe("MainLayout render gate", () => {
   beforeEach(() => {
     Object.defineProperty(window, "matchMedia", {
       writable: true,
-      value: vi
-        .fn()
-        .mockReturnValue({
-          matches: false,
-          addEventListener: vi.fn(),
-          removeEventListener: vi.fn(),
-        }),
+      value: vi.fn().mockReturnValue({
+        matches: false,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      }),
     });
     localStorage.clear();
   });
