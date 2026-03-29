@@ -16,7 +16,7 @@ export const About: React.FC = () => {
       <SeoHead meta={routeSeo.about} />
       <SectionLayout>
         <ContentPanel>
-          <div className="flex flex-col gap-5 font-light">
+          <div className="flex flex-col gap-5 font-light max-w-150 justify-self-center">
             <h1>About</h1>
             {paragraphs.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>

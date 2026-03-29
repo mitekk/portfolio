@@ -108,7 +108,8 @@ export const Toolbox: React.FC = () => {
     <>
       <SeoHead meta={routeSeo.toolbox} />
       <SectionLayout>
-        <ContentPanel className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start">
+        <ContentPanel>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start max-w-150 justify-self-center">
           <h1 className="col-span-full">Toolbox</h1>
           {skills.map((skill) => (
             <section
@@ -141,6 +142,7 @@ export const Toolbox: React.FC = () => {
               </ul>
             </section>
           ))}
+          </div>
         </ContentPanel>
       </SectionLayout>
     </>

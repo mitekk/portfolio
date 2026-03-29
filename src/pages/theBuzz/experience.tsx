@@ -8,7 +8,8 @@ export const Experience: React.FC = () => {
     <>
       <SeoHead meta={routeSeo.experience} />
       <SectionLayout>
-        <ContentPanel className="flex flex-col gap-5">
+        <ContentPanel>
+          <div className="flex flex-col gap-5 max-w-150 justify-self-center">
           <h1>Experience</h1>
           <article className="flex flex-col gap-4">
             <header className="gap-1">
@@ -164,6 +165,7 @@ export const Experience: React.FC = () => {
               integration.
             </p>
           </article>
+          </div>
         </ContentPanel>
       </SectionLayout>
     </>
