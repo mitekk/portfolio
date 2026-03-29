@@ -27,7 +27,7 @@ export const BuzzPage: React.FC = () => {
         <WavesGrid className="relative overflow-hidden filter animate-fadein" />
         <div className="absolute inset-0 w-full h-full flex flex-col md:flex-row">
           {/* Mobile-only top header: avatar on left + section links */}
-          <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-zinc-700 text-[#fafafa]">
+          <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-nav text-text-nav">
             <Link to="/" aria-label="Go to intro page">
               <Avatar
                 src={avatarImg}
@@ -42,7 +42,7 @@ export const BuzzPage: React.FC = () => {
               {sections.map((section, index) => (
                 <React.Fragment key={section}>
                   {index > 0 && (
-                    <span className="text-[#bababa] select-none">|</span>
+                    <span className="text-text-muted select-none">|</span>
                   )}
                   <Link
                     to={`/theBuzz/${section}`}
@@ -77,7 +77,7 @@ export const BuzzPage: React.FC = () => {
           </div>
 
           {/* Mobile-only footer: icons only */}
-          <footer className="flex md:hidden justify-around items-center px-4 py-2 bg-zinc-700">
+          <footer className="flex md:hidden justify-around items-center px-4 py-2 bg-nav">
             {links.map((link) => (
               <a
                 key={link.alt}
