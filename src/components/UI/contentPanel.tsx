@@ -11,11 +11,11 @@ export const ContentPanel: React.FC<ContentPanelProps> = ({
 }) => (
   <div
     style={{
-      backgroundColor: "rgba(255,255,255,0.55)",
+      backgroundColor: "var(--color-panel-bg)",
       borderRadius: "0.75rem",
       padding: "1rem",
       height: "fit-content",
-      color: "#333332",
+      color: "var(--color-text)",
     }}
     className={`w-full max-w-full ${className ?? ""}`.trim()}
   >

@@ -25,12 +25,12 @@ export const Dropdown: React.FC<{
         {title} <span>▾</span>
       </button>
       {dropdownOpen && (
-        <div className="absolute left-0 w-40 bg-gray-700 rounded shadow-lg z-3">
+        <div className="absolute left-0 w-40 bg-nav rounded shadow-lg z-3">
           {options.map((option) => (
             <div key={option}>
               <div
-                className={`px-4 py-2 hover:bg-gray-600 cursor-pointer align-middle ${
-                  selected === option ? "bg-gray-600" : ""
+                className={`px-4 py-2 hover:bg-surround cursor-pointer align-middle ${
+                  selected === option ? "bg-surround" : ""
                 }`}
                 onClick={() => {
                   setDropdownOpen(false);
