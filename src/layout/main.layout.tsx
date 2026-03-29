@@ -3,6 +3,8 @@ import { LayoutContext } from "../context";
 import type { Dims, GridSize } from "../context/layout";
 import { MAX_WIDTH, TILE_GAP } from "../constants";
 import { calculateDims, calculateTileSize } from "./mainLayoutMath";
+import { useTheme } from '../hooks/useTheme';
+import { ThemeToggle } from '../components/UI/ThemeToggle';
 
 interface MainLayoutProps {
   children: ReactNode;
@@ -30,6 +32,7 @@ function computeLayout(): {
 
 export function MainLayout({ children }: MainLayoutProps) {
   const [{ tileSize, dims, gridSize }, setLayout] = useState(computeLayout);
+  const { theme, toggle } = useTheme();
 
   const handleResize = useCallback(() => {
     setLayout(computeLayout());
@@ -50,13 +53,13 @@ export function MainLayout({ children }: MainLayoutProps) {
           margin: "0 auto",
           overflow: "hidden",
         }}
-        className="h-screen flex flex-col justify-center items-center bg-[#4c4b4c]"
+        className="h-screen flex flex-col justify-center items-center bg-surround"
       >
         {gridSize && (
           <div
             style={{
               position: "relative",
-              background: "#f3f1e9",
+              background: "var(--color-surface)",
               borderRadius: 3,
               width: "100%",
               height: "100%",
@@ -66,6 +69,7 @@ export function MainLayout({ children }: MainLayoutProps) {
             {children}
           </div>
         )}
+        <ThemeToggle theme={theme} toggle={toggle} />
       </main>
     </LayoutContext.Provider>
   );
