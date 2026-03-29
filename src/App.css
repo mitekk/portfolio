@@ -2,7 +2,19 @@ html,
 body,
 #root {
   min-width: 320px;
-  min-height: 100vh;
+  height: 100%;
+  min-height: 100dvh;
   margin: 0;
   padding: 0;
+  overflow: hidden;
+}
+
+.theme-toggle {
+  bottom: 24px;
+}
+
+@media (max-width: 767px) {
+  .theme-toggle {
+    bottom: calc(3rem + 1rem + env(safe-area-inset-bottom, 0px));
+  }
 }

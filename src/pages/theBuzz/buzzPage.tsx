@@ -25,9 +25,9 @@ export const BuzzPage: React.FC = () => {
     <PageContext.Provider value={{}}>
       <>
         <WavesGrid className="relative overflow-hidden filter animate-fadein" />
-        <div className="absolute inset-0 w-full h-full flex flex-col md:flex-row">
+        <div className="absolute inset-0 w-full h-full flex flex-col md:flex-row overflow-hidden">
           {/* Mobile-only top header: avatar on left + section links */}
-          <header className="flex md:hidden items-center px-4 py-2 gap-2 bg-nav text-text-nav">
+          <header className="fixed top-0 inset-x-0 z-20 flex md:hidden items-center px-4 gap-2 h-14 bg-nav text-text-nav">
             <Link to="/" aria-label="Go to intro page">
               <Avatar
                 src={avatarImg}
@@ -69,7 +69,7 @@ export const BuzzPage: React.FC = () => {
           {/* Content */}
           <div
             key={location.pathname}
-            className="flex-1 min-w-0 min-h-0 mx-2 md:mx-5 overflow-auto"
+            className="flex-1 min-w-0 min-h-0 mx-2 md:mx-5 overflow-y-auto overflow-x-hidden pt-16 pb-14 md:pt-0 md:pb-0"
           >
             <Suspense fallback={null}>
               <Outlet />
@@ -77,7 +77,7 @@ export const BuzzPage: React.FC = () => {
           </div>
 
           {/* Mobile-only footer: icons only */}
-          <footer className="flex md:hidden justify-around items-center px-4 py-2 bg-nav">
+          <footer className="fixed bottom-0 inset-x-0 z-20 flex md:hidden justify-around items-center px-4 h-12 bg-nav">
             {links.map((link) => (
               <a
                 key={link.alt}

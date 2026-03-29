@@ -13,7 +13,7 @@ export const ContentPanel: React.FC<ContentPanelProps> = ({
     style={{
       backgroundColor: "var(--color-panel-bg)",
       borderRadius: "0.75rem",
-      padding: "1rem",
+      padding: "2rem 1rem 2rem 1rem",
       height: "fit-content",
       color: "var(--color-text)",
     }}

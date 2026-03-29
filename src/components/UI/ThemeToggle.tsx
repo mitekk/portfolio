@@ -5,11 +5,11 @@ interface ThemeToggleProps {
 
 export const ThemeToggle: React.FC<ThemeToggleProps> = ({ theme, toggle }) => (
   <button
+    className="theme-toggle"
     onClick={toggle}
     aria-label="Toggle theme"
     style={{
       position: "fixed",
-      bottom: "24px",
       right: "24px",
       background: "var(--color-nav)",
       color: "var(--color-text-nav)",

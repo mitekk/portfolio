@@ -53,7 +53,7 @@ export function MainLayout({ children }: MainLayoutProps) {
           margin: "0 auto",
           overflow: "hidden",
         }}
-        className="h-screen flex flex-col justify-center items-center bg-surround"
+        className="h-dvh flex flex-col justify-center items-center bg-surround"
       >
         {gridSize && (
           <div
