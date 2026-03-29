@@ -43,9 +43,15 @@ describe("calculateDims", () => {
 
 describe("MainLayout render gate", () => {
   beforeEach(() => {
-    Object.defineProperty(window, 'matchMedia', {
+    Object.defineProperty(window, "matchMedia", {
       writable: true,
-      value: vi.fn().mockReturnValue({ matches: false, addEventListener: vi.fn(), removeEventListener: vi.fn() }),
+      value: vi
+        .fn()
+        .mockReturnValue({
+          matches: false,
+          addEventListener: vi.fn(),
+          removeEventListener: vi.fn(),
+        }),
     });
     localStorage.clear();
   });
@@ -83,14 +89,27 @@ describe("MainLayout render gate", () => {
 
   test("renders ThemeToggle button", async () => {
     vi.doMock("./mainLayoutMath", async () => {
-      const actual = await vi.importActual<typeof import("./mainLayoutMath")>("./mainLayoutMath");
-      return { ...actual, calculateTileSize: vi.fn(() => 50), calculateDims: vi.fn(() => ({ rows: 8, cols: 12 })) };
+      const actual =
+        await vi.importActual<typeof import("./mainLayoutMath")>(
+          "./mainLayoutMath",
+        );
+      return {
+        ...actual,
+        calculateTileSize: vi.fn(() => 50),
+        calculateDims: vi.fn(() => ({ rows: 8, cols: 12 })),
+      };
     });
 
     const { MainLayout } = await import("./main.layout");
 
-    render(<MainLayout><div /></MainLayout>);
-    expect(screen.getByRole('button', { name: 'Toggle theme' })).toBeInTheDocument();
+    render(
+      <MainLayout>
+        <div />
+      </MainLayout>,
+    );
+    expect(
+      screen.getByRole("button", { name: "Toggle theme" }),
+    ).toBeInTheDocument();
   });
 
   test("children appear and layout context is available once grid size exists", async () => {
