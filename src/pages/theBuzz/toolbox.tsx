@@ -33,6 +33,7 @@ import {
   githubIcon,
   claudeIcon,
   codexIcon,
+  coolifyIcon,
 } from "../../assets/tech";
 
 const skills = [
@@ -92,6 +93,7 @@ const skills = [
     technologies: [
       { name: "Github", icon: githubIcon },
       { name: "Amplify", icon: amplifyIcon },
+      { name: "Coolify", icon: coolifyIcon },
     ],
   },
   {

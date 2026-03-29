@@ -18,6 +18,7 @@ export { default as puppeteerIcon } from "./puppeteer.svg";
 export { default as playwrightIcon } from "./playwright.svg";
 export { default as claudeIcon } from "./claude.svg";
 export { default as codexIcon } from "./codex.svg";
+export { default as coolifyIcon } from "./coolify.svg";
 export { default as tailwindIcon } from "./tailwind.svg";
 export { default as storybookIcon } from "./storybook.svg";
 export { default as viteIcon } from "./vite.svg";
