@@ -114,7 +114,7 @@ export const Toolbox: React.FC = () => {
             <section
               key={skill.title}
               aria-labelledby={`toolbox-${skill.title.toLowerCase()}-heading`}
-              className="border border-[--color-border] bg-[--color-panel-bg] rounded-xl p-3 flex flex-col gap-3"
+              className="border border-border bg-panel-bg rounded-xl p-3 flex flex-col gap-3"
             >
               <h2
                 id={`toolbox-${skill.title.toLowerCase()}-heading`}
@@ -126,7 +126,7 @@ export const Toolbox: React.FC = () => {
                 {skill.technologies.map((tech) => (
                   <li
                     key={tech.name}
-                    className="list-none flex flex-col items-center gap-1 p-2 border border-[--color-border] bg-[--color-panel-bg] rounded-lg text-xs text-text font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
+                    className="list-none flex flex-col items-center gap-1 p-2 border border-border bg-panel-bg rounded-lg text-xs text-text font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
                   >
                     <img
                       src={tech.icon}
