@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 type Theme = 'light' | 'dark';
 
 function getInitialTheme(): Theme {
-  const stored = localStorage.getItem('theme') as Theme | null;
-  if (stored) return stored;
+  const stored = localStorage.getItem('theme');
+  if (stored === 'light' || stored === 'dark') return stored;
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 }
 

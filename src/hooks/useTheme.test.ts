@@ -66,4 +66,10 @@ describe('useTheme', () => {
     act(() => { result.current.toggle(); });
     expect(document.documentElement.dataset.theme).toBe('dark');
   });
+
+  test('ignores invalid stored theme and falls back to system preference', () => {
+    localStorage.setItem('theme', 'garbage');
+    const { result } = renderHook(() => useTheme());
+    expect(result.current.theme).toBe('light'); // system is light (mocked in beforeEach)
+  });
 });
