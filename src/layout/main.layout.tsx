@@ -3,8 +3,8 @@ import { LayoutContext } from "../context";
 import type { Dims, GridSize } from "../context/layout";
 import { MAX_WIDTH, TILE_GAP } from "../constants";
 import { calculateDims, calculateTileSize } from "./mainLayoutMath";
-import { useTheme } from '../hooks/useTheme';
-import { ThemeToggle } from '../components/UI/ThemeToggle';
+import { useTheme } from "../hooks/useTheme";
+import { ThemeToggle } from "../components/UI/ThemeToggle";
 
 interface MainLayoutProps {
   children: ReactNode;
