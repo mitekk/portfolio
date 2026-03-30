@@ -6,7 +6,7 @@ import {
 } from "../../assets/links";
 
 const emailUrl = "mitekk@gmail.com";
-const linkedinUrl = "https://www.linkedin.com/in/mitya-kurs-8b058452/";
+const linkedinUrl = "https://www.linkedin.com/in/mitya-kurs/";
 const githubUrl = "https://github.com/mitekk";
 
 export const sections = ["about", "experience", "toolbox"];

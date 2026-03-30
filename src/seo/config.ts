@@ -78,7 +78,7 @@ export const personStructuredData = {
   jobTitle: "Senior Full-Stack Developer and Team Lead",
   sameAs: [
     "https://github.com/mitekk",
-    "https://www.linkedin.com/in/mitya-kurs-8b058452/",
+    "https://www.linkedin.com/in/mitya-kurs/",
   ],
   knowsAbout: [
     "Full-Stack Development",
