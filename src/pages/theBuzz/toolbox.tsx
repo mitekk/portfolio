@@ -112,38 +112,38 @@ export const Toolbox: React.FC = () => {
       <SectionLayout>
         <ContentPanel>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start max-w-150 justify-self-center">
-          <h1 className="col-span-full">Toolbox</h1>
-          {skills.map((skill) => (
-            <section
-              key={skill.title}
-              aria-labelledby={`toolbox-${skill.title.toLowerCase()}-heading`}
-              className="border border-border bg-panel-bg rounded-xl p-3 flex flex-col gap-3"
-            >
-              <h2
-                id={`toolbox-${skill.title.toLowerCase()}-heading`}
-                className="text-xs font-bold uppercase tracking-wider text-text-muted"
+            <h1 className="col-span-full">Toolbox</h1>
+            {skills.map((skill) => (
+              <section
+                key={skill.title}
+                aria-labelledby={`toolbox-${skill.title.toLowerCase()}-heading`}
+                className="border border-border bg-panel-bg rounded-xl p-3 flex flex-col gap-3"
               >
-                {skill.title}
-              </h2>
-              <ul className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
-                {skill.technologies.map((tech) => (
-                  <li
-                    key={tech.name}
-                    className="list-none flex flex-col items-center gap-1 p-2 border border-border bg-panel-bg rounded-lg text-xs text-text font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
-                  >
-                    <img
-                      src={tech.icon}
-                      alt=""
-                      aria-hidden="true"
-                      role="presentation"
-                      className="w-8 h-8"
-                    />
-                    {tech.name}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
+                <h2
+                  id={`toolbox-${skill.title.toLowerCase()}-heading`}
+                  className="text-xs font-bold uppercase tracking-wider text-text-muted"
+                >
+                  {skill.title}
+                </h2>
+                <ul className="grid grid-cols-1 min-[420px]:grid-cols-2 gap-2">
+                  {skill.technologies.map((tech) => (
+                    <li
+                      key={tech.name}
+                      className="list-none flex flex-col items-center gap-1 p-2 border border-border bg-panel-bg rounded-lg text-xs text-text font-medium transition-all hover:shadow-lg hover:saturate-175 hover:scale-105"
+                    >
+                      <img
+                        src={tech.icon}
+                        alt=""
+                        aria-hidden="true"
+                        role="presentation"
+                        className="w-8 h-8"
+                      />
+                      {tech.name}
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
           </div>
         </ContentPanel>
       </SectionLayout>
