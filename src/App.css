@@ -14,7 +14,7 @@ body,
 }
 
 @media (max-width: 767px) {
-  .theme-toggle {
+  body:not(:has(.intro-root)) .theme-toggle {
     bottom: calc(3rem + 1rem + env(safe-area-inset-bottom, 0px));
   }
 }

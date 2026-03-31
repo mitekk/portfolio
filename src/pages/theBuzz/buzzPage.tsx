@@ -69,7 +69,7 @@ export const BuzzPage: React.FC = () => {
           {/* Content */}
           <div
             key={location.pathname}
-            className="flex-1 min-w-0 min-h-0 mx-2 md:mx-5 overflow-y-auto overflow-x-hidden pt-16 pb-14 md:pt-0 md:pb-0"
+            className="flex-1 h-full min-w-0 min-h-0 mx-2 md:mx-5 overflow-y-auto overflow-x-hidden pt-16 pb-14 md:pt-0 md:pb-0"
           >
             <Suspense fallback={null}>
               <Outlet />

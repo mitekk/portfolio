@@ -20,7 +20,7 @@ describe("About", () => {
     const section = container.querySelector("section");
     const panel = container.querySelector("section > div");
 
-    expect(section).toHaveClass("w-full", "min-w-0");
-    expect(panel).toHaveClass("w-full", "max-w-full");
+    expect(section).toHaveClass("w-full", "min-w-0", "min-h-full");
+    expect(panel).toHaveClass("w-full", "max-w-full", "min-h-full");
   });
 });

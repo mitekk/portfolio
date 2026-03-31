@@ -45,6 +45,7 @@ export const IntroPage: React.FC = () => {
           <link rel="preload" as="image" href={avatarImg} />
         </Helmet>
         <h1
+          className="intro-root"
           style={{
             position: "absolute",
             width: "1px",
