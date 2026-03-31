@@ -28,7 +28,8 @@
     "test:unit:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ci": "mkdir -p test-results && PLAYWRIGHT_JUNIT_OUTPUT_DIR=test-results PLAYWRIGHT_JUNIT_OUTPUT_NAME=playwright-junit.xml playwright test --output=playwright-test-results --reporter=line,junit,html",
-    "test": "vitest run && playwright test"
+    "test": "vitest run && playwright test",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fontsource/poppins": "^5.2.6",
@@ -55,6 +56,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "jsdom": "^29.0.1",
     "prettier": "3.6.2",
     "tailwindcss": "^4.1.6",
