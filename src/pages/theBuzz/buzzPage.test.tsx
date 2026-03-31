@@ -73,6 +73,6 @@ describe("BuzzPage", () => {
 
     expect(pageOverlay).toHaveClass("absolute", "inset-0", "w-full", "h-full");
     expect(pageOverlay).not.toHaveClass("fixed");
-    expect(contentWrapper).toHaveClass("min-w-0");
+    expect(contentWrapper).toHaveClass("h-full", "min-w-0");
   });
 });

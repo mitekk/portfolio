@@ -14,10 +14,10 @@ export const ContentPanel: React.FC<ContentPanelProps> = ({
       backgroundColor: "var(--color-panel-bg)",
       borderRadius: "0.75rem",
       padding: "2rem 1rem 2rem 1rem",
-      height: "fit-content",
+      minHeight: "100%",
       color: "var(--color-text)",
     }}
-    className={`w-full max-w-full ${className ?? ""}`.trim()}
+    className={`w-full max-w-full min-h-full ${className ?? ""}`.trim()}
   >
     {children}
   </div>

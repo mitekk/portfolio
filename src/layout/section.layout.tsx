@@ -5,6 +5,8 @@ interface SectionLayoutProps {
 }
 export const SectionLayout: React.FC<SectionLayoutProps> = ({ children }) => {
   return (
-    <section className="flex w-full min-w-0 p-4 md:p-8">{children}</section>
+    <section className="flex w-full min-w-0 min-h-full items-stretch p-4 md:p-8">
+      {children}
+    </section>
   );
 };
