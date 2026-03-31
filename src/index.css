@@ -44,8 +44,8 @@
   --color-text-nav: rgba(255, 255, 255, 0.87);
   --color-text-nav-accent: rgba(255, 255, 255, 0.55);
   --color-link: #818cf8;
-  --color-panel-bg: rgba(255, 255, 255, 0.1);
-  --color-border: #52525b;
+  --color-panel-bg: #3f3f4696;
+  --color-border: #e4e4e75e;
   --color-wave: #3f3f46;
   --color-prompt-text: antiquewhite;
   --color-cursor: #f97316;
