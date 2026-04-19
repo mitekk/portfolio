@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect } from "react";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 const IntroPage = lazy(() =>
   import("./pages/intro/introPage").then((m) => ({ default: m.IntroPage })),
@@ -24,16 +24,6 @@ const NotFoundPage = lazy(() =>
 );
 
 export function AppRoutes() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const redirect = sessionStorage.redirect;
-    if (redirect) {
-      sessionStorage.removeItem("redirect");
-      navigate(redirect, { replace: true });
-    }
-  }, [navigate]);
-
   return (
     <Suspense fallback={null}>
       <Routes>

@@ -16,21 +16,4 @@ test.describe("routing flow (desktop-large)", () => {
       page.getByRole("heading", { name: "404 - Not Found" }),
     ).toBeVisible();
   });
-
-  test("sessionStorage.redirect sends user to /theBuzz/experience and clears key", async ({
-    page,
-  }) => {
-    await page.addInitScript(() => {
-      sessionStorage.setItem("redirect", "/theBuzz/experience");
-    });
-
-    await page.goto("/");
-
-    await expect(page).toHaveURL(/\/theBuzz\/experience$/, { timeout: 30000 });
-
-    const redirectValue = await page.evaluate(() =>
-      sessionStorage.getItem("redirect"),
-    );
-    expect(redirectValue).toBeNull();
-  });
 });

@@ -53,6 +53,8 @@ jobs:
 
       - name: Build app
         run: npm run build
+        env:
+          PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome-stable
 
   unit-tests:
     runs-on: ubuntu-latest

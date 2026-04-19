@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://profile.mitya.dev/</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://profile.mitya.dev/theBuzz/about</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://profile.mitya.dev/theBuzz/toolbox</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
   <url>
     <loc>https://profile.mitya.dev/theBuzz/experience</loc>
+    <lastmod>2026-04-19</lastmod>
   </url>
 </urlset>

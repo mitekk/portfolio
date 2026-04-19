@@ -22,10 +22,6 @@ const renderRoutes = (path: string) =>
   );
 
 describe("AppRoutes", () => {
-  beforeEach(() => {
-    sessionStorage.clear();
-  });
-
   test("/ renders IntroPage", async () => {
     renderRoutes("/");
 
@@ -66,19 +62,5 @@ describe("AppRoutes", () => {
         screen.getByRole("heading", { name: "404 - Not Found" }),
       ).toBeInTheDocument();
     });
-  });
-
-  test("sessionStorage redirect navigates and clears key", async () => {
-    sessionStorage.setItem("redirect", "/theBuzz/experience");
-
-    renderRoutes("/");
-
-    await waitFor(() => {
-      expect(
-        screen.getByRole("heading", { name: "Experience" }),
-      ).toBeInTheDocument();
-    });
-
-    expect(sessionStorage.getItem("redirect")).toBeNull();
   });
 });

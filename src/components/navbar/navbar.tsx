@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "../UI";
 import avatarImg from "../../assets/profile/avatar.webp";
@@ -7,30 +7,24 @@ import { sections, links } from "./navData";
 
 export const Navbar: React.FC = () => {
   const { pathname } = useLocation();
-  const [activeLink, setActiveLink] = useState<string>();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setActiveLink(pathname.split("/")[2]);
-  }, [pathname]);
+  const activeLink = pathname.split("/")[2];
+  const activeLinkRef = useRef(activeLink);
+  activeLinkRef.current = activeLink;
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (!activeLink) return;
-      const currentIndex = sections.indexOf(activeLink);
-      if (e.key === "ArrowDown") {
-        const nextIndex = (currentIndex + 1) % sections.length;
-        navigate(sections[nextIndex]);
-      }
-      if (e.key === "ArrowUp") {
-        const prevIndex =
-          (currentIndex - 1 + sections.length) % sections.length;
-        navigate(sections[prevIndex]);
-      }
+      const link = activeLinkRef.current;
+      if (!link) return;
+      const idx = sections.indexOf(link);
+      if (e.key === "ArrowDown")
+        navigate(sections[(idx + 1) % sections.length]);
+      if (e.key === "ArrowUp")
+        navigate(sections[(idx - 1 + sections.length) % sections.length]);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeLink, navigate]);
+  }, [navigate]);
 
   return (
     <nav className="flex justify-center items-center w-full md:w-80 h-auto md:h-full p-3 md:p-8">
