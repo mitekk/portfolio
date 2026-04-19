@@ -34,15 +34,11 @@ async function startAnalytics(): Promise<void> {
   }
 
   isInitialized = true;
-  window.dataLayer = window.dataLayer || [];
-  window.gtag = (...args: unknown[]) => {
-    window.dataLayer.push(args);
-  };
 
   try {
     await loadGtagScript();
     window.gtag("js", new Date());
-    window.gtag("config", GA_MEASUREMENT_ID);
+    window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
   } catch (error) {
     if (import.meta.env.DEV) {
       console.warn(error);
@@ -63,6 +59,13 @@ export function initAnalytics(): void {
   if (!import.meta.env.PROD) {
     return;
   }
+
+  window.dataLayer = window.dataLayer || [];
+  window.gtag =
+    window.gtag ||
+    ((...args: unknown[]) => {
+      window.dataLayer.push(args);
+    });
 
   let didSchedule = false;
   let fallbackTimeoutId: number | undefined;
