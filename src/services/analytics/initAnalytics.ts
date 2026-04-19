@@ -50,6 +50,15 @@ async function startAnalytics(): Promise<void> {
   }
 }
 
+export function trackPageView(path: string): void {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", "page_view", {
+      page_path: path,
+      page_location: window.location.href,
+    });
+  }
+}
+
 export function initAnalytics(): void {
   if (!import.meta.env.PROD) {
     return;
