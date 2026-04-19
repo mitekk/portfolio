@@ -59,11 +59,14 @@ export function initAnalytics(): void {
   }
 
   window.dataLayer = window.dataLayer || [];
+  // Must use 'function' keyword — GA4 identifies gtag commands by checking for
+  // an Arguments object in dataLayer. Arrow functions produce plain arrays, which GA4 ignores.
   window.gtag =
     window.gtag ||
-    ((...args: unknown[]) => {
-      window.dataLayer.push(args);
-    });
+    function () {
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer.push(arguments);
+    };
 
   // Queue config immediately so it precedes any page_view events in the dataLayer
   window.gtag("js", new Date());
