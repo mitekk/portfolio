@@ -3,6 +3,10 @@
 @import "@fontsource/poppins/latin-700.css";
 @import "tailwindcss";
 
+html[data-loading] #root {
+  visibility: hidden;
+}
+
 @theme {
   /* Layout */
   --color-surface: #f3f1e9;
