@@ -35,12 +35,22 @@ export function MainLayout({ children }: MainLayoutProps) {
   const { theme, toggle } = useTheme();
 
   const handleResize = useCallback(() => {
-    setLayout(computeLayout());
+    setLayout((prev) => {
+      const next = computeLayout();
+      if (
+        prev.tileSize === next.tileSize &&
+        prev.dims.rows === next.dims.rows &&
+        prev.dims.cols === next.dims.cols
+      ) {
+        return prev;
+      }
+      return next;
+    });
   }, []);
 
   useLayoutEffect(() => {
+    delete document.documentElement.dataset.loading;
     window.addEventListener("resize", handleResize);
-    handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
 
