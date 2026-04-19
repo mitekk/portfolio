@@ -37,8 +37,6 @@ async function startAnalytics(): Promise<void> {
 
   try {
     await loadGtagScript();
-    window.gtag("js", new Date());
-    window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
   } catch (error) {
     if (import.meta.env.DEV) {
       console.warn(error);
@@ -66,6 +64,10 @@ export function initAnalytics(): void {
     ((...args: unknown[]) => {
       window.dataLayer.push(args);
     });
+
+  // Queue config immediately so it precedes any page_view events in the dataLayer
+  window.gtag("js", new Date());
+  window.gtag("config", GA_MEASUREMENT_ID, { send_page_view: false });
 
   let didSchedule = false;
   let fallbackTimeoutId: number | undefined;
