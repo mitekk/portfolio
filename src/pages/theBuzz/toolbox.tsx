@@ -34,6 +34,8 @@ import {
   claudeIcon,
   codexIcon,
   coolifyIcon,
+  drizzleIcon,
+  hetznerIcon,
 } from "../../assets/tech";
 
 const skills = [
@@ -59,6 +61,7 @@ const skills = [
       { name: "GraphQL", icon: graphqlIcon },
       { name: "Prisma", icon: prismaIcon },
       { name: "Zod", icon: zodIcon },
+      { name: "Drizzle", icon: drizzleIcon },
     ],
   },
   {
@@ -69,6 +72,7 @@ const skills = [
       { name: "Terraform", icon: terraformIcon },
       { name: "CDK", icon: cdkIcon },
       { name: "Docker", icon: dockerIcon },
+      { name: "Hetzner", icon: hetznerIcon },
     ],
   },
   {

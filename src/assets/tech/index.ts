@@ -30,3 +30,5 @@ export { default as tanstackIcon } from "./tanstack.svg";
 export { default as nestjsIcon } from "./nestjs.svg";
 export { default as prismaIcon } from "./prisma.svg";
 export { default as zodIcon } from "./zod.svg";
+export { default as drizzleIcon } from "./drizzle.svg";
+export { default as hetznerIcon } from "./hetzner.svg";
