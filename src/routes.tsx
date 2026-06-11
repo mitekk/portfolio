@@ -17,6 +17,9 @@ const Experience = lazy(() =>
 const Toolbox = lazy(() =>
   import("./pages/theBuzz/toolbox").then((m) => ({ default: m.Toolbox })),
 );
+const CvPage = lazy(() =>
+  import("./pages/cv/cvPage").then((m) => ({ default: m.CvPage })),
+);
 const NotFoundPage = lazy(() =>
   import("./pages/notFound/notfoundPage").then((m) => ({
     default: m.NotFoundPage,
@@ -28,6 +31,7 @@ export function AppRoutes() {
     <Suspense fallback={null}>
       <Routes>
         <Route path="/" element={<IntroPage />} />
+        <Route path="/cv" element={<CvPage />} />
         <Route path="/theBuzz" element={<BuzzPage />}>
           <Route index element={<Navigate to="about" replace />} />
           <Route path="about" element={<About />} />
