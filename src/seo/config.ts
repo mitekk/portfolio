@@ -2,7 +2,11 @@ import type { RouteSeo } from "./types";
 
 export const SITE_URL = "https://profile.mitya.dev";
 export const SITE_NAME = "Mitya Kurs Portfolio";
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/favicon.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
+export const DEFAULT_OG_IMAGE_ALT =
+  "Mitya Kurs — Senior Engineering Leader & Hands-On Builder";
+export const PROFILE_IMAGE = `${SITE_URL}/profile.png`;
+export const CV_URL = `${SITE_URL}/Mitya_Kurs.pdf`;
 export const DEFAULT_TWITTER_CARD: RouteSeo["twitterCard"] = "summary";
 
 const toCanonical = (path: string): string => {
@@ -54,6 +58,17 @@ export const routeSeo = {
     ogImage: DEFAULT_OG_IMAGE,
     twitterCard: "summary_large_image",
   },
+  cv: {
+    title: "CV — Mitya Kurs, Senior Engineering Leader",
+    description:
+      "Download or view the CV of Mitya Kurs — senior engineering leader and hands-on full-stack builder with 14 years shipping production systems across legal-tech, healthcare, and SaaS.",
+    path: "/cv",
+    canonical: toCanonical("/cv"),
+    indexable: true,
+    ogImage: `${SITE_URL}/cv-og.png`,
+    ogImageAlt: "CV — Mitya Kurs, Senior Engineering Leader",
+    twitterCard: "summary_large_image",
+  },
   notFound: {
     title: "404 Not Found | Mitya Kurs",
     description: "The requested page was not found on Mitya Kurs's portfolio.",
@@ -64,7 +79,7 @@ export const routeSeo = {
     twitterCard: "summary",
   },
 } satisfies Record<
-  "home" | "about" | "experience" | "toolbox" | "notFound",
+  "home" | "about" | "experience" | "toolbox" | "cv" | "notFound",
   RouteSeo
 >;
 
@@ -74,7 +89,7 @@ export const personStructuredData = {
   "@id": `${SITE_URL}/#person`,
   name: "Mitya Kurs",
   url: `${SITE_URL}/`,
-  image: DEFAULT_OG_IMAGE,
+  image: PROFILE_IMAGE,
   jobTitle: "Senior Full-Stack Developer and Team Lead",
   sameAs: [
     "https://github.com/mitekk",
@@ -98,7 +113,24 @@ export const personStructuredData = {
     name: "14 years of software engineering experience",
   },
   mainEntityOfPage: `${SITE_URL}/`,
-  subjectOf: `${SITE_URL}/Mitya_Kurs.pdf`,
+  subjectOf: CV_URL,
+};
+
+export const cvStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": `${SITE_URL}/cv#cv`,
+  name: "CV — Mitya Kurs, Senior Engineering Leader",
+  url: `${SITE_URL}/cv`,
+  about: { "@id": `${SITE_URL}/#person` },
+  author: { "@id": `${SITE_URL}/#person` },
+  encodingFormat: "application/pdf",
+  associatedMedia: {
+    "@type": "MediaObject",
+    contentUrl: CV_URL,
+    encodingFormat: "application/pdf",
+  },
+  inLanguage: "en",
 };
 
 export const websiteStructuredData = {

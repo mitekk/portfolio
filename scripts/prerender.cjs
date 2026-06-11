@@ -28,7 +28,13 @@ const puppeteerExecutablePath = findChrome();
 
 run({
   source: "dist",
-  include: ["/", "/theBuzz/about", "/theBuzz/experience", "/theBuzz/toolbox"],
+  include: [
+    "/",
+    "/cv",
+    "/theBuzz/about",
+    "/theBuzz/experience",
+    "/theBuzz/toolbox",
+  ],
   waitFor: 2000,
   puppeteerArgs: ["--no-sandbox", "--disable-setuid-sandbox"],
   ...(puppeteerExecutablePath ? { puppeteerExecutablePath } : {}),
