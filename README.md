@@ -1,68 +1,66 @@
-# React + TypeScript + Vite
+# Mitya Kurs — Portfolio & CV
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Mitya Kurs, Senior Engineering Leader & Hands-On Builder](public/og-image.png)
 
-Currently, two official plugins are available:
+My personal portfolio and CV site, live at **[profile.mitya.dev](https://profile.mitya.dev/)**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+It's a small, fast site that introduces who I am, walks through my experience and
+toolbox, and lets you read or download my CV. Every route is prerendered to static
+HTML, so it loads instantly and shares cleanly on LinkedIn and in search results.
 
-## Formatting workflow
+## What's inside
 
-- Formatting rules are defined in `.prettierrc.json` and enforced in CI with `npm run format:check`.
-- Format the whole repo with `npm run format`.
-- Format specific files with `npm run format:files -- <file1> <file2> ...`.
+- An animated landing page (grid backgrounds with a typing intro)
+- About, Experience, and Toolbox sections
+- A dedicated `/cv` page with an inline PDF preview, download, and a branded share card
+- Built for performance, accessibility, and SEO. Checked in CI with Lighthouse.
 
-Generated code must run a post-generate formatting step before commit:
+## Tech stack
+
+- React 19 + TypeScript
+- Vite 6
+- Tailwind CSS 4
+- React Router 7
+- react-helmet-async for per-route meta
+- Prerendered to static HTML with react-snap
+- Vitest (unit) and Playwright (end-to-end) for tests
+
+## Getting started
 
 ```bash
-npm run format:files -- <generated-paths>
+npm install
+npm run dev
 ```
 
-For AI/manual generation, treat the same command as a required final step before commit.
+Then open http://localhost:5173.
 
-## Expanding the ESLint configuration
+## Scripts
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Type-check, build, and prerender routes to static HTML |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
+| `npm run format` | Format with Prettier |
+| `npm run test:unit` | Run unit tests (Vitest) |
+| `npm run test:e2e` | Run end-to-end tests (Playwright) |
+| `npm run test` | Run unit and e2e tests |
+| `npm run lhci` | Build and run Lighthouse CI |
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Project structure
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `src/pages` — intro, theBuzz (about / experience / toolbox), cv, notFound
+- `src/components` — UI, animated grid backgrounds, navbar, SEO head
+- `src/seo` — single-source SEO config and structured data
+- `scripts/prerender.cjs` — static HTML prerender step (runs after build)
+- `nginx.conf`, `Dockerfile` — production serving
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Deployment
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+`npm run build` outputs static HTML to `dist/` (routes prerendered via react-snap).
+The site is served by Nginx (`nginx.conf`) and packaged with Docker.
+
+## License
+
+Released under the MIT License. See [LICENSE](LICENSE).
