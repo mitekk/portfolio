@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Prompter } from "../../components/prompter/prompter";
@@ -8,6 +8,7 @@ import { LayoutContext } from "../../context/layout";
 import { TetrominoesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
 import { SeoHead } from "../../components/seo/seoHead";
+import { useSkipIntro } from "../../hooks/useSkipIntro";
 import {
   personStructuredData,
   routeSeo,
@@ -18,10 +19,16 @@ import avatarImg from "../../assets/profile/avatar.webp";
 
 export const IntroPage: React.FC = () => {
   const navigate = useNavigate();
-  const [dropFinished, setDropFinished] = useState(false);
+  const { skip, markPlayed } = useSkipIntro();
+  // The existing hero gate is the only gate: starting it true is what "skip" means.
+  const [dropFinished, setDropFinished] = useState(skip);
   const [promptFinished, setPromptFinished] = useState(false);
   const [introFinished, setIntroFinished] = useState(false);
   const { dims } = useContext(LayoutContext);
+
+  useEffect(() => {
+    if (dropFinished) markPlayed();
+  }, [dropFinished, markPlayed]);
 
   const defaultGridProps = {
     onAnimationStart: () => {
@@ -60,7 +67,7 @@ export const IntroPage: React.FC = () => {
         >
           Mitya Kurs - Senior Full-Stack Developer and Team Lead
         </h1>
-        <TetrominoesGrid {...defaultGridProps} />
+        <TetrominoesGrid {...defaultGridProps} skipAnimation={skip} />
         {dropFinished && !introFinished && (
           <div
             className={`z-[2] flex flex-col justify-center items-center absolute inset-0 w-full h-full intro-overlay${
@@ -88,6 +95,7 @@ export const IntroPage: React.FC = () => {
               >
                 <Prompter
                   prompt={{ lines: PromptLines.intro }}
+                  instant={skip}
                   onAnimationStart={() => setPromptFinished(false)}
                   onAnimationFinish={() => setPromptFinished(true)}
                 />
@@ -101,7 +109,7 @@ export const IntroPage: React.FC = () => {
                           () => {
                             navigate("/theBuzz");
                           },
-                          dims.cols * dims.cols * 2,
+                          skip ? 0 : dims.cols * dims.cols * 2,
                         );
                       }}
                     >

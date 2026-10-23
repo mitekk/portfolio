@@ -7,17 +7,24 @@ interface PrompterProps {
   prompt: Prompt;
   onAnimationStart?: () => void;
   onAnimationFinish?: () => void;
+  /** Render the finished text straight away, for visitors skipping the intro. */
+  instant?: boolean;
 }
 
 export const Prompter = ({
   prompt,
   onAnimationFinish,
   onAnimationStart,
+  instant = false,
 }: PrompterProps) => {
-  const [currentLine, setCurrentLine] = useState(0);
+  const [currentLine, setCurrentLine] = useState(
+    instant ? prompt.lines.length : 0,
+  );
   const [currentChar, setCurrentChar] = useState(0);
   const [typedText, setTypedText] = useState("");
-  const [completedLines, setCompletedLines] = useState<string[]>([]);
+  const [completedLines, setCompletedLines] = useState<string[]>(
+    instant ? prompt.lines.map((line) => line.text) : [],
+  );
 
   useEffect(() => {
     if (onAnimationStart && currentLine < prompt.lines.length - 1)
@@ -25,6 +32,11 @@ export const Prompter = ({
   }, [onAnimationStart, currentLine, prompt.lines.length]);
 
   useEffect(() => {
+    if (instant) onAnimationFinish?.();
+  }, [instant, onAnimationFinish]);
+
+  useEffect(() => {
+    if (instant) return;
     if (!prompt.lines[currentLine]) return;
 
     let timeout: ReturnType<typeof setTimeout>;
@@ -54,7 +66,7 @@ export const Prompter = ({
       }, 40);
     }
     return () => clearTimeout(timeout);
-  }, [currentChar, currentLine, prompt.lines, onAnimationFinish]);
+  }, [currentChar, currentLine, prompt.lines, onAnimationFinish, instant]);
 
   return (
     <div className="prompter">

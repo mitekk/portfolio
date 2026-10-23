@@ -25,33 +25,44 @@ describe("AppRoutes", () => {
   test("/ renders IntroPage", async () => {
     renderRoutes("/");
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole("heading", {
-          name: "Mitya Kurs - Senior Full-Stack Developer and Team Lead",
-        }),
-      ).toBeInTheDocument();
-    });
+    // These routes are `React.lazy`, so the first assertion waits on a dynamic import
+    // that vitest may still be transforming; the 1s default is not always enough.
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole("heading", {
+            name: "Mitya Kurs - Senior Full-Stack Developer and Team Lead",
+          }),
+        ).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
   });
 
   test("/theBuzz redirects to /theBuzz/about", async () => {
     renderRoutes("/theBuzz");
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole("heading", { name: "About" }),
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole("heading", { name: "About" }),
+        ).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
   });
 
   test("/theBuzz/about renders About content", async () => {
     renderRoutes("/theBuzz/about");
 
-    await waitFor(() => {
-      expect(
-        screen.getByRole("heading", { name: "About" }),
-      ).toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        expect(
+          screen.getByRole("heading", { name: "About" }),
+        ).toBeInTheDocument();
+      },
+      { timeout: 5000 },
+    );
   });
 
   test("unknown path renders NotFoundPage", async () => {

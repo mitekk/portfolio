@@ -132,3 +132,10 @@ button:focus-visible {
 .animate-fadeout {
   animation: fadeout 0.75s ease forwards;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadein,
+  .animate-fadeout {
+    animation: none;
+  }
+}

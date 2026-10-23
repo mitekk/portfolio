@@ -28,13 +28,17 @@ interface TetrominoesGridProps {
   onAnimationStart?: () => void;
   onAnimationFinish?: () => void;
   removeTiles?: boolean;
+  skipAnimation?: boolean;
 }
 
 export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
   onAnimationFinish,
   removeTiles = false,
+  skipAnimation = false,
 }) => {
-  const [animated, setAnimated] = useState(false);
+  // Settled on the very first render when skipping, not after an effect — otherwise the
+  // tiles are painted off-screen once and jump into place.
+  const [animated, setAnimated] = useState(skipAnimation);
   const { dims, gridSize, tileSize } = useContext(LayoutContext);
 
   const shapes = useMemo<Shape<ShapeKeyTetrominoes>[]>(() => {
@@ -43,16 +47,16 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
   }, [dims.rows, dims.cols]);
 
   useEffect(() => {
+    if (skipAnimation) return;
     setAnimated(false);
     return afterNextPaint(() => setAnimated(true));
-  }, [shapes]);
+  }, [shapes, skipAnimation]);
 
   useEffect(() => {
-    if (removeTiles) {
-      setAnimated(false);
-      return afterNextPaint(() => setAnimated(true));
-    }
-  }, [removeTiles]);
+    if (skipAnimation || !removeTiles) return;
+    setAnimated(false);
+    return afterNextPaint(() => setAnimated(true));
+  }, [removeTiles, skipAnimation]);
 
   const animationEndTimeout = useRef<number | null>(null);
 
@@ -134,9 +138,11 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
                 left: finalLeft,
                 top: finalTop,
                 transform: `translateY(${translateY}px)`,
-                transition: `transform ${DROP_DURATION_S}s cubic-bezier(0.34, 0.9, 0.3, 1) ${
-                  ((shapes.length - idx) / shapes.length) * DROP_STAGGER_S
-                }s`,
+                transition: skipAnimation
+                  ? "none"
+                  : `transform ${DROP_DURATION_S}s cubic-bezier(0.34, 0.9, 0.3, 1) ${
+                      ((shapes.length - idx) / shapes.length) * DROP_STAGGER_S
+                    }s`,
               }}
               onTransitionEnd={(e) => {
                 if (
