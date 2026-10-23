@@ -6,6 +6,11 @@ const { JSDOM } = require("jsdom");
 
 const DIST = path.join(__dirname, "..", "dist");
 const INDEX_MAX_BYTES = 20000;
+// No route's prerendered HTML is anywhere near this once the grids are gone (the largest,
+// /theBuzz/toolbox, is ~76KB of real content; with its waves grid baked in it is ~168KB). A baked grid puts a route into the hundreds
+// of KB, so this catches one grid losing the `data-grid` contract while the other keeps it
+// — which the total-removals guard below cannot see.
+const ROUTE_MAX_BYTES = 120000;
 
 function findChrome() {
   if (process.env.PUPPETEER_EXECUTABLE_PATH) {
@@ -90,6 +95,19 @@ function stripDecorativeGrids() {
     throw new Error(
       `prerender: dist/index.html is ${indexBytes} bytes, expected under ${INDEX_MAX_BYTES}`,
     );
+  }
+
+  // Every emitted route, not just the home page: dropping the attribute from
+  // waves.grid.tsx alone leaves index.html small and the total above non-zero, so this
+  // is the only guard that sees it.
+  for (const file of htmlFiles(DIST)) {
+    const bytes = fs.statSync(file).size;
+    if (bytes >= ROUTE_MAX_BYTES) {
+      throw new Error(
+        `prerender: ${file} is ${bytes} bytes, expected under ${ROUTE_MAX_BYTES} — ` +
+          "a decorative grid is probably still baked into it",
+      );
+    }
   }
 }
 

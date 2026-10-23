@@ -27,8 +27,11 @@ export const IntroPage: React.FC = () => {
   const { dims } = useContext(LayoutContext);
 
   useEffect(() => {
-    if (dropFinished) markPlayed();
-  }, [dropFinished, markPlayed]);
+    // Only once it has really played: when `skip` is already true nothing ran, and
+    // recording it would suppress the entry for a visitor who turns reduced motion off
+    // later in the same session.
+    if (dropFinished && !skip) markPlayed();
+  }, [dropFinished, skip, markPlayed]);
 
   const defaultGridProps = {
     onAnimationStart: () => {

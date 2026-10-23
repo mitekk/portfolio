@@ -39,8 +39,11 @@ for (const viewport of viewports) {
         DROP_DURATION_S,
         2,
       );
-      expect(Math.max(...timings.map((t) => t.delay))).toBeLessThanOrEqual(
+      // Equal, not just within: the first shape's factor is 1.0, so the cascade fills
+      // exactly the window. `<=` would also pass for a regression to a tiny per-tile step.
+      expect(Math.max(...timings.map((t) => t.delay))).toBeCloseTo(
         DROP_STAGGER_S,
+        2,
       );
     });
   });

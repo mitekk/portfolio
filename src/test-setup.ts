@@ -35,3 +35,13 @@ Object.defineProperty(window, "matchMedia", {
     removeEventListener: () => {},
   }),
 });
+
+// sessionStorage is real jsdom state and survives between cases in a file, so one test
+// marking the intro played would silently change what the next one exercises.
+afterEach(() => {
+  try {
+    sessionStorage.clear();
+  } catch {
+    // Nothing to clear if a test replaced it with a throwing stub.
+  }
+});

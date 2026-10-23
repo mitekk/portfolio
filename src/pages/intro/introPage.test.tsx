@@ -103,4 +103,41 @@ describe("IntroPage", () => {
 
     expect(screen.getByText("about-destination")).toBeInTheDocument();
   });
+
+  test("marks the intro played once it has actually played", async () => {
+    vi.useFakeTimers();
+    renderIntroPage(userEvent.setup({ advanceTimers: vi.advanceTimersByTime }));
+
+    await act(async () => {
+      vi.advanceTimersByTime(500);
+    });
+
+    expect(sessionStorage.getItem("intro-played")).toBe("1");
+  });
+
+  test("does not mark it played when it was skipped for reduced motion", async () => {
+    Object.defineProperty(window, "matchMedia", {
+      writable: true,
+      value: (query: string) => ({
+        matches: query.includes("prefers-reduced-motion"),
+        media: query,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+      }),
+    });
+
+    vi.useFakeTimers();
+    renderIntroPage(userEvent.setup({ advanceTimers: vi.advanceTimersByTime }));
+
+    await act(async () => {
+      vi.advanceTimersByTime(500);
+    });
+
+    // The hero is there immediately...
+    expect(
+      screen.getByRole("button", { name: "Get to know me" }),
+    ).toBeInTheDocument();
+    // ...but nothing played, so turning reduced motion off should still show the entry.
+    expect(sessionStorage.getItem("intro-played")).toBeNull();
+  });
 });

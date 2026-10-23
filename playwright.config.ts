@@ -33,7 +33,9 @@ export default defineConfig({
     {
       command: "npm run build && npm run preview",
       url: "http://localhost:4173",
-      reuseExistingServer: false,
+      // Locally, reuse a preview server that is already up rather than failing the run;
+      // CI always wants the build it is testing.
+      reuseExistingServer: !process.env.CI,
       timeout: 300_000,
     },
   ],

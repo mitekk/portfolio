@@ -8,15 +8,9 @@ import { Avatar } from "../../components/UI";
 import avatarImg from "../../assets/profile/avatar.webp";
 
 export const BuzzPage: React.FC = () => {
-  const [navbarVisible, setNavbarVisible] = useState(false);
   const [activeLink, setActiveLink] = useState<string>();
   const location = useLocation();
   const { pathname } = location;
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setNavbarVisible(true), 10);
-    return () => window.clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     setActiveLink(pathname.split("/")[2]);
@@ -56,13 +50,7 @@ export const BuzzPage: React.FC = () => {
           </header>
 
           {/* Desktop-only sidebar with slide-in animation */}
-          <div
-            className={`hidden md:flex transition-all duration-700 ease-out md:h-full ${
-              navbarVisible
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-20 opacity-0"
-            }`}
-          >
+          <div className="hidden md:flex transition-all duration-700 ease-out md:h-full translate-y-0 opacity-100">
             <Navbar />
           </div>
 
