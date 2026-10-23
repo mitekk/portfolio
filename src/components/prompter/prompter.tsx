@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { CHAR_DELAY_MS } from "../../constants";
 import type { Prompt } from "../../types";
 import "./prompter.css";
 
@@ -32,7 +33,7 @@ export const Prompter = ({
       timeout = setTimeout(() => {
         setTypedText(prompt.lines[currentLine].text.slice(0, currentChar + 1));
         setCurrentChar((idx) => idx + 1);
-      }, 90);
+      }, CHAR_DELAY_MS);
       return () => clearTimeout(timeout);
     } else {
       timeout = setTimeout(() => {

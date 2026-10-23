@@ -1,10 +1,28 @@
 import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { LayoutContext } from "../../context/layout";
-import { TILE_GAP } from "../../constants";
+import {
+  DROP_DURATION_S,
+  DROP_STAGGER_S,
+  SETTLE_MS,
+  TILE_GAP,
+} from "../../constants";
 import { TiledShape } from "../shape/shape";
 import type { Shape, ShapeKeyTetrominoes } from "../../types";
 import { generateTiledGrid } from "../../services/grid";
 import { TetrominoTile } from "../tile";
+
+/** Waits for the frame after the next, so the browser has painted the pre-drop
+ * position before the transition to `translateY(0)` is applied. */
+function afterNextPaint(callback: () => void) {
+  let inner = 0;
+  const outer = requestAnimationFrame(() => {
+    inner = requestAnimationFrame(callback);
+  });
+  return () => {
+    cancelAnimationFrame(outer);
+    cancelAnimationFrame(inner);
+  };
+}
 
 interface TetrominoesGridProps {
   onAnimationStart?: () => void;
@@ -26,15 +44,13 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
 
   useEffect(() => {
     setAnimated(false);
-    const timeout = setTimeout(() => setAnimated(true), 50);
-    return () => clearTimeout(timeout);
+    return afterNextPaint(() => setAnimated(true));
   }, [shapes]);
 
   useEffect(() => {
     if (removeTiles) {
       setAnimated(false);
-      const timeout = setTimeout(() => setAnimated(true), 50);
-      return () => clearTimeout(timeout);
+      return afterNextPaint(() => setAnimated(true));
     }
   }, [removeTiles]);
 
@@ -48,7 +64,7 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
       if (onAnimationFinish) {
         onAnimationFinish();
       }
-    }, 150);
+    }, SETTLE_MS);
   };
 
   const isTouch = "ontouchstart" in window;
@@ -118,8 +134,8 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
                 left: finalLeft,
                 top: finalTop,
                 transform: `translateY(${translateY}px)`,
-                transition: `transform 0.75s cubic-bezier(0.25, 0.1, 0.25, 1) ${
-                  (shapes.length - idx) * 0.01
+                transition: `transform ${DROP_DURATION_S}s cubic-bezier(0.34, 0.9, 0.3, 1) ${
+                  ((shapes.length - idx) / shapes.length) * DROP_STAGGER_S
                 }s`,
               }}
               onTransitionEnd={(e) => {
