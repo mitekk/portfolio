@@ -26,6 +26,9 @@ const NotFoundPage = lazy(() =>
   })),
 );
 
+// Keep in step with the `include` list in scripts/prerender.cjs: nginx answers a strict
+// 404 for anything it has no file for, so a route added here and not prerendered is a 404
+// in production. `/theBuzz` is the exception — nginx 301s it to /theBuzz/about.
 export function AppRoutes() {
   return (
     <Suspense fallback={null}>

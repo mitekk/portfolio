@@ -95,6 +95,8 @@ function stripDecorativeGrids() {
 
 run({
   source: "dist",
+  // Keep in step with the routes in src/routes.tsx — see the comment there. nginx serves
+  // only what this list emits and 404s the rest.
   include: [
     "/",
     "/cv",
