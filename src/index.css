@@ -3,8 +3,10 @@
 @import "@fontsource/poppins/latin-700.css";
 @import "tailwindcss";
 
-html[data-loading] #root {
-  visibility: hidden;
+/* The only surface painted before React mounts. */
+html,
+body {
+  background: var(--color-surround);
 }
 
 @theme {

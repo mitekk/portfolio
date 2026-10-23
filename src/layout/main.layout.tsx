@@ -49,7 +49,6 @@ export function MainLayout({ children }: MainLayoutProps) {
   }, []);
 
   useLayoutEffect(() => {
-    delete document.documentElement.dataset.loading;
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);

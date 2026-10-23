@@ -40,7 +40,8 @@ test.describe("prerendered home page", () => {
 // is a quirk of the preview server, not of production — but without the slash these cases
 // assert against the wrong file. Each one pins the title it expects for that reason.
 const PRERENDERED_ROUTES = [
-  { path: "/", title: /Senior Full-Stack Developer & Team Lead/ },
+  // Titles are compared as they appear in the raw HTML, so `&` is `&amp;`.
+  { path: "/", title: /Senior Full-Stack Developer &amp; Team Lead/ },
   { path: "/cv/", title: /CV|Resume|Mitya Kurs/ },
   { path: "/theBuzz/about/", title: /About Mitya Kurs/ },
   { path: "/theBuzz/experience/", title: /Experience/ },
