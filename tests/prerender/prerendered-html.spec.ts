@@ -34,19 +34,29 @@ test.describe("prerendered home page", () => {
   });
 });
 
+// Trailing slashes are load-bearing: `vite preview` answers `/theBuzz/about` with the SPA
+// fallback (the home page) and only serves `dist/theBuzz/about/index.html` for
+// `/theBuzz/about/`. nginx resolves either via `try_files $uri $uri/index.html`, so this
+// is a quirk of the preview server, not of production — but without the slash these cases
+// assert against the wrong file. Each one pins the title it expects for that reason.
 const PRERENDERED_ROUTES = [
-  "/",
-  "/cv",
-  "/theBuzz/about",
-  "/theBuzz/experience",
-  "/theBuzz/toolbox",
-  "/404.html",
+  { path: "/", title: /Senior Full-Stack Developer & Team Lead/ },
+  { path: "/cv/", title: /CV|Resume|Mitya Kurs/ },
+  { path: "/theBuzz/about/", title: /About Mitya Kurs/ },
+  { path: "/theBuzz/experience/", title: /Experience/ },
+  { path: "/theBuzz/toolbox/", title: /Toolbox/ },
+  { path: "/404.html", title: /404/ },
 ];
 
 for (const route of PRERENDERED_ROUTES) {
-  test(`${route} ships no decorative grid`, async ({ request }) => {
-    const response = await request.get(route);
+  test(`${route.path} ships its own page and no decorative grid`, async ({
+    request,
+  }) => {
+    const response = await request.get(route.path);
     expect(response.status()).toBe(200);
-    expect(await response.text()).not.toContain('data-grid="decorative"');
+
+    const html = await response.text();
+    expect(html.match(/<title>([^<]*)<\/title>/)?.[1]).toMatch(route.title);
+    expect(html).not.toContain('data-grid="decorative"');
   });
 }
