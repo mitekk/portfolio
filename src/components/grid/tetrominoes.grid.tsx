@@ -75,6 +75,11 @@ export const TetrominoesGrid: React.FC<TetrominoesGridProps> = ({
     <div
       ref={gridRef}
       className="relative overflow-hidden"
+      // Contract with scripts/prerender.cjs, which strips decorative grids from the
+      // prerendered HTML: they are baked at react-snap's viewport, never match the
+      // visitor's, and are discarded the moment React mounts.
+      data-grid="decorative"
+      aria-hidden="true"
       style={{
         width: gridSize?.width,
         height: gridSize?.height,

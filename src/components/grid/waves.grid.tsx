@@ -38,6 +38,9 @@ export const WavesGrid: React.FC<WavesProps> = ({
   return shapes.length && gridSize ? (
     <div
       className={className}
+      // See the same contract in tetrominoes.grid.tsx.
+      data-grid="decorative"
+      aria-hidden="true"
       style={{
         width: gridSize.width,
         height: gridSize.height,

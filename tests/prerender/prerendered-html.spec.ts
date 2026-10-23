@@ -23,4 +23,30 @@ test.describe("prerendered home page", () => {
     expect(html.match(/application\/ld\+json/g) ?? []).toHaveLength(2);
     expect(html.match(/<h1[\s>]/g) ?? []).toHaveLength(1);
   });
+
+  test("is small, because the decorative grid is not baked into it", async ({
+    request,
+  }) => {
+    const html = await (await request.get("/")).text();
+
+    expect(html).not.toContain('data-grid="decorative"');
+    expect(Buffer.byteLength(html, "utf8")).toBeLessThan(20_000);
+  });
 });
+
+const PRERENDERED_ROUTES = [
+  "/",
+  "/cv",
+  "/theBuzz/about",
+  "/theBuzz/experience",
+  "/theBuzz/toolbox",
+  "/404.html",
+];
+
+for (const route of PRERENDERED_ROUTES) {
+  test(`${route} ships no decorative grid`, async ({ request }) => {
+    const response = await request.get(route);
+    expect(response.status()).toBe(200);
+    expect(await response.text()).not.toContain('data-grid="decorative"');
+  });
+}
