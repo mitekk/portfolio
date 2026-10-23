@@ -1,0 +1,41 @@
+/* Scoped to the tetromino grid: `.tile` is shared with the waves grid, which paints its
+   own radial gradient inline. Lives in CSS rather than in a style object so the four
+   layers are not rebuilt as a template literal for every tile on every render. */
+.tetromino-grid .tile {
+  background:
+    linear-gradient(to right, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0))
+      no-repeat top / 100% 10px,
+    linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0)
+      )
+      no-repeat left / 10px 100%,
+    linear-gradient(to left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)) no-repeat
+      bottom / 100% 10px,
+    linear-gradient(to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0)) no-repeat
+      right / 10px 100%,
+    var(--piece);
+}
+
+.tetromino-grid .tile-I {
+  --piece: var(--color-piece-I);
+}
+.tetromino-grid .tile-O {
+  --piece: var(--color-piece-O);
+}
+.tetromino-grid .tile-T {
+  --piece: var(--color-piece-T);
+}
+.tetromino-grid .tile-S {
+  --piece: var(--color-piece-S);
+}
+.tetromino-grid .tile-Z {
+  --piece: var(--color-piece-Z);
+}
+.tetromino-grid .tile-J {
+  --piece: var(--color-piece-J);
+}
+.tetromino-grid .tile-L {
+  --piece: var(--color-piece-L);
+}
