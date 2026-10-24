@@ -6,6 +6,10 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
+    // One stylesheet, not one per chunk. Splitting produced five render-blocking
+    // <link>s on `/`, four of them under a kilobyte: all round trips, no bytes
+    // saved. The whole site's CSS is ~31KB raw and ~6.5KB gzipped.
+    cssCodeSplit: false,
     rollupOptions: {
       output: {
         // Matched on the resolved module path, not the bare specifier: the object form

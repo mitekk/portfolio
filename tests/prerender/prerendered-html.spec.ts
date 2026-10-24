@@ -59,5 +59,15 @@ for (const route of PRERENDERED_ROUTES) {
     const html = await response.text();
     expect(html.match(/<title>([^<]*)<\/title>/)?.[1]).toMatch(route.title);
     expect(html).not.toContain('data-grid="decorative"');
+
+    // Every stylesheet in <head> blocks the first paint. Per-chunk CSS splitting
+    // produced five of them on `/`, four of which were under a kilobyte — all
+    // round trips, no bytes saved. The whole site's CSS is ~6.5KB gzipped, so one
+    // file is the right number.
+    const stylesheets = html.match(/<link[^>]+rel="stylesheet"/g) ?? [];
+    expect(
+      stylesheets.length,
+      `${route.path}: ${stylesheets.length} render-blocking stylesheets`,
+    ).toBeLessThanOrEqual(1);
   });
 }
