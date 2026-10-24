@@ -25,10 +25,19 @@ export function lazyRoute<P extends object>(
   let pending: Promise<ComponentType<P>> | undefined;
 
   const preload = () => {
-    pending ??= load().then((Component) => {
-      Loaded = Component;
-      return Component;
-    });
+    pending ??= load().then(
+      (Component) => {
+        Loaded = Component;
+        return Component;
+      },
+      (error) => {
+        // Memoising the rejection would make one dropped request permanent: every
+        // later attempt, including `lazy()`'s initialiser, would replay it, and a
+        // throw out of `lazy()` with no error boundary unmounts the whole tree.
+        pending = undefined;
+        throw error;
+      },
+    );
     return pending;
   };
 
