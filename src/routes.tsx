@@ -2,8 +2,8 @@
    preloadRoute/prefetchSections map a path to the chunks it needs, so they belong
    with the route table they are derived from; splitting them out to satisfy fast
    refresh would put the same mapping in two files. */
-import { Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { lazyRoute } from "./lazyRoute";
 
 const IntroPage = lazyRoute(() =>
@@ -50,8 +50,14 @@ export function preloadRoute(pathname: string): Promise<unknown> {
 }
 
 /**
- * The sections the visitor can reach from wherever they are now, fetched while the
- * main thread is idle so that arriving at one never has to suspend.
+ * What the visitor can reach from here, fetched while the main thread is idle so
+ * that going there never has to suspend.
+ *
+ * From the intro that is one step: the CTA lands on /theBuzz/about and nothing
+ * else. Fetching all three sections from `/` made a visitor who never left the
+ * intro pay for the toolbox, the heaviest of them. Once they are in the section
+ * layout the sidebar makes every sibling one click away, so there it is all of
+ * them.
  *
  * Skipped under react-snap: Vite's dynamic import injects a `<link rel=modulepreload>`
  * for every chunk it fetches, and react-snap serialises the DOM it captures — so
@@ -59,13 +65,14 @@ export function preloadRoute(pathname: string): Promise<unknown> {
  * into every page, including the intro, which is exactly the eager loading this is
  * meant to keep off the critical path.
  */
-export function prefetchSections(): void {
+export function prefetchSections(pathname: string): void {
   if (navigator.userAgent === "ReactSnap") return;
 
   const whenIdle = window.requestIdleCallback ?? ((cb) => setTimeout(cb, 1000));
   whenIdle(() => {
     void BuzzPage.preload();
     void About.preload();
+    if (!pathname.startsWith("/theBuzz")) return;
     void Experience.preload();
     void Toolbox.preload();
   });
@@ -74,9 +81,21 @@ export function prefetchSections(): void {
 // Keep in step with the `include` list in scripts/prerender.cjs: nginx answers a strict
 // 404 for anything it has no file for, so a route added here and not prerendered is a 404
 // in production. `/theBuzz` is the exception — nginx 301s it to /theBuzz/about.
+/**
+ * On arrival and on every move. A visitor who comes in via the intro prefetches
+ * only as far as the CTA goes; stepping into the section layout is what makes the
+ * siblings worth having, and that happens after the first render.
+ */
+function PrefetchOnRouteChange() {
+  const { pathname } = useLocation();
+  useEffect(() => prefetchSections(pathname), [pathname]);
+  return null;
+}
+
 export function AppRoutes() {
   return (
     <Suspense fallback={null}>
+      <PrefetchOnRouteChange />
       <Routes>
         <Route path="/" element={<IntroPage />} />
         <Route path="/cv" element={<CvPage />} />

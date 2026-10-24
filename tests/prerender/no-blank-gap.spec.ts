@@ -55,6 +55,36 @@ for (const route of ROUTES) {
   });
 }
 
+test("arriving from the intro, the sections still never blank", async ({
+  page,
+}: {
+  page: Page;
+}) => {
+  await page.addInitScript(SAMPLER);
+  await page.goto("/");
+  const cta = page.getByRole("button", { name: "Get to know me" });
+  await cta.waitFor({ timeout: 30000 });
+  await cta.click();
+  await page.getByRole("heading", { level: 1, name: "About" }).waitFor();
+
+  // The visitor who came this way must not be the one who pays for the chunk.
+  await page.getByRole("link", { name: "experience" }).click();
+  await page
+    .getByRole("heading", { level: 1, name: "Experience" })
+    .waitFor({ timeout: 5000 });
+  await page.waitForTimeout(300);
+
+  const samples = await page.evaluate(() => window.__samples as number[]);
+
+  // Measured only from the moment the section layout is up. Leaving the intro is a
+  // real page change — the entry tears its grid and overlay down before the section
+  // mounts — and passes through ~24ms with only the nav on screen. That is the
+  // transition working, not a painted page going blank, which is what the rest of
+  // this file is about.
+  const inSections = samples.slice(samples.findIndex((n) => n >= 2000));
+  assertNeverBlanked(inSections, "intro -> about -> experience");
+});
+
 test("navigating between the sections never blanks the page", async ({
   page,
 }: {
