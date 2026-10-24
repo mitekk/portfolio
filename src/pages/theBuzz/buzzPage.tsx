@@ -5,7 +5,11 @@ import { WavesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
 import { Navbar } from "../../components/navbar/navbar";
 import { Avatar } from "../../components/UI";
-import avatarImg from "../../assets/profile/avatar.webp";
+import {
+  AVATAR_NAV_SIZES,
+  avatarSrc,
+  avatarSrcSet,
+} from "../../assets/profile";
 
 export const BuzzPage: React.FC = () => {
   const [activeLink, setActiveLink] = useState<string>();
@@ -24,7 +28,9 @@ export const BuzzPage: React.FC = () => {
           <header className="fixed top-0 inset-x-0 z-20 flex md:hidden items-center px-4 gap-2 h-14 bg-nav text-text-nav">
             <Link to="/" aria-label="Go to intro page">
               <Avatar
-                src={avatarImg}
+                src={avatarSrc}
+                srcSet={avatarSrcSet}
+                sizes={AVATAR_NAV_SIZES}
                 alt="Portrait of Mitya Kurs"
                 width={500}
                 height={500}

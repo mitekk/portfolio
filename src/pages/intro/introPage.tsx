@@ -15,7 +15,11 @@ import {
   websiteStructuredData,
 } from "../../seo/config";
 import "./introPage.css";
-import avatarImg from "../../assets/profile/avatar.webp";
+import { avatarSrc, avatarSrcSet } from "../../assets/profile";
+
+// Mirrors the hero's own classes: w-28 / sm:w-32 / md:w-40 / lg:w-52.
+const HERO_SIZES =
+  "(min-width: 1024px) 208px, (min-width: 768px) 160px, (min-width: 640px) 128px, 112px";
 
 export const IntroPage: React.FC = () => {
   const navigate = useNavigate();
@@ -52,7 +56,15 @@ export const IntroPage: React.FC = () => {
           jsonLd={[personStructuredData, websiteStructuredData]}
         />
         <Helmet>
-          <link rel="preload" as="image" href={avatarImg} />
+          {/* imagesrcset/imagesizes must mirror the <img> below: a preload that
+              disagrees downloads one file and then the <img> downloads another. */}
+          <link
+            rel="preload"
+            as="image"
+            href={avatarSrc}
+            imageSrcSet={avatarSrcSet}
+            imageSizes={HERO_SIZES}
+          />
         </Helmet>
         <h1
           className="intro-root"
@@ -81,7 +93,9 @@ export const IntroPage: React.FC = () => {
               {promptFinished && (
                 <div className="avatar-animate-in">
                   <Avatar
-                    src={avatarImg}
+                    src={avatarSrc}
+                    srcSet={avatarSrcSet}
+                    sizes={HERO_SIZES}
                     alt="Portrait of Mitya Kurs"
                     width={500}
                     height={500}

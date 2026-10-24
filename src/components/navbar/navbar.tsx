@@ -1,7 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Avatar } from "../UI";
-import avatarImg from "../../assets/profile/avatar.webp";
+import {
+  AVATAR_NAV_SIZES,
+  avatarSrc,
+  avatarSrcSet,
+} from "../../assets/profile";
 import "./navbar.css";
 import { sections, links } from "./navData";
 
@@ -36,7 +40,9 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center gap-2 md:flex-col md:items-start md:py-2">
           <Link to="/" aria-label="Go to intro page">
             <Avatar
-              src={avatarImg}
+              src={avatarSrc}
+              srcSet={avatarSrcSet}
+              sizes={AVATAR_NAV_SIZES}
               alt="Portrait of Mitya Kurs"
               width={500}
               height={500}
