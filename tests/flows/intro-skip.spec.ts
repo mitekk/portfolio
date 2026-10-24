@@ -17,6 +17,20 @@ async function tileTransitions(page: Page) {
   );
 }
 
+/**
+ * The hero's own entrance — the portrait sliding in, the prompt and the CTA rising —
+ * is the same gesture as the cascade, so reduced motion has to reach it too.
+ */
+function heroAnimations(page: Page) {
+  return page
+    .locator(
+      ".intro-overlay .avatar-animate-in, .intro-overlay .prompt-animate-in, .intro-overlay .button-animate-in",
+    )
+    .evaluateAll((nodes) =>
+      nodes.map((node) => getComputedStyle(node).animationName),
+    );
+}
+
 test.describe("intro skip", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -36,6 +50,37 @@ test.describe("intro skip", () => {
       expect(transitions.length).toBeGreaterThan(20);
       expect([...new Set(transitions)]).toEqual(["none"]);
     });
+
+    test("gets the hero without its own entrance animations either", async ({
+      page,
+    }) => {
+      await page.emulateMedia({ reducedMotion: "reduce" });
+      await page.goto("/");
+
+      await expect(
+        page.getByRole("button", { name: "Get to know me" }),
+      ).toBeVisible({ timeout: 30000 });
+
+      const animations = await heroAnimations(page);
+      expect(animations).toHaveLength(3);
+      expect([...new Set(animations)]).toEqual(["none"]);
+    });
+  });
+
+  // Guards the case above against passing because the classes stopped being applied.
+  test("the hero animates its own entrance when motion is welcome", async ({
+    page,
+  }) => {
+    await page.goto("/");
+    await expect(
+      page.getByRole("button", { name: "Get to know me" }),
+    ).toBeVisible({ timeout: 30000 });
+
+    expect(await heroAnimations(page)).toEqual([
+      "avatarSlideIn",
+      "promptSlideToCenter",
+      "buttonSlideIn",
+    ]);
   });
 
   test("the first visit animates and the second one in the session does not", async ({

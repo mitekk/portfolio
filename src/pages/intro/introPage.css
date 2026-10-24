@@ -96,3 +96,15 @@
     transform: translateY(80px);
   }
 }
+
+/* The hero's entrance is the same first-impression gesture as the cascade, which
+   useSkipIntro already suppresses — so it answers to the same preference. Each
+   keyframe set ends where the element sits by default, so dropping the animation
+   leaves the hero in its final state rather than hiding it. */
+@media (prefers-reduced-motion: reduce) {
+  .avatar-animate-in,
+  .prompt-animate-in,
+  .button-animate-in {
+    animation: none;
+  }
+}
