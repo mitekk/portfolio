@@ -1,7 +1,9 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { sections, links } from "../../components/navbar/navData";
-import { WavesGrid } from "../../components/grid";
+// Not via the barrel: it also re-exports TetrominoesGrid, whose import of the
+// tiling templates survives tree-shaking and pulls ~65KB of JSON into this page.
+import { WavesGrid } from "../../components/grid/waves.grid";
 import { PageContext } from "../../context";
 import { Navbar } from "../../components/navbar/navbar";
 import { Avatar } from "../../components/UI";

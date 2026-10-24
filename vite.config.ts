@@ -26,6 +26,13 @@ export default defineConfig({
           if (/node_modules\/react-helmet-async\//.test(id)) {
             return "seo";
           }
+          // ~65KB of embedded JSON that only the intro's tetromino grid reads.
+          // Left to Rollup it lands in whichever shared chunk imports the UI
+          // barrel, so every section page downloads and parses it to draw a
+          // waves grid that never calls the tiler.
+          if (/src\/assets\/templates\//.test(id)) {
+            return "tiling";
+          }
         },
       },
     },
