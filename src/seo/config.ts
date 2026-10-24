@@ -133,6 +133,60 @@ export const cvStructuredData = {
   inLanguage: "en",
 };
 
+/**
+ * A WebPage node for a route, whose `mainEntity` is a reference to the one
+ * `#person` node defined above rather than a copy of it. Three pages describing
+ * the same `@id` enrich a single entity; three pages each minting their own
+ * Person would compete.
+ *
+ * `mainEntityExtras` lets a route attach claims to that person — employment
+ * history on /theBuzz/experience — without restating name, image or sameAs.
+ */
+export const profilePageStructuredData = (
+  route: RouteSeo,
+  mainEntityExtras: Record<string, unknown> = {},
+) => ({
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${route.canonical}#page`,
+  url: route.canonical,
+  name: route.title,
+  description: route.description,
+  isPartOf: { "@id": `${SITE_URL}/#website` },
+  inLanguage: "en",
+  mainEntity: { "@id": `${SITE_URL}/#person`, ...mainEntityExtras },
+});
+
+const crumbName = (path: string): string => {
+  const segment = path.split("/").filter(Boolean).pop() ?? "";
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
+};
+
+/**
+ * Home → page. The intermediate /theBuzz segment is deliberately absent: nginx
+ * 301s it to /theBuzz/about, so a crumb for it would point a crawler at a
+ * redirect.
+ */
+export const breadcrumbStructuredData = (route: RouteSeo) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": `${route.canonical}#breadcrumb`,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: `${SITE_URL}/`,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: crumbName(route.path),
+      item: route.canonical,
+    },
+  ],
+});
+
 export const websiteStructuredData = {
   "@context": "https://schema.org",
   "@type": "WebSite",

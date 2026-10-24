@@ -1,7 +1,11 @@
 import { SectionLayout } from "../../layout/section.layout";
 import { ContentPanel } from "../../components/UI";
 import { SeoHead } from "../../components/seo/seoHead";
-import { routeSeo } from "../../seo/config";
+import {
+  breadcrumbStructuredData,
+  profilePageStructuredData,
+  routeSeo,
+} from "../../seo/config";
 
 export const About: React.FC = () => {
   const paragraphs = [
@@ -13,7 +17,13 @@ export const About: React.FC = () => {
 
   return (
     <>
-      <SeoHead meta={routeSeo.about} />
+      <SeoHead
+        meta={routeSeo.about}
+        jsonLd={[
+          profilePageStructuredData(routeSeo.about),
+          breadcrumbStructuredData(routeSeo.about),
+        ]}
+      />
       <SectionLayout>
         <ContentPanel>
           <div className="flex flex-col gap-5 font-light max-w-150 justify-self-center">

@@ -1,7 +1,11 @@
 import { SectionLayout } from "../../layout/section.layout";
 import { ContentPanel } from "../../components/UI";
 import { SeoHead } from "../../components/seo/seoHead";
-import { routeSeo } from "../../seo/config";
+import {
+  breadcrumbStructuredData,
+  profilePageStructuredData,
+  routeSeo,
+} from "../../seo/config";
 import {
   reactIcon,
   vueIcon,
@@ -112,7 +116,13 @@ const skills = [
 export const Toolbox: React.FC = () => {
   return (
     <>
-      <SeoHead meta={routeSeo.toolbox} />
+      <SeoHead
+        meta={routeSeo.toolbox}
+        jsonLd={[
+          profilePageStructuredData(routeSeo.toolbox),
+          breadcrumbStructuredData(routeSeo.toolbox),
+        ]}
+      />
       <SectionLayout>
         <ContentPanel>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start max-w-150 justify-self-center">
