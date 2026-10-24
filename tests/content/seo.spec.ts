@@ -40,7 +40,8 @@ async function assertProfileSchema(page: Page, canonicalEnds: string) {
       nodes.map((n) => JSON.parse(n.textContent ?? "{}")),
     );
 
-  expect(blocks).toHaveLength(2);
+  // At least, not exactly: /theBuzz/toolbox adds a third block of its own.
+  expect(blocks.length).toBeGreaterThanOrEqual(2);
 
   const profile = blocks.find((b) => b["@type"] === "ProfilePage");
   expect(profile).toBeTruthy();
@@ -124,5 +125,30 @@ test.describe("SEO metadata (desktop-large)", () => {
 
     await assertBaseSeo(page);
     await assertProfileSchema(page, "/theBuzz/toolbox");
+
+    const list = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((nodes) =>
+        nodes
+          .map((n) => JSON.parse(n.textContent ?? "{}"))
+          .find((b) => b["@type"] === "ItemList"),
+      );
+
+    expect(list).toBeTruthy();
+    expect(list["@id"]).toMatch(/#toolbox$/);
+    // Tied to the page itself: the categories are what the visitor sees, so the
+    // schema is read off the same `skills` array the headings render from.
+    const headings = await page
+      .getByRole("heading", { level: 2 })
+      .allTextContents();
+    expect(list.itemListElement.map((item) => item.name)).toEqual(headings);
+    expect(list.numberOfItems).toBe(headings.length);
+
+    const frontend = list.itemListElement[0];
+    expect(frontend.position).toBe(1);
+    expect(frontend.item.itemListElement).toContain("React");
+    expect(frontend.item.numberOfItems).toBe(
+      frontend.item.itemListElement.length,
+    );
   });
 });

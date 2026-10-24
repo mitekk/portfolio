@@ -113,6 +113,33 @@ const skills = [
   },
 ];
 
+/**
+ * The categories as a list, derived from the same `skills` array the headings
+ * render from. Deliberately not folded into Person.knowsAbout: thirty-odd tool
+ * names on the person entity reads as keyword stuffing, whereas a list that is
+ * plainly the content of this page is just a description of the page.
+ */
+const toolboxStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${routeSeo.toolbox.canonical}#toolbox`,
+  name: "Engineering toolbox",
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  numberOfItems: skills.length,
+  mainEntityOfPage: { "@id": `${routeSeo.toolbox.canonical}#page` },
+  itemListElement: skills.map((skill, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: skill.title,
+    item: {
+      "@type": "ItemList",
+      name: skill.title,
+      numberOfItems: skill.technologies.length,
+      itemListElement: skill.technologies.map((tech) => tech.name),
+    },
+  })),
+};
+
 export const Toolbox: React.FC = () => {
   return (
     <>
@@ -121,6 +148,7 @@ export const Toolbox: React.FC = () => {
         jsonLd={[
           profilePageStructuredData(routeSeo.toolbox),
           breadcrumbStructuredData(routeSeo.toolbox),
+          toolboxStructuredData,
         ]}
       />
       <SectionLayout>
