@@ -28,6 +28,34 @@ async function assertBaseSeo(page: Page) {
   }
 }
 
+/**
+ * Every theBuzz route emits a ProfilePage whose mainEntity references the single
+ * `#person` node, plus a BreadcrumbList. Asserting the @id — not just a count —
+ * is what catches a page minting its own competing Person entity.
+ */
+async function assertProfileSchema(page: Page, canonicalEnds: string) {
+  const blocks = await page
+    .locator('script[type="application/ld+json"]')
+    .evaluateAll((nodes) =>
+      nodes.map((n) => JSON.parse(n.textContent ?? "{}")),
+    );
+
+  // At least, not exactly: /theBuzz/toolbox adds a third block of its own.
+  expect(blocks.length).toBeGreaterThanOrEqual(2);
+
+  const profile = blocks.find((b) => b["@type"] === "ProfilePage");
+  expect(profile).toBeTruthy();
+  expect(profile.url).toContain(canonicalEnds);
+  expect(profile.mainEntity["@id"]).toMatch(/#person$/);
+  expect(profile.isPartOf["@id"]).toMatch(/#website$/);
+
+  const breadcrumb = blocks.find((b) => b["@type"] === "BreadcrumbList");
+  expect(breadcrumb).toBeTruthy();
+  expect(breadcrumb.itemListElement).toHaveLength(2);
+  expect(breadcrumb.itemListElement[0].name).toBe("Home");
+  expect(breadcrumb.itemListElement[1].item).toContain(canonicalEnds);
+}
+
 test.describe("SEO metadata (desktop-large)", () => {
   test.use({ viewport: { width: 1440, height: 900 } });
 
@@ -55,6 +83,7 @@ test.describe("SEO metadata (desktop-large)", () => {
     });
 
     await assertBaseSeo(page);
+    await assertProfileSchema(page, "/theBuzz/about");
   });
 
   test("experience page has title/description/canonical/og tags", async ({
@@ -66,6 +95,24 @@ test.describe("SEO metadata (desktop-large)", () => {
     );
 
     await assertBaseSeo(page);
+    await assertProfileSchema(page, "/theBuzz/experience");
+
+    // The seven roles are derived from the rendered list, so a job added to the
+    // page and not to the schema is impossible by construction - this guards the
+    // derivation itself.
+    const profile = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((nodes) =>
+        nodes
+          .map((n) => JSON.parse(n.textContent ?? "{}"))
+          .find((b) => b["@type"] === "ProfilePage"),
+      );
+    expect(profile.mainEntity.worksFor).toHaveLength(7);
+    expect(profile.mainEntity.worksFor[0]).toMatchObject({
+      "@type": "OrganizationRole",
+      startDate: "2025",
+      worksFor: { name: "LawPDF" },
+    });
   });
 
   test("toolbox page has title/description/canonical/og tags", async ({
@@ -77,5 +124,31 @@ test.describe("SEO metadata (desktop-large)", () => {
     });
 
     await assertBaseSeo(page);
+    await assertProfileSchema(page, "/theBuzz/toolbox");
+
+    const list = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((nodes) =>
+        nodes
+          .map((n) => JSON.parse(n.textContent ?? "{}"))
+          .find((b) => b["@type"] === "ItemList"),
+      );
+
+    expect(list).toBeTruthy();
+    expect(list["@id"]).toMatch(/#toolbox$/);
+    // Tied to the page itself: the categories are what the visitor sees, so the
+    // schema is read off the same `skills` array the headings render from.
+    const headings = await page
+      .getByRole("heading", { level: 2 })
+      .allTextContents();
+    expect(list.itemListElement.map((item) => item.name)).toEqual(headings);
+    expect(list.numberOfItems).toBe(headings.length);
+
+    const frontend = list.itemListElement[0];
+    expect(frontend.position).toBe(1);
+    expect(frontend.item.itemListElement).toContain("React");
+    expect(frontend.item.numberOfItems).toBe(
+      frontend.item.itemListElement.length,
+    );
   });
 });

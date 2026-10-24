@@ -1,0 +1,18 @@
+# `npm ci` runs before `COPY . .`, so anything copied here lands on top of the installed
+# tree. Without this, the host's macOS-built node_modules overwrite the image's.
+node_modules
+dist
+coverage
+.git
+.github
+.claude
+.superpowers
+.worktrees
+test-results
+playwright-report
+playwright-test-results
+blob-report
+.lighthouseci
+.vite
+*.log
+.DS_Store

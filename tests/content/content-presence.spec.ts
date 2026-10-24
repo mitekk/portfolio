@@ -60,12 +60,21 @@ for (const viewport of viewports) {
       const categoryHeadings = page.locator("section[aria-labelledby] h2");
       await expect(categoryHeadings).toHaveCount(7);
 
-      const brokenImageCount = await page.evaluate(() => {
-        const images = Array.from(document.querySelectorAll("img"));
-        return images.filter((image) => image.naturalWidth === 0).length;
-      });
-
-      expect(brokenImageCount).toBe(0);
+      // Polled, not sampled once: naturalWidth is 0 for an image that is merely
+      // still decoding, so a single read under parallel load reported icons as
+      // broken that were only late.
+      await expect
+        .poll(
+          () =>
+            page.evaluate(
+              () =>
+                Array.from(document.querySelectorAll("img")).filter(
+                  (image) => image.naturalWidth === 0,
+                ).length,
+            ),
+          { timeout: 10000 },
+        )
+        .toBe(0);
     });
   });
 }

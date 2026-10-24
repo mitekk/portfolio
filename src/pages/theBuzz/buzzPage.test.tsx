@@ -75,4 +75,15 @@ describe("BuzzPage", () => {
     expect(pageOverlay).not.toHaveClass("fixed");
     expect(contentWrapper).toHaveClass("h-full", "min-w-0");
   });
+
+  test("renders the sidebar settled on the first render", () => {
+    // The prerendered HTML already shows the sidebar in place. If the first client
+    // render puts it back at opacity 0, the visitor watches it slide in a second time.
+    renderBuzzPage(1280);
+
+    const sidebarWrapper = screen.getByRole("navigation").closest("div");
+
+    expect(sidebarWrapper).toHaveClass("opacity-100", "translate-y-0");
+    expect(sidebarWrapper).not.toHaveClass("opacity-0");
+  });
 });

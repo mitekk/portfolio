@@ -1,10 +1,38 @@
-@import "@fontsource/poppins/latin-400.css";
-@import "@fontsource/poppins/latin-500.css";
-@import "@fontsource/poppins/latin-700.css";
 @import "tailwindcss";
 
-html[data-loading] #root {
-  visibility: hidden;
+/* Declared here rather than importing @fontsource's own stylesheets, which offer a
+   .woff beside every .woff2 for browsers that predate woff2 — IE11 and Safari 9.
+   Nothing that can run this site is in that set, the fallback was never requested,
+   and shipping it put three unused files in the image. */
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url("@fontsource/poppins/files/poppins-latin-400-normal.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url("@fontsource/poppins/files/poppins-latin-500-normal.woff2")
+    format("woff2");
+}
+@font-face {
+  font-family: "Poppins";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url("@fontsource/poppins/files/poppins-latin-700-normal.woff2")
+    format("woff2");
+}
+
+/* The only surface painted before React mounts. */
+html,
+body {
+  background: var(--color-surround);
 }
 
 @theme {
@@ -129,4 +157,11 @@ button:focus-visible {
 }
 .animate-fadeout {
   animation: fadeout 0.75s ease forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fadein,
+  .animate-fadeout {
+    animation: none;
+  }
 }

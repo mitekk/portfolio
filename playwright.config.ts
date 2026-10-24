@@ -15,11 +15,28 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
+      testIgnore: "prerender/**",
+    },
+    // Asserts on the react-snap output in `dist/`, which the dev server never produces.
+    {
+      name: "prerendered",
+      use: { ...devices["Desktop Chrome"], baseURL: "http://localhost:4173" },
+      testMatch: "prerender/*.spec.ts",
     },
   ],
-  webServer: {
-    command: "npm run dev",
-    url: "http://localhost:5173",
-    reuseExistingServer: true,
-  },
+  webServer: [
+    {
+      command: "npm run dev",
+      url: "http://localhost:5173",
+      reuseExistingServer: true,
+    },
+    {
+      command: "npm run build && npm run preview",
+      url: "http://localhost:4173",
+      // Locally, reuse a preview server that is already up rather than failing the run;
+      // CI always wants the build it is testing.
+      reuseExistingServer: !process.env.CI,
+      timeout: 300_000,
+    },
+  ],
 });

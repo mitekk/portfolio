@@ -7,6 +7,14 @@ export const MAX_TILE = 70;
 export const MIN_WIDTH = 1200;
 export const MAX_WIDTH = 1800;
 
+/* Intro choreography. The stagger is a window the whole cascade is divided across, not a
+   per-tile step, so the gesture reads the same on a phone (many small tiles) and on a
+   desktop (few large ones). */
+export const DROP_STAGGER_S = 0.45;
+export const DROP_DURATION_S = 0.55;
+export const SETTLE_MS = 80;
+export const CHAR_DELAY_MS = 55;
+
 export const BASE_SHAPES: Record<ShapeKeyTetrominoes, Point[]> = {
   // I I I I
   // . . . .

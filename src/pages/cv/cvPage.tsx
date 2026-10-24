@@ -26,7 +26,7 @@ export const CvPage: React.FC = () => {
               aria-label="Open Mitya Kurs's CV (PDF) in a new tab"
             >
               <img
-                src="/cv-thumb.png"
+                src="/cv-thumb.webp"
                 alt="First page of Mitya Kurs's CV"
                 width={565}
                 height={800}

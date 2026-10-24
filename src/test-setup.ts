@@ -24,3 +24,24 @@ Object.defineProperty(window, "localStorage", {
   value: localStorageMock,
   writable: true,
 });
+
+// jsdom has no matchMedia. Individual suites override this when the query matters.
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: (query: string) => ({
+    matches: false,
+    media: query,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+  }),
+});
+
+// sessionStorage is real jsdom state and survives between cases in a file, so one test
+// marking the intro played would silently change what the next one exercises.
+afterEach(() => {
+  try {
+    sessionStorage.clear();
+  } catch {
+    // Nothing to clear if a test replaced it with a throwing stub.
+  }
+});

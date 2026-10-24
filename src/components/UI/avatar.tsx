@@ -2,6 +2,8 @@ import "./avatar.css";
 
 interface AvatarProps {
   src: string;
+  srcSet?: string;
+  sizes?: string;
   alt: string;
   name?: string;
   width?: number;
@@ -15,6 +17,8 @@ interface AvatarProps {
 
 export const Avatar: React.FC<AvatarProps> = ({
   src,
+  srcSet,
+  sizes,
   alt,
   name,
   width,
@@ -29,6 +33,8 @@ export const Avatar: React.FC<AvatarProps> = ({
     <img
       className="avatar-image"
       src={src}
+      srcSet={srcSet}
+      sizes={sizes}
       alt={alt}
       width={width}
       height={height}

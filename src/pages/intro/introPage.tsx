@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Prompter } from "../../components/prompter/prompter";
@@ -8,20 +8,34 @@ import { LayoutContext } from "../../context/layout";
 import { TetrominoesGrid } from "../../components/grid";
 import { PageContext } from "../../context";
 import { SeoHead } from "../../components/seo/seoHead";
+import { useSkipIntro } from "../../hooks/useSkipIntro";
 import {
   personStructuredData,
   routeSeo,
   websiteStructuredData,
 } from "../../seo/config";
 import "./introPage.css";
-import avatarImg from "../../assets/profile/avatar.webp";
+import { avatarSrc, avatarSrcSet } from "../../assets/profile";
+
+// Mirrors the hero's own classes: w-28 / sm:w-32 / md:w-40 / lg:w-52.
+const HERO_SIZES =
+  "(min-width: 1024px) 208px, (min-width: 768px) 160px, (min-width: 640px) 128px, 112px";
 
 export const IntroPage: React.FC = () => {
   const navigate = useNavigate();
-  const [dropFinished, setDropFinished] = useState(false);
+  const { skip, markPlayed } = useSkipIntro();
+  // The existing hero gate is the only gate: starting it true is what "skip" means.
+  const [dropFinished, setDropFinished] = useState(skip);
   const [promptFinished, setPromptFinished] = useState(false);
   const [introFinished, setIntroFinished] = useState(false);
   const { dims } = useContext(LayoutContext);
+
+  useEffect(() => {
+    // Only once it has really played: when `skip` is already true nothing ran, and
+    // recording it would suppress the entry for a visitor who turns reduced motion off
+    // later in the same session.
+    if (dropFinished && !skip) markPlayed();
+  }, [dropFinished, skip, markPlayed]);
 
   const defaultGridProps = {
     onAnimationStart: () => {
@@ -42,7 +56,15 @@ export const IntroPage: React.FC = () => {
           jsonLd={[personStructuredData, websiteStructuredData]}
         />
         <Helmet>
-          <link rel="preload" as="image" href={avatarImg} />
+          {/* imagesrcset/imagesizes must mirror the <img> below: a preload that
+              disagrees downloads one file and then the <img> downloads another. */}
+          <link
+            rel="preload"
+            as="image"
+            href={avatarSrc}
+            imageSrcSet={avatarSrcSet}
+            imageSizes={HERO_SIZES}
+          />
         </Helmet>
         <h1
           className="intro-root"
@@ -60,7 +82,7 @@ export const IntroPage: React.FC = () => {
         >
           Mitya Kurs - Senior Full-Stack Developer and Team Lead
         </h1>
-        <TetrominoesGrid {...defaultGridProps} />
+        <TetrominoesGrid {...defaultGridProps} skipAnimation={skip} />
         {dropFinished && !introFinished && (
           <div
             className={`z-[2] flex flex-col justify-center items-center absolute inset-0 w-full h-full intro-overlay${
@@ -71,7 +93,9 @@ export const IntroPage: React.FC = () => {
               {promptFinished && (
                 <div className="avatar-animate-in">
                   <Avatar
-                    src={avatarImg}
+                    src={avatarSrc}
+                    srcSet={avatarSrcSet}
+                    sizes={HERO_SIZES}
                     alt="Portrait of Mitya Kurs"
                     width={500}
                     height={500}
@@ -88,6 +112,7 @@ export const IntroPage: React.FC = () => {
               >
                 <Prompter
                   prompt={{ lines: PromptLines.intro }}
+                  instant={skip}
                   onAnimationStart={() => setPromptFinished(false)}
                   onAnimationFinish={() => setPromptFinished(true)}
                 />
@@ -101,7 +126,7 @@ export const IntroPage: React.FC = () => {
                           () => {
                             navigate("/theBuzz");
                           },
-                          dims.cols * dims.cols * 2,
+                          skip ? 0 : dims.cols * dims.cols * 2,
                         );
                       }}
                     >

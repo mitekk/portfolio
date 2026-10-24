@@ -1,22 +1,22 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { sections, links } from "../../components/navbar/navData";
-import { WavesGrid } from "../../components/grid";
+// Not via the barrel: it also re-exports TetrominoesGrid, whose import of the
+// tiling templates survives tree-shaking and pulls ~65KB of JSON into this page.
+import { WavesGrid } from "../../components/grid/waves.grid";
 import { PageContext } from "../../context";
 import { Navbar } from "../../components/navbar/navbar";
 import { Avatar } from "../../components/UI";
-import avatarImg from "../../assets/profile/avatar.webp";
+import {
+  AVATAR_NAV_SIZES,
+  avatarSrc,
+  avatarSrcSet,
+} from "../../assets/profile";
 
 export const BuzzPage: React.FC = () => {
-  const [navbarVisible, setNavbarVisible] = useState(false);
   const [activeLink, setActiveLink] = useState<string>();
   const location = useLocation();
   const { pathname } = location;
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setNavbarVisible(true), 10);
-    return () => window.clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     setActiveLink(pathname.split("/")[2]);
@@ -30,7 +30,9 @@ export const BuzzPage: React.FC = () => {
           <header className="fixed top-0 inset-x-0 z-20 flex md:hidden items-center px-4 gap-2 h-14 bg-nav text-text-nav">
             <Link to="/" aria-label="Go to intro page">
               <Avatar
-                src={avatarImg}
+                src={avatarSrc}
+                srcSet={avatarSrcSet}
+                sizes={AVATAR_NAV_SIZES}
                 alt="Portrait of Mitya Kurs"
                 width={500}
                 height={500}
@@ -56,13 +58,7 @@ export const BuzzPage: React.FC = () => {
           </header>
 
           {/* Desktop-only sidebar with slide-in animation */}
-          <div
-            className={`hidden md:flex transition-all duration-700 ease-out md:h-full ${
-              navbarVisible
-                ? "translate-y-0 opacity-100"
-                : "-translate-y-20 opacity-0"
-            }`}
-          >
+          <div className="hidden md:flex transition-all duration-700 ease-out md:h-full translate-y-0 opacity-100">
             <Navbar />
           </div>
 

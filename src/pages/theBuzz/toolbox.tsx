@@ -1,7 +1,11 @@
 import { SectionLayout } from "../../layout/section.layout";
 import { ContentPanel } from "../../components/UI";
 import { SeoHead } from "../../components/seo/seoHead";
-import { routeSeo } from "../../seo/config";
+import {
+  breadcrumbStructuredData,
+  profilePageStructuredData,
+  routeSeo,
+} from "../../seo/config";
 import {
   reactIcon,
   vueIcon,
@@ -109,10 +113,44 @@ const skills = [
   },
 ];
 
+/**
+ * The categories as a list, derived from the same `skills` array the headings
+ * render from. Deliberately not folded into Person.knowsAbout: thirty-odd tool
+ * names on the person entity reads as keyword stuffing, whereas a list that is
+ * plainly the content of this page is just a description of the page.
+ */
+const toolboxStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${routeSeo.toolbox.canonical}#toolbox`,
+  name: "Engineering toolbox",
+  itemListOrder: "https://schema.org/ItemListUnordered",
+  numberOfItems: skills.length,
+  mainEntityOfPage: { "@id": `${routeSeo.toolbox.canonical}#page` },
+  itemListElement: skills.map((skill, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: skill.title,
+    item: {
+      "@type": "ItemList",
+      name: skill.title,
+      numberOfItems: skill.technologies.length,
+      itemListElement: skill.technologies.map((tech) => tech.name),
+    },
+  })),
+};
+
 export const Toolbox: React.FC = () => {
   return (
     <>
-      <SeoHead meta={routeSeo.toolbox} />
+      <SeoHead
+        meta={routeSeo.toolbox}
+        jsonLd={[
+          profilePageStructuredData(routeSeo.toolbox),
+          breadcrumbStructuredData(routeSeo.toolbox),
+          toolboxStructuredData,
+        ]}
+      />
       <SectionLayout>
         <ContentPanel>
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 content-start max-w-150 justify-self-center">
