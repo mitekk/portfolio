@@ -29,6 +29,8 @@ const NotFoundPage = lazyRoute(() =>
   import("./pages/notFound/notfoundPage").then((m) => m.NotFoundPage),
 );
 
+const SECTIONS = ["/theBuzz/about", "/theBuzz/experience", "/theBuzz/toolbox"];
+
 const section = (pathname: string) =>
   pathname.includes("experience")
     ? Experience
@@ -41,10 +43,16 @@ const section = (pathname: string) =>
  * render is what keeps the prerendered markup on screen — see src/lazyRoute.tsx.
  */
 export function preloadRoute(pathname: string): Promise<unknown> {
-  if (pathname === "/") return IntroPage.preload();
-  if (pathname.startsWith("/cv")) return CvPage.preload();
-  if (pathname.startsWith("/theBuzz")) {
-    return Promise.all([BuzzPage.preload(), section(pathname).preload()]);
+  // Matched against the route table below rather than by prefix: nginx answers an
+  // unknown path with 404.html without rewriting the URL, so /theBuzz/contact
+  // arrives here with a /theBuzz prefix while react-router renders NotFoundPage.
+  // Preloading About for it left the 404 page to suspend and blank.
+  const path = pathname.replace(/\/+$/, "") || "/";
+
+  if (path === "/") return IntroPage.preload();
+  if (path === "/cv") return CvPage.preload();
+  if (path === "/theBuzz" || SECTIONS.includes(path)) {
+    return Promise.all([BuzzPage.preload(), section(path).preload()]);
   }
   return NotFoundPage.preload();
 }
